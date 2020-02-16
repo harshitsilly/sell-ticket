@@ -22,3 +22,17 @@ body {
 .appContentBox {
   height: calc(var(--vh, 1vh) * 100);
 }
+
+.appMenuPage {
+  animation: skew 0.25s !important;
+  transform-style: preserve-3d;
+}
+
+@keyframes skew {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

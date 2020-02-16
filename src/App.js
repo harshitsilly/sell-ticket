@@ -26,7 +26,15 @@ function App() {
     let appContentTop = appContent.current.offsetTop;
     window.scrollTo({ top: appContentTop });
   };
+  const setModalShow = state => {
+    setCssAnim(state);
+    setTimeout(() => {
+      setShow(state);
+    }, 0);
+  };
+  const popUpRef = React.useRef();
   const [show, setShow] = React.useState();
+  const [cssAnim, setCssAnim] = React.useState();
   const appContent = React.useRef();
   return (
     <Grommet theme={theme}>
@@ -38,13 +46,15 @@ function App() {
           </Box>
           <Button
             icon={<Menu color="#ffffff" />}
-            onClick={() => setShow(true)}
+            onClick={() => setModalShow(true)}
             hoverIndicator
           />
           {show && (
             <Layer
-              onEsc={() => setShow(false)}
-              onClickOutside={() => setShow(false)}
+              ref={popUpRef}
+              className={cssAnim ? "appMenuPage" : ""}
+              onEsc={() => setModalShow(false)}
+              onClickOutside={() => setModalShow(false)}
             >
               <Header className="appMenuHeader">
                 <Box direction="row" align="center">
@@ -54,7 +64,7 @@ function App() {
                   />
                   Sell Ticket
                 </Box>
-                <Button icon={<Close />} onClick={() => setShow(false)} />
+                <Button icon={<Close />} onClick={() => setModalShow(false)} />
               </Header>
               <AppMenu />
             </Layer>
