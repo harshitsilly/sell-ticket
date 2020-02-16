@@ -1,5 +1,5 @@
 import React from "react";
-import { Grommet, Box, Header, Button, Layer } from "grommet";
+import { Button } from "grommet";
 import { Login, Help } from "grommet-icons";
 
 function AppMenu() {
