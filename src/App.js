@@ -14,6 +14,12 @@ const theme = {
     }
   }
 };
+const appHeight = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty("--vh", `${vh}px`);
+};
+window.addEventListener("resize", appHeight);
+appHeight();
 
 function App() {
   const moveToAppContent = () => {

@@ -10,7 +10,7 @@ script:
 deploy:
   provider: surge
   skip_cleanup: true
-  domain: sell-tciket.surge.sh
+  domain: sell-ticket.surge.sh
   project: ./build/
 on:
   branch: master
