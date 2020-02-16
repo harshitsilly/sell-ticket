@@ -1,0 +1,21 @@
+html {
+  scroll-behavior: smooth;
+}
+
+.appFirstPageBackgroundImage {
+  background: url("https://cdn.ticketswap.com/public/201810/9b09e0c7-9852-496c-bebd-4edaaa839529.36abaf06f65fbaa0971d7bb9d6c45ab0fff5ddc0.jpeg");
+  height: 100vh;
+  background-position: center;
+  color: white;
+  justify-content: space-between;
+
+  font-weight: 600;
+  /* background-repeat: no-repeat; */
+}
+.appMenuHeader {
+  font-weight: 600;
+  color: rgb(0, 182, 240);
+}
+.appContentBox {
+  height: 100vh;
+}
