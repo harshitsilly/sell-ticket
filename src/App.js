@@ -1,5 +1,13 @@
 import React from "react";
-import { Grommet, Box, Header, Button, Layer, Footer } from "grommet";
+import {
+  Grommet,
+  Box,
+  Header,
+  Button,
+  Layer,
+  Footer,
+  AccordionPanel
+} from "grommet";
 import { Menu, Ticket, Close, Down } from "grommet-icons";
 import AppMenu from "./pages/AppMenu";
 import EventFIlter from "./pages/EventFilter";
@@ -40,7 +48,7 @@ function App() {
     <Grommet theme={theme}>
       <Box className="appFirstPageBackgroundImage">
         <Header>
-          <Box direction="row" align="center">
+          <Box pad="ss" direction="row" align="center">
             <Button icon={<Ticket color="#ffffff" />} hoverIndicator />
             Sell Ticket
           </Box>

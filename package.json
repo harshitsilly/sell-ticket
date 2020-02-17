@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "bootstrap-sass": "^3.4.1",
     "graphql-yoga": "^1.18.3",
     "grommet": "^2.10.0",
     "grommet-icons": "^4.4.0",
@@ -16,7 +17,8 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server/index.js",
+    "startWeb": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
