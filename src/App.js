@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Grommet,
-  Box,
-  Header,
-  Button,
-  Layer,
-  Footer,
-  AccordionPanel
-} from "grommet";
+import { Grommet, Box, Header, Button, Layer, Footer } from "grommet";
 import { Menu, Ticket, Close, Down } from "grommet-icons";
 import AppMenu from "./pages/AppMenu";
 import EventFIlter from "./pages/EventFilter";
