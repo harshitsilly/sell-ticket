@@ -3,7 +3,7 @@ import { Grommet, Box, Header, Button, Layer, Footer } from "grommet";
 import { Menu, Ticket, Close, Down } from "grommet-icons";
 import AppMenu from "./pages/AppMenu";
 import EventFIlter from "./pages/EventFilter";
-import "./css/app.css";
+import "./css/app.scss";
 
 const theme = {
   global: {
@@ -11,6 +11,11 @@ const theme = {
       family: "Roboto",
       size: "18px",
       height: "20px"
+      
+    },
+   
+    colors: {
+      focus: '#ffffff' ,// added focus color,
     }
   }
 };
@@ -19,7 +24,7 @@ const appHeight = () => {
   document.documentElement.style.setProperty("--vh", `${vh}px`);
 };
 window.addEventListener("resize", appHeight);
-appHeight();
+// appHeight();
 
 function App() {
   const moveToAppContent = () => {
@@ -40,7 +45,7 @@ function App() {
     <Grommet theme={theme}>
       <Box className="appFirstPageBackgroundImage">
         <Header>
-          <Box pad="ss" direction="row" align="center">
+          <Box pad="small" direction="row" align="center">
             <Button icon={<Ticket color="#ffffff" />} hoverIndicator />
             Sell Ticket
           </Box>
