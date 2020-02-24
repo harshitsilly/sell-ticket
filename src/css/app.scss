@@ -27,6 +27,23 @@ body {
   animation: skew 0.25s !important;
   transform-style: preserve-3d;
 }
+.appDesc{
+  text-align: center;
+  font-size: x-large;
+  line-height: 2rem;
+  margin-top: 7vh;
+}
+
+.appSearch{
+  font-weight: 100!important;
+  background-color: white!important;
+  padding-left: 42px!important;
+}
+.appSearchIcon{
+  position: absolute;
+  z-index: 2;
+  left: 24px;
+}
 
 @keyframes skew {
   0% {

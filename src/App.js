@@ -1,6 +1,6 @@
 import React from "react";
-import { Grommet, Box, Header, Button, Layer, Footer } from "grommet";
-import { Menu, Ticket, Close, Down } from "grommet-icons";
+import { Grommet, Box, Header, Button, Layer, Footer,TextInput } from "grommet";
+import { Menu, Ticket, Close, Down,Search } from "grommet-icons";
 import AppMenu from "./pages/AppMenu";
 import EventFIlter from "./pages/EventFilter";
 import "./css/app.scss";
@@ -27,6 +27,7 @@ window.addEventListener("resize", appHeight);
 // appHeight();
 
 function App() {
+  const [value, setValue] = React.useState('');
   const moveToAppContent = () => {
     let appContentTop = appContent.current.offsetTop;
     window.scrollTo({ top: appContentTop });
@@ -43,7 +44,7 @@ function App() {
   const appContent = React.useRef();
   return (
     <Grommet theme={theme}>
-      <Box className="appFirstPageBackgroundImage">
+      <Box className="appFirstPageBackgroundImage" >
         <Header>
           <Box pad="small" direction="row" align="center">
             <Button icon={<Ticket color="#ffffff" />} hoverIndicator />
@@ -75,6 +76,21 @@ function App() {
             </Layer>
           )}
         </Header>
+        <Box height="100%">
+        <Box pad="large" className="appDesc">
+          
+          The Safest way to buy and sell e-tickets.
+            </Box>
+            <Box direction="row" align="center" pad="medium" >
+              <Search className="appSearchIcon"/>
+          <TextInput className="appSearch"
+      placeholder="Search for events,venues and cities"
+      value={value}
+      onChange={event => setValue(event.target.value)}/>
+          </Box>
+        
+  
+          </Box>
         <Footer height="20vh">
           <Box width="100%" direction="row" justify="center">
             <Button
