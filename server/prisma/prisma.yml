@@ -1,0 +1,10 @@
+#endpoint: ""
+endpoint: https://sell-ticket-0758f5f180.herokuapp.com/sell-ticket/dev
+
+# Points to the file that contains your datamodel
+datamodel: datamodel.graphql
+
+# Specifies language & location for the generated Prisma client
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client
