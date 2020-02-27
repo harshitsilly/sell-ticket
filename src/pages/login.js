@@ -54,6 +54,17 @@ function Login() {
           </Form>
 
           {mutationError && <p>Error :( Please try again</p>}
+          <Box pad="small">
+            <Button
+              primary
+              label="Google"
+              color="status-critical"
+              onClick={() => {
+                window.location = "/auth/google";
+              }}
+            />
+          </Box>
+
           <Box pad="small" direction="row" justify="between">
             <Button
               plain
@@ -61,6 +72,7 @@ function Login() {
               label="SignUp"
               onClick={() => setRedirectToSignUp(true)}
             />
+
             <Button plain color="brand" label="Forgot Password" />
           </Box>
         </Box>
