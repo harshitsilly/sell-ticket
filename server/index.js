@@ -47,11 +47,11 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.id);
 });
 
-passport.deserializeUser((id, req, done) => {
-  const users = req.prisma.users();
+passport.deserializeUser(async (req, id, done) => {
+  const users = await prisma.users();
   const matchingUser = users.find(user => user.id === id);
   done(null, matchingUser);
 });

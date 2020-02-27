@@ -3,25 +3,45 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 // 1
-import { ApolloProvider } from "react-apollo";
-import { ApolloClient } from "apollo-client";
-import { createHttpLink } from "apollo-link-http";
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
-
-// 2
-const httpLink = createHttpLink({
-  uri: "http://localhost:4001"
-});
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Grommet } from "grommet";
+import Login from "./pages/login";
+import Signup from "./pages/signup";
 
 // 3
 const client = new ApolloClient({
-  link: httpLink,
+  uri: "http://localhost:4001",
   cache: new InMemoryCache()
 });
 
+const theme = {
+  global: {
+    font: {
+      family: "Roboto",
+      size: "18px",
+      height: "20px"
+    },
+
+    colors: {
+      focus: "#ffffff" // added focus color,
+    }
+  }
+};
+
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Grommet theme={theme}>
+      <Router>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/" component={App} />
+        </Switch>
+      </Router>
+    </Grommet>
   </ApolloProvider>,
   document.getElementById("root")
 );

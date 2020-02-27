@@ -1,47 +1,25 @@
 import React from "react";
-import { Mutation } from "react-apollo";
-import gql from "graphql-tag";
 
-import {
-  Grommet,
-  Box,
-  Header,
-  Button,
-  Layer,
-  Footer,
-  TextInput
-} from "grommet";
+import { Box, Header, Button, Layer, Footer, TextInput } from "grommet";
 import { Menu, Ticket, Close, Down, Search } from "grommet-icons";
+
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
 import AppMenu from "./pages/AppMenu";
 import EventFIlter from "./pages/EventFilter";
+import Loader from "./components/loader";
 import "./css/app.scss";
 
-const POST_MUTATION = gql`
-  mutation {
-    login(email: "maurice@moss.com", password: "abcdefg") {
-      user {
-        id
-        firstName
-        lastName
-        email
-      }
+const CURRENT_USER = gql`
+  {
+    currentUser {
+      id
+      firstName
+      lastName
+      email
     }
   }
 `;
-
-const theme = {
-  global: {
-    font: {
-      family: "Roboto",
-      size: "18px",
-      height: "20px"
-    },
-
-    colors: {
-      focus: "#ffffff" // added focus color,
-    }
-  }
-};
 const appHeight = () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -65,12 +43,18 @@ function App() {
   const [show, setShow] = React.useState();
   const [cssAnim, setCssAnim] = React.useState();
   const appContent = React.useRef();
+  const { loading, error, data } = useQuery(CURRENT_USER, {
+    fetchPolicy: "no-cache"
+  });
+
+  if (loading) return <Loader />;
+  if (error) return `Error! ${error.message}`;
   return (
-    <Grommet theme={theme}>
+    <>
       <Box className="appFirstPageBackgroundImage">
-        <Mutation mutation={POST_MUTATION}>
+        {/* <Mutation mutation={POST_MUTATION}>
           {postMutation => <button onClick={postMutation}>Submit</button>}
-        </Mutation>
+        </Mutation> */}
         <Header>
           <Box pad="small" direction="row" align="center">
             <Button icon={<Ticket color="#ffffff" />} hoverIndicator />
@@ -98,7 +82,7 @@ function App() {
                 </Box>
                 <Button icon={<Close />} onClick={() => setModalShow(false)} />
               </Header>
-              <AppMenu />
+              <AppMenu userData={data.currentUser} />
             </Layer>
           )}
         </Header>
@@ -129,7 +113,7 @@ function App() {
       <Box className="appContentBox" ref={appContent}>
         <EventFIlter />
       </Box>
-    </Grommet>
+    </>
   );
 }
 
