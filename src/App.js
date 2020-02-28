@@ -1,10 +1,7 @@
 import React from "react";
 
-import { Box, Header, Button, Layer, Footer, TextInput, Text } from "grommet";
+import { Box, Button, Footer, TextInput, Text } from "grommet";
 import {
-  Menu,
-  Ticket,
-  Close,
   Down,
   Search,
   Attraction,
@@ -16,9 +13,10 @@ import {
 
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import AppMenu from "./pages/AppMenu";
+import AppHeader from "./components/appHeader";
 import EventFIlter from "./pages/EventFilter";
 import Loader from "./components/loader";
+import { Redirect } from "react-router-dom";
 import "./css/app.scss";
 
 const CURRENT_USER = gql`
@@ -40,24 +38,17 @@ window.addEventListener("resize", appHeight);
 
 function App() {
   const [value, setValue] = React.useState("");
+  const [redirect, setRedirect] = React.useState("");
   const moveToAppContent = () => {
     let appContentTop = appContent.current.offsetTop;
     window.scrollTo({ top: appContentTop });
   };
-  const setModalShow = state => {
-    setCssAnim(state);
-    setTimeout(() => {
-      setShow(state);
-    }, 0);
-  };
-  const popUpRef = React.useRef();
-  const [show, setShow] = React.useState();
-  const [cssAnim, setCssAnim] = React.useState();
+
   const appContent = React.useRef();
   const { loading, error, data } = useQuery(CURRENT_USER, {
     fetchPolicy: "no-cache"
   });
-
+  if (redirect) return <Redirect to={`/${redirect}`} />;
   if (loading) return <Loader />;
   if (error) return `Error! ${error.message}`;
   return (
@@ -66,37 +57,7 @@ function App() {
         {/* <Mutation mutation={POST_MUTATION}>
           {postMutation => <button onClick={postMutation}>Submit</button>}
         </Mutation> */}
-        <Header>
-          <Box pad="small" direction="row" align="center">
-            <Button icon={<Ticket color="#ffffff" />} hoverIndicator />
-            Sell Ticket
-          </Box>
-          <Button
-            icon={<Menu color="#ffffff" />}
-            onClick={() => setModalShow(true)}
-            hoverIndicator
-          />
-          {show && (
-            <Layer
-              ref={popUpRef}
-              className={cssAnim ? "appMenuPage" : ""}
-              onEsc={() => setModalShow(false)}
-              onClickOutside={() => setModalShow(false)}
-            >
-              <Header className="appMenuHeader">
-                <Box direction="row" align="center">
-                  <Button
-                    icon={<Ticket color="rgb(0, 182, 240)" />}
-                    hoverIndicator
-                  />
-                  Sell Ticket
-                </Box>
-                <Button icon={<Close />} onClick={() => setModalShow(false)} />
-              </Header>
-              <AppMenu userData={data.currentUser} />
-            </Layer>
-          )}
-        </Header>
+        <AppHeader data={data} />
         <Box height="100%">
           <Box pad="large" className="appDesc">
             The Safest way to buy and sell e-tickets.
@@ -141,6 +102,9 @@ function App() {
               </Box>
             }
             label="Festivals"
+            onClick={() => {
+              setRedirect("festivals");
+            }}
           />
           <Button
             className="categoryButton"
@@ -155,6 +119,9 @@ function App() {
               </Box>
             }
             label="Concerts"
+            onClick={() => {
+              setRedirect("Concerts");
+            }}
           />
           <Button
             className="categoryButton"
@@ -169,6 +136,9 @@ function App() {
               </Box>
             }
             label="Club Nights"
+            onClick={() => {
+              setRedirect("Club Nights");
+            }}
           />
           <Button
             className="categoryButton"
@@ -183,6 +153,9 @@ function App() {
               </Box>
             }
             label="Sports"
+            onClick={() => {
+              setRedirect("Sports");
+            }}
           />
           <Button
             className="categoryButton"
@@ -197,6 +170,9 @@ function App() {
               </Box>
             }
             label="Theatre & Comedy"
+            onClick={() => {
+              setRedirect("Theatre & Comedy");
+            }}
           />
           <Button
             className="categoryButton"
@@ -211,6 +187,9 @@ function App() {
               </Box>
             }
             label="Vouchers & Day Out"
+            onClick={() => {
+              setRedirect("Vouchers & Day Out");
+            }}
           />
         </Box>
       </Box>

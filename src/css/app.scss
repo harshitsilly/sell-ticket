@@ -4,6 +4,11 @@ body {
 
   height: 100%;
 }
+.appMenuHeader {
+  font-weight: 600;
+  z-index: 1;
+  color: #7d4cdb;
+}
 
 .appFirstPageBackgroundImage {
   background: url("https://cdn.ticketswap.com/public/201810/9b09e0c7-9852-496c-bebd-4edaaa839529.36abaf06f65fbaa0971d7bb9d6c45ab0fff5ddc0.jpeg");
@@ -12,8 +17,16 @@ body {
   color: white;
   justify-content: space-between;
 
-  font-weight: 600;
   /* background-repeat: no-repeat; */
+}
+.categoryBackground {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  height: 25vh;
+  width: 100vw;
+
+  background-color: lightslategray;
 }
 .appMenuHeader {
   font-weight: 600;
@@ -87,6 +100,9 @@ body {
   margin: 10px;
   border: 1px solid lightgray;
   border-radius: 20px;
+  > div:last-child {
+    border-bottom: 0;
+  }
 }
 .filterBox {
   border-bottom: 1px solid lightgray;

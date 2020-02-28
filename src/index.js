@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Grommet } from "grommet";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import Category from "./pages/category";
 
 // 3
 const client = new ApolloClient({
@@ -41,6 +42,11 @@ ReactDOM.render(
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+
+          <Route
+            path="/(festivals|music|sports|concerts|Club Nights|Theatre & Comedy|Vouchers & Day Out)/"
+            component={Category}
+          />
           <Route path="/" component={App} />
         </Switch>
       </Router>
