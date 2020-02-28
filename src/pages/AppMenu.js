@@ -23,7 +23,7 @@ function AppMenu({ userData }) {
   const [redirect, setRedirect] = React.useState(false);
   if (loading) return <Loader />;
   if (redirect) {
-    return <Redirect to="/login" />;
+    return <Redirect push="true" to="/login" />;
   } else {
     return (
       <>

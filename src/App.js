@@ -48,7 +48,7 @@ function App() {
   const { loading, error, data } = useQuery(CURRENT_USER, {
     fetchPolicy: "no-cache"
   });
-  if (redirect) return <Redirect to={`/${redirect}`} />;
+  if (redirect) return <Redirect push="true" to={`/${redirect}`} />;
   if (loading) return <Loader />;
   if (error) return `Error! ${error.message}`;
   return (
@@ -188,7 +188,7 @@ function App() {
             }
             label="Vouchers & Day Out"
             onClick={() => {
-              setRedirect("Vouchers & Day Out");
+              setRedirect("Vouchers & Days Out");
             }}
           />
         </Box>

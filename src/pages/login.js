@@ -34,7 +34,7 @@ function Login() {
   const [redirectToApp, setRedirectToApp] = React.useState(false);
   if (loading) return <Loader />;
   if (redirectToSignUp) {
-    return <Redirect to="/signup" />;
+    return <Redirect push="true" to="/signup" />;
   } else if (redirectToApp) {
     return <Redirect to="/" />;
   } else {

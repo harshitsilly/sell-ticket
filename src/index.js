@@ -44,7 +44,7 @@ ReactDOM.render(
           <Route path="/signup" component={Signup} />
 
           <Route
-            path="/(festivals|music|sports|concerts|Club Nights|Theatre & Comedy|Vouchers & Day Out)/"
+            path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
             component={Category}
           />
           <Route path="/" component={App} />

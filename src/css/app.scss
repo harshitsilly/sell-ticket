@@ -104,6 +104,10 @@ body {
     border-bottom: 0;
   }
 }
+.dropDownButton {
+  font-size: 0.9rem !important;
+  margin: 0.45rem 0rem !important;
+}
 .filterBox {
   border-bottom: 1px solid lightgray;
 }
@@ -128,4 +132,7 @@ body {
   font-size: 0.8rem;
   font-weight: 100;
   line-height: 0.7rem;
+}
+.selectButton {
+  color: #7d4cdb !important;
 }
