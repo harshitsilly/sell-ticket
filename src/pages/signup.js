@@ -53,7 +53,7 @@ function Signup() {
           <Form onSubmit={onPressSubmitPasswordForm}>
             <FormField name="firstName" label="First Name" />
             <FormField name="lastName" label="Last Name" />
-            <FormField name="email" label="Enail" />
+            <FormField name="email" label="Email" />
             <FormField name="password" label="Password" />
             <FormField name="password" label="Verify Password" />
             <Button type="submit" primary label="SignUp" />
