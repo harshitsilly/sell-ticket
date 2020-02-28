@@ -5,9 +5,9 @@ const session = require("express-session");
 const uuid = require("uuid/v4");
 const passport = require("passport");
 const { GraphQLLocalStrategy, buildContext } = require("graphql-passport");
-const passportGoogle = require("passport-google-oauth");
+const GoogleStrategy = require("passport-google-oauth20");
+const cookieSession = require("cookie-session");
 const jwt = require("jsonwebtoken");
-const GoogleStrategy = passportGoogle.OAuth2Strategy;
 
 const resolvers = require("./api/resolver");
 const { prisma } = require("./src/generated/prisma-client");
@@ -64,17 +64,21 @@ passport.use(
     done(error, matchingUser);
   })
 );
-const GoogleTokenStrategyCallback = (
+const GoogleTokenStrategyCallback = async (
   accessToken,
   refreshToken,
   profile,
   done
-) =>
+) => {
+  await prisma.createUser({
+    firstName: profile.name.givenName,
+    lastName: profile.name.familyName,
+    email: profile.emails[0].value
+  });
   done(null, {
-    accessToken,
-    refreshToken,
     profile
   });
+};
 
 passport.use(
   new GoogleStrategy(
@@ -82,7 +86,7 @@ passport.use(
       clientID:
         "771704531356-o82krvt5ua15k04uqmm332s0g6qbojs9.apps.googleusercontent.com",
       clientSecret: "6m4VK3f4etcU7qjP4xbYwMJ6",
-      callbackURL: "auth/google/callback"
+      callbackURL: "/auth/google/callback"
     },
     GoogleTokenStrategyCallback
   )
@@ -90,9 +94,9 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   if (user && user.profile) {
-    done(null, user.profile.id);
+    done(null, user);
   } else {
-    done(null, user.id);
+    done(null, user);
   }
 });
 
@@ -108,6 +112,13 @@ const server = new GraphQLServer({
   context: ({ request, response }) =>
     buildContext({ req: request, res: response, prisma })
 });
+
+server.express.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000, // One day in milliseconds
+    keys: ["randomstringhere"]
+  })
+);
 server.express.use(
   session({
     secret: SESSION_SECRECT,
@@ -121,10 +132,7 @@ server.express.use(passport.session());
 server.express.use(
   "/auth/google",
   passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/userinfo.profile",
-      "https://www.googleapis.com/auth/userinfo.email"
-    ]
+    scope: ["profile", "email"]
   })
 );
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Box, Form, FormField, Text, Footer } from "grommet";
-import { Next } from "grommet-icons";
+import { Google } from "grommet-icons";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { Redirect } from "react-router-dom";
@@ -57,7 +57,8 @@ function Login() {
           <Box pad="small">
             <Button
               primary
-              label="Google"
+              icon={<Google />}
+              label="Login"
               color="status-critical"
               onClick={() => {
                 window.location = "/auth/google";
