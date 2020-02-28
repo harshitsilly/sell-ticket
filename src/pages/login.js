@@ -50,7 +50,7 @@ function Login() {
           <Form onSubmit={onPressSubmitPasswordForm}>
             <FormField name="email" label="Email" />
             <FormField name="password" label="Password" />
-            <Button type="submit" primary label="Login" />
+            <Button type="submit" primary label="SignIn" />
           </Form>
 
           {mutationError && <p>Error :( Please try again</p>}
