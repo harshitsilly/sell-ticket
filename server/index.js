@@ -86,7 +86,7 @@ passport.use(
       clientID:
         "771704531356-o82krvt5ua15k04uqmm332s0g6qbojs9.apps.googleusercontent.com",
       clientSecret: "6m4VK3f4etcU7qjP4xbYwMJ6",
-      callbackURL: "/auth/google/callback"
+      callbackURL: "http://localhost:4001/auth/google/callback"
     },
     GoogleTokenStrategyCallback
   )
@@ -94,9 +94,9 @@ passport.use(
 
 passport.serializeUser((user, done) => {
   if (user && user.profile) {
-    done(null, user);
+    done(null, user.profile.id);
   } else {
-    done(null, user);
+    done(null, user.id);
   }
 });
 
