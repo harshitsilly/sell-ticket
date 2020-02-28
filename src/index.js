@@ -13,7 +13,10 @@ import Signup from "./pages/signup";
 
 // 3
 const client = new ApolloClient({
-  uri: window.location.href,
+  uri:
+    window.location.href.indexOf("localhost") > -1
+      ? "http://localhost:4001"
+      : window.location.href,
   cache: new InMemoryCache()
 });
 

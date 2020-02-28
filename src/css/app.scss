@@ -27,42 +27,51 @@ body {
   animation: skew 0.25s !important;
   transform-style: preserve-3d;
 }
-.appDesc{
+.appDesc {
   text-align: center;
   font-size: x-large;
   line-height: 2rem;
   margin-top: 7vh;
 }
 
-.appSearch{
-  font-weight: 100!important;
-  background-color: white!important;
-  padding-left: 42px!important;
+.appSearch {
+  font-weight: 100 !important;
+  background-color: white !important;
+  padding-left: 42px !important;
 }
-.appSearchIcon{
+.appSearchIcon {
   position: absolute;
   z-index: 2;
   left: 24px;
 }
-.appMenuButton{
-  margin-top: 10px!important;
-  border:0px!important;
+.appMenuButton {
+  margin-top: 10px !important;
+  border: 0px !important;
   border-radius: 10px !important;
   height: 3rem;
-  background-color: #f5f5f6!important;
-  >div{
-    justify-content: space-between!important;
+  background-color: #f5f5f6 !important;
+  > div {
+    justify-content: space-between !important;
   }
 }
 
-.sellTicket{
+.categoryButton {
+  margin-top: 10px !important;
+  border: 0px !important;
   border-radius: 10px !important;
   height: 3rem;
-  color: white!important;
-  font-weight: 600!important;
+  background-color: #f5f5f6 !important;
+  > div {
+    justify-content: start !important;
+  }
 }
-.dropDownContent{
-
+.sellTicket {
+  border-radius: 10px !important;
+  height: 3rem;
+  color: white !important;
+  font-weight: 600 !important;
+}
+.dropDownContent {
 }
 
 @keyframes skew {
@@ -74,35 +83,33 @@ body {
   }
 }
 
-.eventBox{
+.eventBox {
   margin: 10px;
   border: 1px solid lightgray;
   border-radius: 20px;
 }
-.filterBox{
+.filterBox {
   border-bottom: 1px solid lightgray;
- 
 }
-.filterButton{
-  box-shadow: none!important;
+.filterButton {
+  box-shadow: none !important;
   width: 100vmin;
-  >div{
+  > div {
     display: flex;
     justify-content: start;
     text-align: start;
-  
   }
   margin: 0;
-  border: 0px solid lightgray!important;
+  border: 0px solid lightgray !important;
 }
 
-.filterHeader{
-  font-size: .95rem;
+.filterHeader {
+  font-size: 0.95rem;
   font-weight: 600;
   height: 2.5rem;
 }
-.filterSubHeader{
-  font-size: .8rem;
+.filterSubHeader {
+  font-size: 0.8rem;
   font-weight: 100;
-  line-height: .7rem;
+  line-height: 0.7rem;
 }

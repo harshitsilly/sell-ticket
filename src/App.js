@@ -1,7 +1,18 @@
 import React from "react";
 
-import { Box, Header, Button, Layer, Footer, TextInput } from "grommet";
-import { Menu, Ticket, Close, Down, Search } from "grommet-icons";
+import { Box, Header, Button, Layer, Footer, TextInput, Text } from "grommet";
+import {
+  Menu,
+  Ticket,
+  Close,
+  Down,
+  Search,
+  Attraction,
+  Music,
+  PlayFill,
+  Trophy,
+  Multimedia
+} from "grommet-icons";
 
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -112,6 +123,96 @@ function App() {
       </Box>
       <Box className="appContentBox" ref={appContent}>
         <EventFIlter />
+        <Box pad="large">
+          <Text size="large" weight="bold">
+            Browse By Category
+          </Text>
+          <Text>Find the right event</Text>
+          <Button
+            className="categoryButton"
+            icon={
+              <Box
+                width="2.4rem"
+                pad="small"
+                round="medium"
+                background="accent-4"
+              >
+                <Attraction />
+              </Box>
+            }
+            label="Festivals"
+          />
+          <Button
+            className="categoryButton"
+            icon={
+              <Box
+                width="2.4rem"
+                pad="small"
+                round="medium"
+                background="neutral-3"
+              >
+                <Music />
+              </Box>
+            }
+            label="Concerts"
+          />
+          <Button
+            className="categoryButton"
+            icon={
+              <Box
+                width="2.4rem"
+                pad="small"
+                round="medium"
+                background="dark-1"
+              >
+                <PlayFill />
+              </Box>
+            }
+            label="Club Nights"
+          />
+          <Button
+            className="categoryButton"
+            icon={
+              <Box
+                width="2.4rem"
+                pad="small"
+                round="medium"
+                background="status-ok"
+              >
+                <Trophy />
+              </Box>
+            }
+            label="Sports"
+          />
+          <Button
+            className="categoryButton"
+            icon={
+              <Box
+                width="2.4rem"
+                pad="small"
+                round="medium"
+                background="status-critical"
+              >
+                <Multimedia />
+              </Box>
+            }
+            label="Theatre & Comedy"
+          />
+          <Button
+            className="categoryButton"
+            icon={
+              <Box
+                width="2.4rem"
+                pad="small"
+                round="medium"
+                background="accent-4"
+              >
+                <Attraction />
+              </Box>
+            }
+            label="Vouchers & Day Out"
+          />
+        </Box>
       </Box>
     </>
   );
