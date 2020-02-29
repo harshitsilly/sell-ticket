@@ -8,7 +8,9 @@ body {
   font-weight: 600;
   z-index: 1;
 }
-
+.marginTopBox {
+  margin-top: 30px;
+}
 .appFirstPageBackgroundImage {
   background: url("https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg");
   height: calc(var(--vh, 1vh) * 100);
@@ -93,11 +95,16 @@ body {
 }
 
 .eventBox {
-  margin: 10px;
+  margin: 24px;
   border: 1px solid lightgray;
   border-radius: 20px;
   > div:last-child {
     border-bottom: 0;
+  }
+}
+.eventBoxHeight {
+  > div {
+    height: 90px;
   }
 }
 .dropDownButton {
