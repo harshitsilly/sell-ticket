@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Box, Form, FormField, Text, Footer } from "grommet";
-import { Google } from "grommet-icons";
+import { Google, Login as LoginIcon } from "grommet-icons";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import { Redirect } from "react-router-dom";
@@ -50,7 +50,14 @@ function Login() {
           <Form onSubmit={onPressSubmitPasswordForm}>
             <FormField name="email" label="Email" />
             <FormField name="password" label="Password" />
-            <Button type="submit" primary label="SignIn" />
+            <Box width="100%" pad="small">
+              <Button
+                icon={<LoginIcon />}
+                type="submit"
+                primary
+                label="SignIn"
+              />
+            </Box>
           </Form>
 
           {mutationError && <p>Error :( Please try again</p>}

@@ -55,8 +55,10 @@ function Signup() {
             <FormField name="lastName" label="Last Name" />
             <FormField name="email" label="Email" />
             <FormField name="password" label="Password" />
-            <FormField name="password" label="Verify Password" />
-            <Button type="submit" primary label="SignUp" />
+            <FormField name="verifypassword" label="Verify Password" />
+            <Box width="100%" pad="small">
+              <Button type="submit" primary label="SignUp" />
+            </Box>
           </Form>
 
           {mutationError && <p>Error :( Please try again</p>}

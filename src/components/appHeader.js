@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Header, Button, Layer } from "grommet";
+import { Box, Header, Button, Layer, Text } from "grommet";
 import { Ticket, Close, Menu } from "grommet-icons";
 
 import AppMenu from "../pages/AppMenu";
@@ -20,7 +20,9 @@ function AppHeader({ data }) {
       <Header className="appMenuHeader">
         <Box pad="small" direction="row" align="center">
           <Button icon={<Ticket color="#ffffff" />} hoverIndicator />
-          Sell Ticket
+          <Text color="white" weight="bold" size="20px">
+            sellTicket
+          </Text>
         </Box>
         <Button
           icon={<Menu color="#ffffff" />}
@@ -36,13 +38,15 @@ function AppHeader({ data }) {
           >
             <Header className="appMenuHeader">
               <Box direction="row" align="center">
-                <Button
-                  icon={<Ticket color="rgb(0, 182, 240)" />}
-                  hoverIndicator
-                />
-                Sell Ticket
+                <Button icon={<Ticket color="brand" />} hoverIndicator />
+                <Text color="brand" weight="bold" size="20px">
+                  sellTicket
+                </Text>
               </Box>
-              <Button icon={<Close />} onClick={() => setModalShow(false)} />
+              <Button
+                icon={<Close color="dark-1" />}
+                onClick={() => setModalShow(false)}
+              />
             </Header>
             <AppMenu userData={data.currentUser} />
           </Layer>

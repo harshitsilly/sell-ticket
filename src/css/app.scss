@@ -7,11 +7,10 @@ body {
 .appMenuHeader {
   font-weight: 600;
   z-index: 1;
-  color: #7d4cdb;
 }
 
 .appFirstPageBackgroundImage {
-  background: url("https://cdn.ticketswap.com/public/201810/9b09e0c7-9852-496c-bebd-4edaaa839529.36abaf06f65fbaa0971d7bb9d6c45ab0fff5ddc0.jpeg");
+  background: url("https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg");
   height: calc(var(--vh, 1vh) * 100);
   background-position: center;
   color: white;
@@ -28,10 +27,7 @@ body {
 
   background-color: lightslategray;
 }
-.appMenuHeader {
-  font-weight: 600;
-  color: rgb(0, 182, 240);
-}
+
 .appContentBox {
   height: calc(var(--vh, 1vh) * 100);
 }

@@ -60,7 +60,9 @@ function App() {
         <AppHeader data={data} />
         <Box height="100%">
           <Box pad="large" className="appDesc">
-            The Safest way to buy and sell e-tickets.
+            <Text size="x-large" weight="bold">
+              The Safest way to buy and sell e-tickets.
+            </Text>
           </Box>
           <Box direction="row" align="center" pad="medium">
             <Search className="appSearchIcon" />
