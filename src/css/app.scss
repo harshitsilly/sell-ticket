@@ -105,8 +105,19 @@ body {
 .eventBox {
   height: 200px;
   border: 1px solid lightgray;
-  border-radius: 20px;
+  border: 20px;
   margin-top: 40px;
+}
+.eventGrid {
+  height: 100%;
+  > div:first-child {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  > div:last-child {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
 }
 .eventBoxHeight {
   > div {

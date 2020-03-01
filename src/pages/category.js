@@ -12,7 +12,7 @@ const dummyData = [
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "7 March 2020",
-    ticketsAvailable: []
+    ticketsAvailable: [{ info: "front seat", cost: "400" }]
   },
   {
     name: "CSK VS BLR",
@@ -70,7 +70,9 @@ function Category(props) {
           {events.length === 0 && <Text weight="bold">No Events Found</Text>}
           {events.length > 0 &&
             events.map(event => (
-              <RandomGeneratedColor render={props => <Event {...props} />} />
+              <RandomGeneratedColor
+                render={props => <Event {...props} {...event} />}
+              />
             ))}
         </Box>
       </Box>
