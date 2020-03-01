@@ -40,7 +40,8 @@ const upsertGoogleUser = async function({
 
 const resolvers = {
   Query: {
-    currentUser: (parent, args, context) => context.getUser()
+    currentUser: (parent, args, context) => context.getUser(),
+    events: async (parent, args, context) => await context.prisma.events()
   },
   Mutation: {
     signup: async (

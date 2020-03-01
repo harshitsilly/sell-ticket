@@ -5,3 +5,17 @@ type User {
   email: String
   password: String
 }
+type TicketsAvailable {
+  id: ID! @id
+  eventID: ID
+  info: String
+}
+
+type Event {
+  id: ID! @id
+  name: String
+  category: String
+  date: String
+  location: String
+  ticketsAvailable: [TicketsAvailable!]
+}

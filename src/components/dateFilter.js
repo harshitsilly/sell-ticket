@@ -29,12 +29,13 @@ function DateFilter() {
       setShowCalendar(true);
 
       // TODO: Add logic for frop doen comtent close
+    } else {
+      dropref.current.click();
     }
-    dropref.current.click();
   };
   return (
     <>
-      <Box direction="row" pad="small" className="filterBox">
+      <Box direction="row" pad="small" className="filterBoxBorder">
         <DropButton
           ref={dropref}
           className="filterButton"

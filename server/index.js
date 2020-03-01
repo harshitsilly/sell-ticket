@@ -21,39 +21,6 @@ const signToken = user => {
 const PORT = 4000;
 const SESSION_SECRECT = "bad secret";
 
-const typeDefs = `
-  type User {
-    id: ID
-    firstName: String
-    lastName: String
-    email: String
-  }
-
-  type Query {
-    currentUser: User
-  }
-
-  type AuthPayload {
-    user: User
-  }
-
-  type AuthResponse {
-    token: String
-    name: String
-  }
-  input AuthInput {
-    accessToken: String!
-  }
-
-  type Mutation {
-    authGoogle(input: AuthInput!): AuthResponse
-    signup(firstName: String!, lastName: String!, email: String!, password: String!): AuthPayload
-    login(email: String!, password: String!): AuthPayload
-    logout: Boolean
-   
-  }
-`;
-
 passport.use(
   new GraphQLLocalStrategy(async (email, password, done) => {
     const users = await prisma.users();
@@ -107,7 +74,7 @@ passport.deserializeUser(async (req, id, done) => {
 });
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: "./server/schema.graphql",
   resolvers,
   context: ({ request, response }) =>
     buildContext({ req: request, res: response, prisma })
@@ -149,7 +116,7 @@ server.express.use(
   }
 );
 
-server.use(serveStatic("build"));
+// server.use(serveStatic("build"));
 server.start({ port: process.env.PORT || 4001 }, () =>
   console.log(`Server is running on http://localhost:${process.env.port}`)
 );

@@ -11,6 +11,7 @@ import { Grommet } from "grommet";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Category from "./pages/category";
+import RandomGeneratedColor from "./components/randomGeneratedColor";
 
 // 3
 const client = new ApolloClient({
@@ -45,7 +46,12 @@ ReactDOM.render(
 
           <Route
             path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
-            component={Category}
+            component={props => (
+              <RandomGeneratedColor
+                {...props}
+                render={props => <Category {...props} />}
+              />
+            )}
           />
           <Route path="/" component={App} />
         </Switch>

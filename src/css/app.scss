@@ -94,13 +94,19 @@ body {
   }
 }
 
-.eventBox {
+.filterBox {
   margin: 24px;
   border: 1px solid lightgray;
   border-radius: 20px;
   > div:last-child {
     border-bottom: 0;
   }
+}
+.eventBox {
+  height: 200px;
+  border: 1px solid lightgray;
+  border-radius: 20px;
+  margin-top: 40px;
 }
 .eventBoxHeight {
   > div {
@@ -111,7 +117,7 @@ body {
   font-size: 0.9rem !important;
   margin: 0.45rem 0rem !important;
 }
-.filterBox {
+.filterBoxBorder {
   border-bottom: 1px solid lightgray;
 }
 .filterButton {

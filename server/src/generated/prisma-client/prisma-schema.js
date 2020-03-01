@@ -3,7 +3,15 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateEvent {
+  count: Int!
+}
+
+type AggregateTicketsAvailable {
+  count: Int!
+}
+
+type AggregateUser {
   count: Int!
 }
 
@@ -11,9 +19,187 @@ type BatchPayload {
   count: Long!
 }
 
+type Event {
+  id: ID!
+  name: String
+  category: String
+  date: String
+  location: String
+  ticketsAvailable(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable!]
+}
+
+type EventConnection {
+  pageInfo: PageInfo!
+  edges: [EventEdge]!
+  aggregate: AggregateEvent!
+}
+
+input EventCreateInput {
+  id: ID
+  name: String
+  category: String
+  date: String
+  location: String
+  ticketsAvailable: TicketsAvailableCreateManyInput
+}
+
+type EventEdge {
+  node: Event!
+  cursor: String!
+}
+
+enum EventOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  category_ASC
+  category_DESC
+  date_ASC
+  date_DESC
+  location_ASC
+  location_DESC
+}
+
+type EventPreviousValues {
+  id: ID!
+  name: String
+  category: String
+  date: String
+  location: String
+}
+
+type EventSubscriptionPayload {
+  mutation: MutationType!
+  node: Event
+  updatedFields: [String!]
+  previousValues: EventPreviousValues
+}
+
+input EventSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: EventWhereInput
+  AND: [EventSubscriptionWhereInput!]
+  OR: [EventSubscriptionWhereInput!]
+  NOT: [EventSubscriptionWhereInput!]
+}
+
+input EventUpdateInput {
+  name: String
+  category: String
+  date: String
+  location: String
+  ticketsAvailable: TicketsAvailableUpdateManyInput
+}
+
+input EventUpdateManyMutationInput {
+  name: String
+  category: String
+  date: String
+  location: String
+}
+
+input EventWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  category: String
+  category_not: String
+  category_in: [String!]
+  category_not_in: [String!]
+  category_lt: String
+  category_lte: String
+  category_gt: String
+  category_gte: String
+  category_contains: String
+  category_not_contains: String
+  category_starts_with: String
+  category_not_starts_with: String
+  category_ends_with: String
+  category_not_ends_with: String
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  location: String
+  location_not: String
+  location_in: [String!]
+  location_not_in: [String!]
+  location_lt: String
+  location_lte: String
+  location_gt: String
+  location_gte: String
+  location_contains: String
+  location_not_contains: String
+  location_starts_with: String
+  location_not_starts_with: String
+  location_ends_with: String
+  location_not_ends_with: String
+  ticketsAvailable_every: TicketsAvailableWhereInput
+  ticketsAvailable_some: TicketsAvailableWhereInput
+  ticketsAvailable_none: TicketsAvailableWhereInput
+  AND: [EventWhereInput!]
+  OR: [EventWhereInput!]
+  NOT: [EventWhereInput!]
+}
+
+input EventWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createEvent(data: EventCreateInput!): Event!
+  updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
+  updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
+  upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
+  deleteEvent(where: EventWhereUniqueInput!): Event
+  deleteManyEvents(where: EventWhereInput): BatchPayload!
+  createTicketsAvailable(data: TicketsAvailableCreateInput!): TicketsAvailable!
+  updateTicketsAvailable(data: TicketsAvailableUpdateInput!, where: TicketsAvailableWhereUniqueInput!): TicketsAvailable
+  updateManyTicketsAvailables(data: TicketsAvailableUpdateManyMutationInput!, where: TicketsAvailableWhereInput): BatchPayload!
+  upsertTicketsAvailable(where: TicketsAvailableWhereUniqueInput!, create: TicketsAvailableCreateInput!, update: TicketsAvailableUpdateInput!): TicketsAvailable!
+  deleteTicketsAvailable(where: TicketsAvailableWhereUniqueInput!): TicketsAvailable
+  deleteManyTicketsAvailables(where: TicketsAvailableWhereInput): BatchPayload!
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
@@ -40,6 +226,12 @@ type PageInfo {
 }
 
 type Query {
+  event(where: EventWhereUniqueInput!): Event
+  events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
+  eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
+  ticketsAvailable(where: TicketsAvailableWhereUniqueInput!): TicketsAvailable
+  ticketsAvailables(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable]!
+  ticketsAvailablesConnection(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TicketsAvailableConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
@@ -47,7 +239,218 @@ type Query {
 }
 
 type Subscription {
+  event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
+  ticketsAvailable(where: TicketsAvailableSubscriptionWhereInput): TicketsAvailableSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type TicketsAvailable {
+  id: ID!
+  eventID: ID
+  info: String
+}
+
+type TicketsAvailableConnection {
+  pageInfo: PageInfo!
+  edges: [TicketsAvailableEdge]!
+  aggregate: AggregateTicketsAvailable!
+}
+
+input TicketsAvailableCreateInput {
+  id: ID
+  eventID: ID
+  info: String
+}
+
+input TicketsAvailableCreateManyInput {
+  create: [TicketsAvailableCreateInput!]
+  connect: [TicketsAvailableWhereUniqueInput!]
+}
+
+type TicketsAvailableEdge {
+  node: TicketsAvailable!
+  cursor: String!
+}
+
+enum TicketsAvailableOrderByInput {
+  id_ASC
+  id_DESC
+  eventID_ASC
+  eventID_DESC
+  info_ASC
+  info_DESC
+}
+
+type TicketsAvailablePreviousValues {
+  id: ID!
+  eventID: ID
+  info: String
+}
+
+input TicketsAvailableScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  eventID: ID
+  eventID_not: ID
+  eventID_in: [ID!]
+  eventID_not_in: [ID!]
+  eventID_lt: ID
+  eventID_lte: ID
+  eventID_gt: ID
+  eventID_gte: ID
+  eventID_contains: ID
+  eventID_not_contains: ID
+  eventID_starts_with: ID
+  eventID_not_starts_with: ID
+  eventID_ends_with: ID
+  eventID_not_ends_with: ID
+  info: String
+  info_not: String
+  info_in: [String!]
+  info_not_in: [String!]
+  info_lt: String
+  info_lte: String
+  info_gt: String
+  info_gte: String
+  info_contains: String
+  info_not_contains: String
+  info_starts_with: String
+  info_not_starts_with: String
+  info_ends_with: String
+  info_not_ends_with: String
+  AND: [TicketsAvailableScalarWhereInput!]
+  OR: [TicketsAvailableScalarWhereInput!]
+  NOT: [TicketsAvailableScalarWhereInput!]
+}
+
+type TicketsAvailableSubscriptionPayload {
+  mutation: MutationType!
+  node: TicketsAvailable
+  updatedFields: [String!]
+  previousValues: TicketsAvailablePreviousValues
+}
+
+input TicketsAvailableSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TicketsAvailableWhereInput
+  AND: [TicketsAvailableSubscriptionWhereInput!]
+  OR: [TicketsAvailableSubscriptionWhereInput!]
+  NOT: [TicketsAvailableSubscriptionWhereInput!]
+}
+
+input TicketsAvailableUpdateDataInput {
+  eventID: ID
+  info: String
+}
+
+input TicketsAvailableUpdateInput {
+  eventID: ID
+  info: String
+}
+
+input TicketsAvailableUpdateManyDataInput {
+  eventID: ID
+  info: String
+}
+
+input TicketsAvailableUpdateManyInput {
+  create: [TicketsAvailableCreateInput!]
+  update: [TicketsAvailableUpdateWithWhereUniqueNestedInput!]
+  upsert: [TicketsAvailableUpsertWithWhereUniqueNestedInput!]
+  delete: [TicketsAvailableWhereUniqueInput!]
+  connect: [TicketsAvailableWhereUniqueInput!]
+  set: [TicketsAvailableWhereUniqueInput!]
+  disconnect: [TicketsAvailableWhereUniqueInput!]
+  deleteMany: [TicketsAvailableScalarWhereInput!]
+  updateMany: [TicketsAvailableUpdateManyWithWhereNestedInput!]
+}
+
+input TicketsAvailableUpdateManyMutationInput {
+  eventID: ID
+  info: String
+}
+
+input TicketsAvailableUpdateManyWithWhereNestedInput {
+  where: TicketsAvailableScalarWhereInput!
+  data: TicketsAvailableUpdateManyDataInput!
+}
+
+input TicketsAvailableUpdateWithWhereUniqueNestedInput {
+  where: TicketsAvailableWhereUniqueInput!
+  data: TicketsAvailableUpdateDataInput!
+}
+
+input TicketsAvailableUpsertWithWhereUniqueNestedInput {
+  where: TicketsAvailableWhereUniqueInput!
+  update: TicketsAvailableUpdateDataInput!
+  create: TicketsAvailableCreateInput!
+}
+
+input TicketsAvailableWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  eventID: ID
+  eventID_not: ID
+  eventID_in: [ID!]
+  eventID_not_in: [ID!]
+  eventID_lt: ID
+  eventID_lte: ID
+  eventID_gt: ID
+  eventID_gte: ID
+  eventID_contains: ID
+  eventID_not_contains: ID
+  eventID_starts_with: ID
+  eventID_not_starts_with: ID
+  eventID_ends_with: ID
+  eventID_not_ends_with: ID
+  info: String
+  info_not: String
+  info_in: [String!]
+  info_not_in: [String!]
+  info_lt: String
+  info_lte: String
+  info_gt: String
+  info_gte: String
+  info_contains: String
+  info_not_contains: String
+  info_starts_with: String
+  info_not_starts_with: String
+  info_ends_with: String
+  info_not_ends_with: String
+  AND: [TicketsAvailableWhereInput!]
+  OR: [TicketsAvailableWhereInput!]
+  NOT: [TicketsAvailableWhereInput!]
+}
+
+input TicketsAvailableWhereUniqueInput {
+  id: ID
 }
 
 type User {

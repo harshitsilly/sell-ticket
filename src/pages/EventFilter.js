@@ -6,7 +6,7 @@ import CategoryFilter from "../components/categoryFilter";
 function EventFilter() {
   return (
     <>
-      <Box flex="false" className="eventBox">
+      <Box flex="false" className="filterBox">
         <LocaltionFiler />
         <DateFiler />
         <CategoryFilter />

@@ -20,12 +20,17 @@ import { Redirect } from "react-router-dom";
 import "./css/app.scss";
 
 const CURRENT_USER = gql`
+  # Write your query or mutation here
   {
-    currentUser {
+    events {
       id
-      firstName
-      lastName
-      email
+      name
+      category
+      date
+      location
+      ticketsAvailable {
+        id
+      }
     }
   }
 `;
