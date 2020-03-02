@@ -116,7 +116,7 @@ server.express.use(
   }
 );
 
-// server.use(serveStatic("build"));
+server.use(serveStatic("build"));
 server.start({ port: process.env.PORT || 4001 }, () =>
   console.log(`Server is running on http://localhost:${process.env.port}`)
 );
