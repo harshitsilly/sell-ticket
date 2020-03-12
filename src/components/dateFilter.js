@@ -35,7 +35,7 @@ function DateFilter() {
   };
   return (
     <>
-      <Box direction="row" pad="small" className="filterBoxBorder">
+      <Box direction="row" pad="none" className="filterBoxBorder">
         <DropButton
           ref={dropref}
           className="filterButton"

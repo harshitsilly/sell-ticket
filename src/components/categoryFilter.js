@@ -20,7 +20,7 @@ export default function() {
   };
   return (
     <>
-      <Box direction="row" className="filterBoxBorder" pad="small">
+      <Box direction="row" className="filterBoxBorder" pad="none">
         <DropButton
           ref={dropref}
           className="filterButton"

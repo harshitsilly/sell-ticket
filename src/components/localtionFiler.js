@@ -1,39 +1,60 @@
 import React from "react";
-import { Box, DropButton } from "grommet";
-import { Location, CaretDown } from "grommet-icons";
+import { Box, DropButton, TextInput } from "grommet";
+import { Location, CaretDown, Search } from "grommet-icons";
 import LocationContent from "./locationContent";
 
 function LocaltionFiler() {
   const [location, setLocation] = React.useState("nearby");
+  const [dropContentState, setDropContentState] = React.useState(false);
+  const [value, setValue] = React.useState("");
   return (
     <>
-      <Box direction="row" pad="small" className="filterBoxBorder">
+      <Box direction="row" pad="none" className="filterBoxBorder">
         <DropButton
+          onClose={() => setDropContentState(false)}
+          onOpen={() => setDropContentState(true)}
           className="filterButton"
           icon={
-            <Box width="2.5rem" pad="small" round="medium" background="brand">
-              <Location />
-            </Box>
+            !dropContentState && (
+              <Box width="2.5rem" pad="small" round="medium" background="brand">
+                <Location />
+              </Box>
+            )
           }
           label={
-            <Box
-              direction="row"
-              align="center"
-              width="100%"
-              justify="between"
-              pad="none"
-            >
+            (!dropContentState && (
               <Box
-                direction="column"
-                className="filterHeader"
-                direction="column"
+                direction="row"
+                align="center"
+                width="100%"
+                justify="between"
+                pad="none"
               >
-                Location<Box className="filterSubHeader">{location}</Box>
+                <Box direction="column" className="filterHeader">
+                  Location<Box className="filterSubHeader">{location}</Box>
+                </Box>
+                <Box>
+                  <CaretDown />
+                </Box>
               </Box>
-              <Box>
-                <CaretDown />
+            )) ||
+            (dropContentState && (
+              <Box
+                height="60px"
+                direction="row"
+                align="center"
+                justify="center"
+                pad="none"
+              >
+                <Search className="locationSearchIcon" />
+                <TextInput
+                  className="locationSearch"
+                  placeholder="Search your city"
+                  value={value}
+                  onChange={event => setValue(event.target.value)}
+                />
               </Box>
-            </Box>
+            ))
           }
           dropAlign={{ top: "bottom", right: "right" }}
           dropContent={<LocationContent />}
