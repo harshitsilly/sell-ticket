@@ -116,6 +116,30 @@ body {
     border-bottom: 0;
   }
 }
+
+.filterBoxRow {
+  background-color: white;
+  position: sticky;
+  top: 60px;
+  flex-direction: row !important;
+
+  border: 0 !important;
+  > div {
+    border: 0 !important;
+  }
+  > div:last-child {
+    border-right: 0;
+  }
+}
+.positionSticky {
+  position: sticky;
+  top: 0;
+}
+.positionFixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
 .eventBox {
   height: 200px;
   border: 1px solid lightgray;

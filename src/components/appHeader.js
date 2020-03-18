@@ -6,7 +6,7 @@ import { Redirect } from "react-router-dom";
 
 import AppMenu from "../pages/AppMenu";
 
-function AppHeader({ data }) {
+function AppHeader({ data, className, style, header }) {
   const [redirectToApp, setRedirectToApp] = React.useState(false);
   const setModalShow = state => {
     setCssAnim(state);
@@ -22,7 +22,10 @@ function AppHeader({ data }) {
   } else {
     return (
       <>
-        <Header className="appMenuHeader">
+        <Header
+          style={style}
+          className={className ? `${className} appMenuHeader` : "appMenuHeader"}
+        >
           <Box pad="small" direction="row" align="center">
             <Button
               icon={<Ticket color="#ffffff" />}
@@ -40,7 +43,7 @@ function AppHeader({ data }) {
               weight="bold"
               size="20px"
             >
-              sellTicket
+              {className === "positionFixed" ? header : "sellTicket"}
             </Button>
           </Box>
           <Button
