@@ -61,7 +61,7 @@ function DateFilter() {
                 Date<Box className="filterSubHeader">{time}</Box>
               </Box>
               <Box>
-                <CaretDown />
+                <CaretDown size="15px" className="caretDown" />
               </Box>
             </Box>
           }

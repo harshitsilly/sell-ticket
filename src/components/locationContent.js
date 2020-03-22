@@ -14,7 +14,7 @@ function LocaltionContent({ value, setLocationAndClose }) {
     }, 2000);
 
     return () => {};
-  });
+  }, []);
 
   return (
     <>

@@ -44,7 +44,7 @@ function LocaltionFiler() {
                   Location<Box className="filterSubHeader">{location}</Box>
                 </Box>
                 <Box>
-                  <CaretDown />
+                  <CaretDown size="15px" className="caretDown" />
                 </Box>
               </Box>
             )) ||

@@ -46,7 +46,7 @@ export default function() {
                 Category<Box className="filterSubHeader">{category}</Box>
               </Box>
               <Box>
-                <CaretDown />
+                <CaretDown size="15px" className="caretDown" />
               </Box>
             </Box>
           }

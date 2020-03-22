@@ -112,14 +112,18 @@ body {
 }
 
 .filterBox {
-  margin: 24px;
-  border: 1px solid lightgray;
+  margin: 24px 12px;
+  box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
   border-radius: 20px;
   > div:last-child {
     border-bottom: 0;
   }
 }
-
+.caretDown {
+  > polygon {
+    fill: grey !important;
+  }
+}
 .filterBoxRow {
   background-color: white;
   position: sticky;
@@ -145,8 +149,7 @@ body {
 }
 .eventBox {
   height: 200px;
-  border: 1px solid lightgray;
-  border: 20px;
+  border: 1px solid rgb(229, 231, 232);
   margin-top: 40px;
 }
 .eventGrid {
@@ -170,7 +173,7 @@ body {
   margin: 0.45rem 0rem !important;
 }
 .filterBoxBorder {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid rgb(229, 231, 232);
   height: 60px;
 }
 .filterButton {
