@@ -32,6 +32,11 @@ const theme = {
 
     colors: {
       focus: "#ffffff" // added focus color,
+    },
+    focus: {
+      border: {
+        color: "#ffffff"
+      }
     }
   }
 };

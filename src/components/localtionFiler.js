@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, DropButton, TextInput } from "grommet";
 import { Location, CaretDown, Search } from "grommet-icons";
 import LocationContent from "./locationContent";
 
 function LocaltionFiler() {
+  const locationRef = React.useRef();
   const [location, setLocation] = React.useState("nearby");
   const [dropContentState, setDropContentState] = React.useState(false);
   const [value, setValue] = React.useState("");
+  const setLocationAndClose = location => {
+    setLocation(location);
+    setDropContentState(false);
+  };
+  useEffect(() => {
+    dropContentState && locationRef.current.focus();
+  }, [dropContentState]);
   return (
     <>
       <Box direction="row" pad="none" className="filterBoxBorder">
         <DropButton
           onClose={() => setDropContentState(false)}
-          onOpen={() => setDropContentState(true)}
+          onOpen={() => {
+            setDropContentState(true);
+          }}
           className="filterButton"
           icon={
             !dropContentState && (
@@ -48,6 +58,7 @@ function LocaltionFiler() {
               >
                 <Search className="locationSearchIcon" />
                 <TextInput
+                  ref={locationRef}
                   className="locationSearch"
                   placeholder="Search your city"
                   value={value}
@@ -57,7 +68,14 @@ function LocaltionFiler() {
             ))
           }
           dropAlign={{ top: "bottom", right: "right" }}
-          dropContent={<LocationContent />}
+          dropContent={
+            dropContentState && (
+              <LocationContent
+                value={value}
+                setLocationAndClose={setLocationAndClose}
+              />
+            )
+          }
         />
       </Box>
     </>
