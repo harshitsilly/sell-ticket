@@ -83,7 +83,7 @@ function App() {
           <Box width="100%" direction="row" justify="center">
             <Button
               onClick={moveToAppContent}
-              icon={<Down color="#ffffff" />}
+              icon={<Down size="45px" color="#ffffff" />}
               hoverIndicator
             />
           </Box>
