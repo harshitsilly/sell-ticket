@@ -17,9 +17,11 @@ body {
 .appFirstPageBackgroundImage {
   background: url("https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg");
   height: calc(var(--vh, 1vh) * 100);
-  background-position: center;
+  // background-position: center;
+  background-size: cover;
   color: white;
   justify-content: space-between;
+  padding: 0 4px;
 
   /* background-repeat: no-repeat; */
 }
@@ -42,6 +44,7 @@ body {
   transform-style: preserve-3d;
 }
 .appDesc {
+  padding: 24px 24px 0 24px;
   text-align: center;
   font-size: x-large;
   line-height: 2rem;
@@ -69,12 +72,14 @@ body {
 .appSearch {
   font-weight: 100 !important;
   background-color: white !important;
-  padding-left: 42px !important;
+  padding-left: 45px !important;
+  height: 55px;
+  border-radius: 10px !important;
 }
 .appSearchIcon {
   position: absolute;
   z-index: 2;
-  left: 24px;
+  left: 30px;
 }
 
 .appMenuButton {

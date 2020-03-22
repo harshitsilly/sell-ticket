@@ -64,7 +64,7 @@ function App() {
         </Mutation> */}
         <AppHeader data={data} />
         <Box height="100%">
-          <Box pad="large" className="appDesc">
+          <Box className="appDesc">
             <Text size="x-large" weight="bold">
               The Safest way to buy and sell e-tickets.
             </Text>
