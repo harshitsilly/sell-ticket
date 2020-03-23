@@ -12,31 +12,61 @@ const dummyData = [
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "7 March 2020",
-    ticketsAvailable: [{ info: "front seat", cost: "400" }]
+    ticketsAvailable: 20
+  },
+  {
+    name: "CSK VS BLR",
+    location: "Bangalore",
+    date: "10 March 2020",
+    ticketsAvailable: 10
+  },
+  {
+    name: "CSK VS BLR",
+    location: "Bangalore",
+    date: "22 March 2020",
+    ticketsAvailable: 2
+  },
+  {
+    name: "CSK VS BLR",
+    location: "Bangalore",
+    date: "17 October 2020",
+    ticketsAvailable: 34
+  },
+  {
+    name: "CSK VS BLR",
+    location: "Bangalore",
+    date: "7 August 2020",
+    ticketsAvailable: 3
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "7 March 2020",
-    ticketsAvailable: []
+    ticketsAvailable: 20
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
-    date: "7 March 2020",
-    ticketsAvailable: []
+    date: "10 March 2020",
+    ticketsAvailable: 10
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
-    date: "7 March 2020",
-    ticketsAvailable: []
+    date: "22 March 2020",
+    ticketsAvailable: 2
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
-    date: "7 March 2020",
-    ticketsAvailable: []
+    date: "17 October 2020",
+    ticketsAvailable: 34
+  },
+  {
+    name: "CSK VS BLR",
+    location: "Bangalore",
+    date: "7 August 2020",
+    ticketsAvailable: 3
   }
 ];
 function Category(props) {
@@ -83,7 +113,7 @@ function Category(props) {
           <LocaltionFiler />
           <DateFiler />
         </Box>
-        <Box pad="large">
+        <Box pad="medium">
           {events.length === 0 && <Text weight="bold">No Events Found</Text>}
           {events.length > 0 &&
             events.map(event => (
