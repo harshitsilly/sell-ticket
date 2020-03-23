@@ -113,14 +113,10 @@ function Category(props) {
           <LocaltionFiler />
           <DateFiler />
         </Box>
-        <Box pad="medium">
+        <Box pad="medium" className="eventList">
           {events.length === 0 && <Text weight="bold">No Events Found</Text>}
           {events.length > 0 &&
-            events.map(event => (
-              <RandomGeneratedColor
-                render={props => <Event {...props} {...event} />}
-              />
-            ))}
+            events.map(event => <Event {...props} {...event} />)}
         </Box>
       </Box>
     </>

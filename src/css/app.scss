@@ -210,6 +210,9 @@ body {
   grid-template-columns: 1fr 3fr 1fr;
   border-radius: 10px;
 }
+.eventList {
+  z-index: -1;
+}
 .eventNameBox {
   > span:first-child {
     font-weight: 500;
@@ -231,6 +234,7 @@ body {
   margin: 0.45rem 0rem !important;
 }
 .filterBoxBorder {
+  z-index: 4;
   border-bottom: 1px solid rgb(229, 231, 232);
   height: 60px;
 }
