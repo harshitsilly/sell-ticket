@@ -9,7 +9,7 @@ body {
 }
 .appMenuHeader {
   font-weight: 600;
-  z-index: 1;
+  z-index: 2;
 }
 .marginTopBox {
   margin-top: 30px;
@@ -267,4 +267,73 @@ body {
 }
 .selectButton {
   color: #7d4cdb !important;
+}
+.eventDetailBackground {
+  z-index: 1;
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 40vh;
+  background-image: url(https://cdn.ticketswap.com/static/images/placeholders/festival-4.jpg);
+  background-size: cover;
+  background-position: center center;
+}
+
+.eventDetailBackground::before,
+.eventDetailBackground::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.eventDetailBackground::before {
+  height: 50%;
+  opacity: 0.65;
+  top: 0;
+  background-image: linear-gradient(
+    rgb(0, 19, 25) 0%,
+    rgba(0, 19, 25, 0.737) 19%,
+    rgba(0, 19, 25, 0.54) 34%,
+    rgba(0, 19, 25, 0.38) 47%,
+    rgba(0, 19, 25, 0.28) 56.5%,
+    rgba(0, 19, 25, 0.192) 65%,
+    rgba(0, 19, 25, 0.125) 73%,
+    rgba(0, 19, 25, 0.075) 80.2%,
+    rgba(0, 19, 25, 0.043) 86.1%,
+    rgba(0, 19, 25, 0.02) 91%,
+    rgba(0, 19, 25, 0.008) 95.2%,
+    rgba(0, 19, 25, 0.004) 98.2%,
+    rgba(0, 19, 25, 0) 100%
+  );
+}
+.eventDetailBackground::after {
+  bottom: 0px;
+  height: 100%;
+  background-image: linear-gradient(
+    to top,
+    rgb(0, 19, 25) 0%,
+    rgba(0, 19, 25, 0.737) 19%,
+    rgba(0, 19, 25, 0.54) 34%,
+    rgba(0, 19, 25, 0.38) 47%,
+    rgba(0, 19, 25, 0.28) 56.5%,
+    rgba(0, 19, 25, 0.192) 65%,
+    rgba(0, 19, 25, 0.125) 73%,
+    rgba(0, 19, 25, 0.075) 80.2%,
+    rgba(0, 19, 25, 0.043) 86.1%,
+    rgba(0, 19, 25, 0.02) 91%,
+    rgba(0, 19, 25, 0.008) 95.2%,
+    rgba(0, 19, 25, 0.004) 98.2%,
+    rgba(0, 19, 25, 0) 100%
+  );
+}
+.eventDetailHeaderParent {
+  background-color: rgb(0, 19, 25);
+  color: white;
+  height: 52vh;
+  position: relative;
+  top: 18vh;
+}
+.eventDetailHeader {
+  position: relative;
+  z-index: 2;
 }

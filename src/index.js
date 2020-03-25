@@ -49,7 +49,10 @@ ReactDOM.render(
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
-          <Route path="/eventDetail:id" component={EventDetail} />
+          <Route
+            path="/eventDetail:id"
+            component={props => <EventDetail {...props} />}
+          />
           <Route
             path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
             component={props => (
