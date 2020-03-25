@@ -25,6 +25,9 @@ body {
 
   /* background-repeat: no-repeat; */
 }
+.categoryHeder {
+  z-index: 3;
+}
 .categoryBackground {
   z-index: -1;
   position: absolute;
@@ -136,6 +139,7 @@ body {
   }
 }
 .filterBoxRow {
+  z-index: 4;
   background-color: white;
   position: sticky;
   top: 60px;
@@ -211,7 +215,7 @@ body {
   border-radius: 10px;
 }
 .eventList {
-  z-index: -1;
+  z-index: 1;
 }
 .eventNameBox {
   > span:first-child {

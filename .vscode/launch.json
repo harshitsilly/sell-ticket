@@ -12,10 +12,10 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "Chrome",
-      "type": "chrome",
+      "name": "edge",
+      "type": "edge",
       "request": "launch",
-      "url": "http://localhost:4001",
+      "url": "http://localhost:3000",
       "webRoot": "${workspaceRoot}/src"
     }
   ]

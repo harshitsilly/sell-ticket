@@ -85,6 +85,7 @@ function DateFilter() {
               {!showCalendar &&
                 dateData.map(element => (
                   <Button
+                    key={element}
                     className={
                       time === element
                         ? "selectButton dropDownButton"

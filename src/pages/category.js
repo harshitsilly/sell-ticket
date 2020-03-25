@@ -6,6 +6,7 @@ import CategoryFilter from "../components/categoryFilter";
 import AppHeader from "../components/appHeader";
 import RandomGeneratedColor from "../components/randomGeneratedColor";
 import Event from "../components/event";
+import { Redirect } from "react-router-dom";
 
 const dummyData = [
   {
@@ -42,31 +43,31 @@ const dummyData = [
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "7 March 2020",
-    ticketsAvailable: 20
+    ticketsAvailable: 11
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "10 March 2020",
-    ticketsAvailable: 10
+    ticketsAvailable: 15
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "22 March 2020",
-    ticketsAvailable: 2
+    ticketsAvailable: 22
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "17 October 2020",
-    ticketsAvailable: 34
+    ticketsAvailable: 31
   },
   {
     name: "CSK VS BLR",
     location: "Bangalore",
     date: "7 August 2020",
-    ticketsAvailable: 3
+    ticketsAvailable: 32
   }
 ];
 function Category(props) {
@@ -84,42 +85,64 @@ function Category(props) {
       setHeaderClass("positionSticky");
     }
   });
-  return (
-    <>
-      <Box>
-        <Box height="25vh">
-          <AppHeader
-            style={{ backgroundColor: props.styleColor }}
-            className={headerClass}
-            data={{ currentUser: null }}
-            header={category}
-          />
-          <Box pad="medium" justify="center" align="center">
-            <Text color="#fff" weight="bold" size="large">
-              {category}
-            </Text>
-          </Box>
+  let onClickEvent = name => {
+    setRedirectToEventDetail(name);
+  };
 
+  const [redirectToEventDetail, setRedirectToEventDetail] = React.useState("");
+  if (redirectToEventDetail) {
+    return (
+      <Redirect push="true" to={`/eventDetail:${redirectToEventDetail}`} />
+    );
+  } else {
+    return (
+      <>
+        <Box>
+          <Box className="categoryHeder" height="25vh">
+            <AppHeader
+              style={{ backgroundColor: props.styleColor }}
+              className={headerClass}
+              data={{ currentUser: null }}
+              header={category}
+            />
+            <Box pad="medium" justify="center" align="center">
+              <Text color="#fff" weight="bold" size="large">
+                {category}
+              </Text>
+            </Box>
+
+            <Box
+              style={{ backgroundColor: props.styleColor }}
+              className="categoryBackground"
+            ></Box>
+          </Box>
           <Box
-            style={{ backgroundColor: props.styleColor }}
-            className="categoryBackground"
-          ></Box>
+            className={
+              headerClass === "positionSticky" ? "filterBox" : "filterBoxRow"
+            }
+          >
+            <LocaltionFiler />
+            <DateFiler />
+          </Box>
+          <Box
+            onClick={() => console.log("ss")}
+            pad="medium"
+            className="eventList"
+          >
+            {events.length === 0 && <Text weight="bold">No Events Found</Text>}
+            {events.length > 0 &&
+              events.map(event => (
+                <Event
+                  key={event.ticketsAvailable}
+                  onClick={() => onClickEvent(event.name)}
+                  {...props}
+                  {...event}
+                />
+              ))}
+          </Box>
         </Box>
-        <Box
-          className={
-            headerClass === "positionSticky" ? "filterBox" : "filterBoxRow"
-          }
-        >
-          <LocaltionFiler />
-          <DateFiler />
-        </Box>
-        <Box pad="medium" className="eventList">
-          {events.length === 0 && <Text weight="bold">No Events Found</Text>}
-          {events.length > 0 &&
-            events.map(event => <Event {...props} {...event} />)}
-        </Box>
-      </Box>
-    </>
-  );
+      </>
+    );
+  }
 }
 export default Category;

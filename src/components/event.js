@@ -7,7 +7,7 @@ import EventCalendar from "./eventCalendar";
 function Event(props) {
   return (
     <>
-      <Box justify="center" className="eventBox">
+      <Box onClick={props.onClick} justify="center" className="eventBox">
         <Grid className="eventGrid">
           <EventCalendar date={props.date} />
           <Box justify="center" className="eventNameBox" align="start">
