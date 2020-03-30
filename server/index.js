@@ -2,7 +2,7 @@ const { GraphQLServer } = require("graphql-yoga");
 const serveStatic = require("serve-static");
 
 const session = require("express-session");
-const uuid = require("uuid/v4");
+const path = require("path");
 const passport = require("passport");
 const { GraphQLLocalStrategy, buildContext } = require("graphql-passport");
 const GoogleStrategy = require("passport-google-oauth20");
@@ -121,7 +121,10 @@ server.express.use(
   }
 );
 
-server.use(serveStatic("build"));
+server.express.use(serveStatic("build"));
+server.express.get("/*", function(req, res) {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
+});
 server.start({ port: process.env.PORT || 4001 }, () =>
   console.log(`Server is running on http://localhost:${process.env.port}`)
 );
