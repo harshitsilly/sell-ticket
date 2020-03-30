@@ -13,7 +13,7 @@ import {
 
 import AppHeader from "./components/appHeader";
 import EventFIlter from "./pages/EventFilter";
-import { UserProvider } from "./context/user";
+
 import { Redirect } from "react-router-dom";
 import "./css/app.scss";
 
@@ -37,7 +37,7 @@ function App() {
   if (redirect) return <Redirect push="true" to={`/${redirect}`} />;
 
   return (
-    <UserProvider>
+    <>
       <Box className="appFirstPageBackgroundImage">
         {/* <Mutation mutation={POST_MUTATION}>
           {postMutation => <button onClick={postMutation}>Submit</button>}
@@ -207,7 +207,7 @@ function App() {
           </video>
         </Box>
       </Box>
-    </UserProvider>
+    </>
   );
 }
 

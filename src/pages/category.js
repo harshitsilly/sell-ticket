@@ -102,7 +102,6 @@ function Category(props) {
             <AppHeader
               style={{ backgroundColor: props.styleColor }}
               className={headerClass}
-              data={{ currentUser: null }}
               header={category}
             />
             <Box pad="medium" justify="center" align="center">

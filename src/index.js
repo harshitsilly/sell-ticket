@@ -8,6 +8,8 @@ import ApolloClient from "apollo-boost";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Grommet } from "grommet";
+
+import { UserProvider } from "./context/user";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import EventDetail from "./pages/eventDetail";
@@ -18,9 +20,10 @@ import RandomGeneratedColor from "./components/randomGeneratedColor";
 const client = new ApolloClient({
   uri:
     window.location.href.indexOf("localhost") > -1
-      ? "http://localhost:4001"
+      ? "http://localhost:3000/api"
       : window.location.href,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  credentials: "include"
 });
 
 const theme = {
@@ -45,26 +48,28 @@ const theme = {
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Grommet theme={theme}>
-      <Router>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route
-            path="/eventDetail:id"
-            component={props => <EventDetail {...props} />}
-          />
-          <Route
-            path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
-            component={props => (
-              <RandomGeneratedColor
-                {...props}
-                render={props => <Category {...props} />}
-              />
-            )}
-          />
-          <Route path="/" component={App} />
-        </Switch>
-      </Router>
+      <UserProvider>
+        <Router>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route
+              path="/eventDetail:id"
+              component={props => <EventDetail {...props} />}
+            />
+            <Route
+              path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
+              component={props => (
+                <RandomGeneratedColor
+                  {...props}
+                  render={props => <Category {...props} />}
+                />
+              )}
+            />
+            <Route path="/" component={App} />
+          </Switch>
+        </Router>
+      </UserProvider>
     </Grommet>
   </ApolloProvider>,
   document.getElementById("root")

@@ -8,7 +8,7 @@ function EventFilter() {
   return (
     <>
       <Box height="70vh" flex="false">
-        <AppHeader data={{}} />
+        <AppHeader />
         <Box className="eventDetailHeaderParent" flex="false">
           <Box pad="medium" className="eventDetailHeader">
             <Text size="large" weight="bold">
