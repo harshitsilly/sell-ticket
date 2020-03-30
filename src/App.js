@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 
 import { Box, Button, Footer, TextInput, Text, Video } from "grommet";
 import {
@@ -11,29 +11,12 @@ import {
   Multimedia
 } from "grommet-icons";
 
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
 import AppHeader from "./components/appHeader";
 import EventFIlter from "./pages/EventFilter";
-import Loader from "./components/loader";
+import { UserProvider } from "./context/user";
 import { Redirect } from "react-router-dom";
 import "./css/app.scss";
 
-const CURRENT_USER = gql`
-  # Write your query or mutation here
-  {
-    events {
-      id
-      name
-      category
-      date
-      location
-      ticketsAvailable {
-        id
-      }
-    }
-  }
-`;
 const appHeight = () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -50,19 +33,17 @@ function App() {
   };
 
   const appContent = React.useRef();
-  const { loading, error, data } = useQuery(CURRENT_USER, {
-    fetchPolicy: "no-cache"
-  });
+
   if (redirect) return <Redirect push="true" to={`/${redirect}`} />;
-  if (loading) return <Loader />;
-  if (error) return `Error! ${error.message}`;
+
   return (
-    <>
+    <UserProvider>
       <Box className="appFirstPageBackgroundImage">
         {/* <Mutation mutation={POST_MUTATION}>
           {postMutation => <button onClick={postMutation}>Submit</button>}
         </Mutation> */}
-        <AppHeader data={data} />
+
+        <AppHeader />
         <Box height="100%">
           <Box className="appDesc">
             <Text size="x-large" weight="bold">
@@ -226,7 +207,7 @@ function App() {
           </video>
         </Box>
       </Box>
-    </>
+    </UserProvider>
   );
 }
 

@@ -77,7 +77,12 @@ const server = new GraphQLServer({
   typeDefs: "./server/schema.graphql",
   resolvers,
   context: ({ request, response }) =>
-    buildContext({ req: request, res: response, prisma })
+    buildContext({ req: request, res: response, prisma }),
+  playground: {
+    settings: {
+      "request.credentials": "same-origin"
+    }
+  }
 });
 
 server.express.use(

@@ -1,5 +1,5 @@
 #endpoint: ""
-endpoint: https://sell-ticket-0758f5f180.herokuapp.com/sell-ticket/dev
+endpoint: https://eu1.prisma.sh/harshit-a88eb5/sellTicket/dev
 
 # Points to the file that contains your datamodel
 datamodel: datamodel.graphql

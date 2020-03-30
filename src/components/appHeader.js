@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Box, Header, Button, Layer, Text } from "grommet";
 import { Ticket, Close, Menu } from "grommet-icons";
 import { Redirect } from "react-router-dom";
 
 import AppMenu from "../pages/AppMenu";
+import { UserContext } from "../context/user";
 
-function AppHeader({ data, className, style, header }) {
+function AppHeader({ className, style, header }) {
+  const data = useContext(UserContext);
   const [redirectToApp, setRedirectToApp] = React.useState(false);
   const setModalShow = state => {
     setCssAnim(state);
