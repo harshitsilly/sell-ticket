@@ -7,15 +7,20 @@ type User {
 }
 type TicketsAvailable {
   id: ID! @id
-  eventID: ID
   info: String
+}
+
+enum CategoryFormat {
+  Sports
+  Festival
+  Music
 }
 
 type Event {
   id: ID! @id
   name: String
-  category: String
+  category: CategoryFormat
   date: String
   location: String
-  ticketsAvailable: [TicketsAvailable!]
+  ticketsAvailable: [TicketsAvailable!]! @relation(references: [id])
 }

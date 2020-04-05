@@ -13,10 +13,10 @@ const authenticateGoogle = (req, res) =>
     )(req, res);
   });
 
-const upsertGoogleUser = async function({
+const upsertGoogleUser = async function ({
   accessToken,
   refreshToken,
-  profile
+  profile,
 }) {
   const User = this;
 
@@ -29,8 +29,8 @@ const upsertGoogleUser = async function({
       email: profile.emails[0].value,
       "social.googleProvider": {
         id: profile.id,
-        token: accessToken
-      }
+        token: accessToken,
+      },
     });
 
     return newUser;
@@ -41,7 +41,22 @@ const upsertGoogleUser = async function({
 const resolvers = {
   Query: {
     currentUser: (parent, args, context) => context.getUser(),
-    events: async (parent, args, context) => await context.prisma.events()
+    events: async (parent, args, context) => {
+      const fragment = `
+    fragment EventsWithTicketAvailable on Event {
+      id
+      name
+      category
+      date
+      location
+      ticketsAvailable {
+        id
+        info
+      }
+    }
+  `;
+      return await context.prisma.events().$fragment(fragment);
+    },
   },
   Mutation: {
     signup: async (
@@ -51,7 +66,7 @@ const resolvers = {
     ) => {
       const existingUsers = await context.prisma.users();
       const userWithEmailAlreadyExists = !!existingUsers.find(
-        user => user.email === email
+        (user) => user.email === email
       );
 
       if (userWithEmailAlreadyExists) {
@@ -62,13 +77,13 @@ const resolvers = {
         firstName,
         lastName,
         email,
-        password
+        password,
       };
 
       await context.prisma.createUser(newUser);
       const existingUsersUpdate = await context.prisma.users();
       const loginUser = existingUsersUpdate.filter(
-        user => user.email === newUser.email
+        (user) => user.email === newUser.email
       );
       await context.login(loginUser[0]);
 
@@ -78,7 +93,7 @@ const resolvers = {
       console.log(context.req._passport);
       const { user } = await context.authenticate("graphql-local", {
         email,
-        password
+        password,
       });
 
       await context.login(user);
@@ -99,7 +114,7 @@ const resolvers = {
           if (user) {
             return {
               name: user.name,
-              token: user.generateJWT()
+              token: user.generateJWT(),
             };
           }
         }
@@ -117,8 +132,8 @@ const resolvers = {
       } catch (error) {
         return error;
       }
-    }
-  }
+    },
+  },
 };
 
 module.exports = resolvers;

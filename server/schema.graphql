@@ -14,12 +14,18 @@ type Event {
 }
 type TicketsAvailable {
   id: ID
-  eventID: ID
   info: String
 }
 type Query {
   currentUser: User
   events: [Event]
+  ticketsAvailable: [TicketsAvailable]
+}
+
+enum CategoryFormat {
+  Sport
+  Festival
+  Music
 }
 
 type AuthPayload {

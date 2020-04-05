@@ -12,9 +12,9 @@ const jwt = require("jsonwebtoken");
 const resolvers = require("./api/resolver");
 const { prisma } = require("./src/generated/prisma-client");
 const JWT_SECRET = "bad Secret";
-const signToken = user => {
+const signToken = (user) => {
   return jwt.sign({ data: user }, JWT_SECRET, {
-    expiresIn: 604800
+    expiresIn: 604800,
   });
 };
 
@@ -25,7 +25,7 @@ passport.use(
   new GraphQLLocalStrategy(async (email, password, done) => {
     const users = await prisma.users();
     const matchingUser = users.find(
-      user => email === user.email && password === user.password
+      (user) => email === user.email && password === user.password
     );
     const error = matchingUser ? null : new Error("no matching user");
     done(error, matchingUser);
@@ -40,10 +40,10 @@ const GoogleTokenStrategyCallback = async (
   await prisma.createUser({
     firstName: profile.name.givenName,
     lastName: profile.name.familyName,
-    email: profile.emails[0].value
+    email: profile.emails[0].value,
   });
   done(null, {
-    profile
+    profile,
   });
 };
 
@@ -53,7 +53,7 @@ passport.use(
       clientID:
         "771704531356-o82krvt5ua15k04uqmm332s0g6qbojs9.apps.googleusercontent.com",
       clientSecret: "6m4VK3f4etcU7qjP4xbYwMJ6",
-      callbackURL: "http://localhost:4001/auth/google/callback"
+      callbackURL: "http://localhost:4001/auth/google/callback",
     },
     GoogleTokenStrategyCallback
   )
@@ -69,7 +69,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (req, id, done) => {
   const users = await prisma.users();
-  const matchingUser = users.find(user => user.id === id);
+  const matchingUser = users.find((user) => user.id === id);
   done(null, matchingUser);
 });
 
@@ -80,22 +80,22 @@ const server = new GraphQLServer({
     buildContext({ req: request, res: response, prisma }),
   playground: {
     settings: {
-      "request.credentials": "same-origin"
-    }
-  }
+      "request.credentials": "same-origin",
+    },
+  },
 });
 
 server.express.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000, // One day in milliseconds
-    keys: ["randomstringhere"]
+    keys: ["randomstringhere"],
   })
 );
 server.express.use(
   session({
     secret: SESSION_SECRECT,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   })
 );
 server.express.use(passport.initialize());
@@ -104,7 +104,7 @@ server.express.use(passport.session());
 server.express.use(
   "/auth/google",
   passport.authenticate("google", {
-    scope: ["profile", "email"]
+    scope: ["profile", "email"],
   })
 );
 
@@ -115,14 +115,14 @@ server.express.use(
     return res
       .status(200)
       .cookie("jwt", signToken(req.user), {
-        httpOnly: true
+        httpOnly: true,
       })
       .redirect("/");
   }
 );
 
 server.express.use(serveStatic("build"));
-server.express.get("/*", function(req, res) {
+server.express.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 server.start({ port: process.env.PORT || 4001 }, () =>

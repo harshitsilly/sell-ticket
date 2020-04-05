@@ -13,11 +13,34 @@ const CURRENT_USER = gql`
       email
     }
   }
+
+  {
+    events {
+      id
+      name
+      category
+      date
+      location
+      ticketsAvailable {
+        id
+        info
+      }
+    }
+  }
+
+  {
+    __type(name: "CategoryFormat") {
+      name
+      enumValues {
+        name
+      }
+    }
+  }
 `;
 
 const UserProvider = ({ children }) => {
   const { loading, error, data } = useQuery(CURRENT_USER, {
-    fetchPolicy: "no-cache"
+    fetchPolicy: "no-cache",
   });
   if (loading) return <Loader />;
   if (error) return `Error! ${error.message}`;

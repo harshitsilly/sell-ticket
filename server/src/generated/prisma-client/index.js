@@ -13,6 +13,10 @@ var models = [
     embedded: false
   },
   {
+    name: "CategoryFormat",
+    embedded: false
+  },
+  {
     name: "Event",
     embedded: false
   }

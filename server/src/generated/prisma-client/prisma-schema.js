@@ -19,10 +19,16 @@ type BatchPayload {
   count: Long!
 }
 
+enum CategoryFormat {
+  Sport
+  Festival
+  Music
+}
+
 type Event {
   id: ID!
   name: String
-  category: String
+  category: CategoryFormat
   date: String
   location: String
   ticketsAvailable(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable!]
@@ -37,7 +43,7 @@ type EventConnection {
 input EventCreateInput {
   id: ID
   name: String
-  category: String
+  category: CategoryFormat
   date: String
   location: String
   ticketsAvailable: TicketsAvailableCreateManyInput
@@ -64,7 +70,7 @@ enum EventOrderByInput {
 type EventPreviousValues {
   id: ID!
   name: String
-  category: String
+  category: CategoryFormat
   date: String
   location: String
 }
@@ -89,7 +95,7 @@ input EventSubscriptionWhereInput {
 
 input EventUpdateInput {
   name: String
-  category: String
+  category: CategoryFormat
   date: String
   location: String
   ticketsAvailable: TicketsAvailableUpdateManyInput
@@ -97,7 +103,7 @@ input EventUpdateInput {
 
 input EventUpdateManyMutationInput {
   name: String
-  category: String
+  category: CategoryFormat
   date: String
   location: String
 }
@@ -131,20 +137,10 @@ input EventWhereInput {
   name_not_starts_with: String
   name_ends_with: String
   name_not_ends_with: String
-  category: String
-  category_not: String
-  category_in: [String!]
-  category_not_in: [String!]
-  category_lt: String
-  category_lte: String
-  category_gt: String
-  category_gte: String
-  category_contains: String
-  category_not_contains: String
-  category_starts_with: String
-  category_not_starts_with: String
-  category_ends_with: String
-  category_not_ends_with: String
+  category: CategoryFormat
+  category_not: CategoryFormat
+  category_in: [CategoryFormat!]
+  category_not_in: [CategoryFormat!]
   date: String
   date_not: String
   date_in: [String!]
@@ -246,7 +242,6 @@ type Subscription {
 
 type TicketsAvailable {
   id: ID!
-  eventID: ID
   info: String
 }
 
@@ -258,7 +253,6 @@ type TicketsAvailableConnection {
 
 input TicketsAvailableCreateInput {
   id: ID
-  eventID: ID
   info: String
 }
 
@@ -275,15 +269,12 @@ type TicketsAvailableEdge {
 enum TicketsAvailableOrderByInput {
   id_ASC
   id_DESC
-  eventID_ASC
-  eventID_DESC
   info_ASC
   info_DESC
 }
 
 type TicketsAvailablePreviousValues {
   id: ID!
-  eventID: ID
   info: String
 }
 
@@ -302,20 +293,6 @@ input TicketsAvailableScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  eventID: ID
-  eventID_not: ID
-  eventID_in: [ID!]
-  eventID_not_in: [ID!]
-  eventID_lt: ID
-  eventID_lte: ID
-  eventID_gt: ID
-  eventID_gte: ID
-  eventID_contains: ID
-  eventID_not_contains: ID
-  eventID_starts_with: ID
-  eventID_not_starts_with: ID
-  eventID_ends_with: ID
-  eventID_not_ends_with: ID
   info: String
   info_not: String
   info_in: [String!]
@@ -354,17 +331,14 @@ input TicketsAvailableSubscriptionWhereInput {
 }
 
 input TicketsAvailableUpdateDataInput {
-  eventID: ID
   info: String
 }
 
 input TicketsAvailableUpdateInput {
-  eventID: ID
   info: String
 }
 
 input TicketsAvailableUpdateManyDataInput {
-  eventID: ID
   info: String
 }
 
@@ -381,7 +355,6 @@ input TicketsAvailableUpdateManyInput {
 }
 
 input TicketsAvailableUpdateManyMutationInput {
-  eventID: ID
   info: String
 }
 
@@ -416,20 +389,6 @@ input TicketsAvailableWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  eventID: ID
-  eventID_not: ID
-  eventID_in: [ID!]
-  eventID_not_in: [ID!]
-  eventID_lt: ID
-  eventID_lte: ID
-  eventID_gt: ID
-  eventID_gte: ID
-  eventID_contains: ID
-  eventID_not_contains: ID
-  eventID_starts_with: ID
-  eventID_not_starts_with: ID
-  eventID_ends_with: ID
-  eventID_not_ends_with: ID
   info: String
   info_not: String
   info_in: [String!]
