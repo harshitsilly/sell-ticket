@@ -1,339 +1,362 @@
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 html,
 body {
-  scroll-behavior: smooth;
+	scroll-behavior: smooth;
 
-  height: 100%;
+	height: 100%;
 }
 .appMenuHeader {
-  font-weight: 600;
-  z-index: 2;
+	font-weight: 600;
+	z-index: 2;
 }
 .marginTopBox {
-  margin-top: 30px;
+	margin-top: 30px;
 }
 .appFirstPageBackgroundImage {
-  background: url("https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg");
-  height: calc(var(--vh, 1vh) * 100);
-  // background-position: center;
-  background-size: cover;
-  color: white;
-  justify-content: space-between;
-  padding: 0 4px;
+	background: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg');
+	height: calc(var(--vh, 1vh) * 100);
+	// background-position: center;
+	background-size: cover;
+	color: white;
+	justify-content: space-between;
+	padding: 0 4px;
 
-  /* background-repeat: no-repeat; */
+	/* background-repeat: no-repeat; */
 }
 .categoryHeder {
-  z-index: 3;
+	z-index: 3;
 }
 .categoryBackground {
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  height: 25vh;
-  width: 100vw;
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	height: 25vh;
+	width: 100vw;
 
-  background-color: lightslategray;
+	background-color: lightslategray;
 }
 
 .appContentBox {
-  height: calc(var(--vh, 1vh) * 100);
+	height: calc(var(--vh, 1vh) * 100);
 }
 
 .appMenuPage {
-  animation: skew 0.25s !important;
-  transform-style: preserve-3d;
+	animation: skew 0.25s !important;
+	transform-style: preserve-3d;
 }
 .appDesc {
-  padding: 24px 24px 0 24px;
-  text-align: center;
-  font-size: x-large;
-  line-height: 2rem;
-  margin-top: 7vh;
+	padding: 24px 24px 0 24px;
+	text-align: center;
+	font-size: x-large;
+	line-height: 2rem;
+	margin-top: 7vh;
 }
 .locationSearchIcon {
-  position: absolute;
-  z-index: 2;
-  left: 40px;
+	position: absolute;
+	z-index: 2;
+	left: 40px;
 }
 .filterBoxRow .locationSearchIcon {
-  left: 22px;
+	left: 22px;
 }
 .filterBoxBorder .locationSearch {
-  padding-left: 45px;
-  height: 35px;
-  background-color: #f5f5f6;
-  font-weight: 450;
-  font-size: 16px;
-  border-radius: 5px;
+	padding-left: 45px;
+	height: 35px;
+	background-color: #f5f5f6;
+	font-weight: 450;
+	font-size: 16px;
+	border-radius: 5px;
 }
 .filterBoxBorder .filterBoxRow .locationSearch {
-  padding-left: 25px;
+	padding-left: 25px;
 }
 .appSearch {
-  font-weight: 100 !important;
-  background-color: white !important;
-  padding-left: 45px !important;
-  height: 55px;
-  border-radius: 10px !important;
+	font-weight: 100 !important;
+	background-color: white !important;
+	padding-left: 45px !important;
+	height: 55px;
+	border-radius: 10px !important;
 }
 .appSearchIcon {
-  position: absolute;
-  z-index: 2;
-  left: 30px;
+	position: absolute;
+	z-index: 2;
+	left: 30px;
 }
 
 .appMenuButton {
-  margin-top: 10px !important;
-  border: 0px !important;
-  border-radius: 10px !important;
-  height: 3rem;
-  background-color: #f5f5f6 !important;
-  > div {
-    justify-content: space-between !important;
-  }
+	margin-top: 10px !important;
+	border: 0px !important;
+	border-radius: 10px !important;
+	height: 3rem;
+	background-color: #f5f5f6 !important;
+	> div {
+		justify-content: space-between !important;
+	}
 }
 
 .categoryButton {
-  margin-top: 10px !important;
-  border: 0px !important;
-  border-radius: 10px !important;
-  height: 3rem;
-  background-color: #f5f5f6 !important;
-  > div {
-    justify-content: start !important;
-  }
-  padding: 0 15px !important;
+	margin-top: 10px !important;
+	border: 0px !important;
+	border-radius: 10px !important;
+	height: 3rem;
+	background-color: #f5f5f6 !important;
+	> div {
+		justify-content: start !important;
+	}
+	padding: 0 15px !important;
 }
 .sellTicket {
-  border-radius: 10px !important;
-  height: 3rem;
-  color: white !important;
-  font-weight: 600 !important;
+	border-radius: 10px !important;
+	height: 3rem;
+	color: white !important;
+	font-weight: 600 !important;
 }
 .dropDownContent {
 }
 
 @keyframes skew {
-  0% {
-    transform: scale(0.5);
-  }
-  100% {
-    transform: scale(1);
-  }
+	0% {
+		transform: scale(0.5);
+	}
+	100% {
+		transform: scale(1);
+	}
 }
 
 .filterBox {
-  margin: 24px 12px;
-  box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
-  border-radius: 20px;
-  > div:last-child {
-    border-bottom: 0;
-  }
+	margin: 24px 12px;
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	border-radius: 20px;
+	> div:last-child {
+		border-bottom: 0;
+	}
 }
 .caretDown {
-  > polygon {
-    fill: grey !important;
-  }
+	> polygon {
+		fill: grey !important;
+	}
 }
 .filterBoxRow {
-  z-index: 4;
-  background-color: white;
-  position: sticky;
-  top: 60px;
-  flex-direction: row !important;
-  box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	z-index: 4;
+	background-color: white;
+	position: sticky;
+	top: 60px;
+	flex-direction: row !important;
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
 
-  border: 0 !important;
-  > div {
-    border: 0 !important;
-  }
-  > div:last-child {
-    border-right: 0;
-  }
+	border: 0 !important;
+	> div {
+		border: 0 !important;
+	}
+	> div:last-child {
+		border-right: 0;
+	}
 }
 .positionSticky {
-  position: sticky;
-  top: 0;
+	position: sticky;
+	top: 0;
 }
 .positionFixed {
-  position: fixed;
-  width: 100%;
-  top: 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
 }
 .eventBox {
-  height: 60px;
-  background-color: #f5f5f6;
+	height: 60px;
+	background-color: #f5f5f6;
 
-  margin-top: 12px;
-  border-radius: 10px;
+	margin-top: 12px;
+	border-radius: 10px;
 }
 .eventCalendar {
-  margin: 10px;
-  box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
-  > div {
-    width: 100%;
-    text-align: center;
-    font-weight: 500;
-  }
-  > div:first-child {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    color: white;
-    background: red;
-    font-size: 0.85rem;
-  }
-  > div:last-child {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding: 5px;
-    font-size: 1rem;
-  }
+	margin: 10px;
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	> div {
+		width: 100%;
+		text-align: center;
+		font-weight: 500;
+	}
+	> div:first-child {
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		color: white;
+		background: red;
+		font-size: 0.85rem;
+	}
+	> div:last-child {
+		border-bottom-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		padding: 5px;
+		font-size: 1rem;
+	}
 }
 .eventTicket {
-  justify-self: flex-end;
-  padding-right: 5px;
-  height: 25px;
-  margin-right: 15px;
-  border-radius: 5px;
-  background: rgb(0, 182, 240);
-  box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
-  color: white;
-  > svg {
-    transform: rotate(90deg);
-    height: 18px;
-  }
+	justify-self: flex-end;
+	padding-right: 5px;
+	height: 25px;
+	margin-right: 15px;
+	border-radius: 5px;
+	background: rgb(0, 182, 240);
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	color: white;
+	> svg {
+		transform: rotate(90deg);
+		height: 18px;
+	}
 }
 .eventGrid {
-  height: 100%;
-  display: grid;
-  align-items: center;
-  gap: 4px;
-  grid-template-columns: 1fr 3fr 1fr;
-  border-radius: 10px;
+	height: 100%;
+	display: grid;
+	align-items: center;
+	gap: 4px;
+	grid-template-columns: 1fr 3fr 1fr;
+	border-radius: 10px;
 }
 .eventList {
-  z-index: 1;
+	z-index: 1;
 }
 .eventNameBox {
-  > span:first-child {
-    font-weight: 500;
-    line-height: 18px;
-    font-weight: 550;
-  }
-  > span:last-child {
-    opacity: 0.6;
-    line-height: 28px;
-  }
+	> span:first-child {
+		font-weight: 500;
+		line-height: 18px;
+		font-weight: 550;
+	}
+	> span:last-child {
+		opacity: 0.6;
+		line-height: 28px;
+	}
 }
 .eventBoxHeight {
-  > div {
-    height: 90px;
-  }
+	> div {
+		height: 90px;
+	}
 }
 .dropDownButton {
-  font-size: 0.9rem !important;
-  margin: 0.45rem 0rem !important;
+	font-size: 0.9rem !important;
+	margin: 0.45rem 0rem !important;
 }
 .filterBoxBorder {
-  z-index: 4;
-  border-bottom: 1px solid rgb(229, 231, 232);
-  height: 60px;
+	z-index: 4;
+	border-bottom: 1px solid rgb(229, 231, 232);
+	height: 60px;
 }
 .filterButton {
-  box-shadow: none !important;
-  width: 100vmin;
-  > div {
-    display: flex;
-    justify-content: start;
-    text-align: start;
-  }
-  margin: 0 !important;
-  padding: 0 15px !important;
-  border: 0px solid lightgray !important;
+	box-shadow: none !important;
+	width: 100vmin;
+	> div {
+		display: flex;
+		justify-content: start;
+		text-align: start;
+	}
+	margin: 0 !important;
+	padding: 0 15px !important;
+	border: 0px solid lightgray !important;
 }
 
 .filterHeader {
-  font-size: 0.95rem;
-  font-weight: 600;
-  height: 2.5rem;
+	font-size: 0.95rem;
+	font-weight: 600;
+	height: 2.5rem;
 }
 .filterSubHeader {
-  font-size: 0.8rem;
-  font-weight: 100;
-  line-height: 0.7rem;
+	font-size: 0.8rem;
+	font-weight: 100;
+	line-height: 0.7rem;
 }
 .selectButton {
-  color: #7d4cdb !important;
+	color: #7d4cdb !important;
 }
 .eventDetailBackground {
-  z-index: 1;
-  display: block;
-  position: absolute;
-  width: 100%;
-  height: 40vh;
-  background-image: url(https://cdn.ticketswap.com/static/images/placeholders/festival-4.jpg);
-  background-size: cover;
-  background-position: center center;
+	z-index: 1;
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 40vh;
+	background-image: url(https://cdn.ticketswap.com/static/images/placeholders/festival-4.jpg);
+	background-size: cover;
+	background-position: center center;
 }
 
 .eventDetailBackground::before,
 .eventDetailBackground::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
+	content: '';
+	position: absolute;
+	left: 0;
+	right: 0;
 }
 .eventDetailBackground::before {
-  height: 50%;
-  opacity: 0.65;
-  top: 0;
-  background-image: linear-gradient(
-    rgb(0, 19, 25) 0%,
-    rgba(0, 19, 25, 0.737) 19%,
-    rgba(0, 19, 25, 0.54) 34%,
-    rgba(0, 19, 25, 0.38) 47%,
-    rgba(0, 19, 25, 0.28) 56.5%,
-    rgba(0, 19, 25, 0.192) 65%,
-    rgba(0, 19, 25, 0.125) 73%,
-    rgba(0, 19, 25, 0.075) 80.2%,
-    rgba(0, 19, 25, 0.043) 86.1%,
-    rgba(0, 19, 25, 0.02) 91%,
-    rgba(0, 19, 25, 0.008) 95.2%,
-    rgba(0, 19, 25, 0.004) 98.2%,
-    rgba(0, 19, 25, 0) 100%
-  );
+	height: 50%;
+	opacity: 0.65;
+	top: 0;
+	background-image: linear-gradient(
+		rgb(0, 19, 25) 0%,
+		rgba(0, 19, 25, 0.737) 19%,
+		rgba(0, 19, 25, 0.54) 34%,
+		rgba(0, 19, 25, 0.38) 47%,
+		rgba(0, 19, 25, 0.28) 56.5%,
+		rgba(0, 19, 25, 0.192) 65%,
+		rgba(0, 19, 25, 0.125) 73%,
+		rgba(0, 19, 25, 0.075) 80.2%,
+		rgba(0, 19, 25, 0.043) 86.1%,
+		rgba(0, 19, 25, 0.02) 91%,
+		rgba(0, 19, 25, 0.008) 95.2%,
+		rgba(0, 19, 25, 0.004) 98.2%,
+		rgba(0, 19, 25, 0) 100%
+	);
 }
 .eventDetailBackground::after {
-  bottom: 0px;
-  height: 100%;
-  background-image: linear-gradient(
-    to top,
-    rgb(0, 19, 25) 0%,
-    rgba(0, 19, 25, 0.737) 19%,
-    rgba(0, 19, 25, 0.54) 34%,
-    rgba(0, 19, 25, 0.38) 47%,
-    rgba(0, 19, 25, 0.28) 56.5%,
-    rgba(0, 19, 25, 0.192) 65%,
-    rgba(0, 19, 25, 0.125) 73%,
-    rgba(0, 19, 25, 0.075) 80.2%,
-    rgba(0, 19, 25, 0.043) 86.1%,
-    rgba(0, 19, 25, 0.02) 91%,
-    rgba(0, 19, 25, 0.008) 95.2%,
-    rgba(0, 19, 25, 0.004) 98.2%,
-    rgba(0, 19, 25, 0) 100%
-  );
+	bottom: 0px;
+	height: 100%;
+	background-image: linear-gradient(
+		to top,
+		rgb(0, 19, 25) 0%,
+		rgba(0, 19, 25, 0.737) 19%,
+		rgba(0, 19, 25, 0.54) 34%,
+		rgba(0, 19, 25, 0.38) 47%,
+		rgba(0, 19, 25, 0.28) 56.5%,
+		rgba(0, 19, 25, 0.192) 65%,
+		rgba(0, 19, 25, 0.125) 73%,
+		rgba(0, 19, 25, 0.075) 80.2%,
+		rgba(0, 19, 25, 0.043) 86.1%,
+		rgba(0, 19, 25, 0.02) 91%,
+		rgba(0, 19, 25, 0.008) 95.2%,
+		rgba(0, 19, 25, 0.004) 98.2%,
+		rgba(0, 19, 25, 0) 100%
+	);
 }
 .eventDetailHeaderParent {
-  background-color: rgb(0, 19, 25);
-  color: white;
-  height: 52vh;
-  position: relative;
-  top: 18vh;
+	background-color: rgb(0, 19, 25);
+	color: white;
+	height: 52vh;
+	position: relative;
+	top: 18vh;
 }
 .eventDetailHeader {
-  position: relative;
-  z-index: 2;
+	position: relative;
+	z-index: 2;
+}
+
+.showMore {
+	background-color: rgb(240, 251, 254);
+	border-radius: 15px;
+	height: 60px;
+}
+.showMore .showMoreIcon {
+	stroke: rgb(0, 182, 240);
+	height: 35px;
+	width: 35px;
+}
+.showMoreText {
+	color: rgb(0, 182, 240);
+	> span:first-child {
+		font-size: 0.95rem;
+		font-weight: 500;
+	}
+	> span:last-child {
+		font-size: 0.8rem;
+		opacity: 0.7;
+		line-height: 0.8rem;
+	}
 }
