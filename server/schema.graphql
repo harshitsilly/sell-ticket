@@ -1,53 +1,48 @@
 type User {
-  id: ID
-  firstName: String
-  lastName: String
-  email: String
+	id: ID
+	firstName: String
+	lastName: String
+	email: String
 }
 type Event {
-  id: ID
-  name: String
-  category: String
-  date: String
-  location: String
-  ticketsAvailable: [TicketsAvailable!]
+	id: ID
+	name: String
+	category: String
+	date: String
+	location: String
+	ticketsAvailable: [TicketsAvailable!]
 }
 type TicketsAvailable {
-  id: ID
-  info: String
+	id: ID
+	info: String
 }
 type Query {
-  currentUser: User
-  events: [Event]
-  ticketsAvailable: [TicketsAvailable]
+	currentUser: User
+	events(category: String): [Event]
+	ticketsAvailable: [TicketsAvailable]
 }
 
 enum CategoryFormat {
-  Sport
-  Festival
-  Music
+	Sport
+	Festival
+	Music
 }
 
 type AuthPayload {
-  user: User
+	user: User
 }
 
 type AuthResponse {
-  token: String
-  name: String
+	token: String
+	name: String
 }
 input AuthInput {
-  accessToken: String!
+	accessToken: String!
 }
 
 type Mutation {
-  authGoogle(input: AuthInput!): AuthResponse
-  signup(
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-  ): AuthPayload
-  login(email: String!, password: String!): AuthPayload
-  logout: Boolean
+	authGoogle(input: AuthInput!): AuthResponse
+	signup(firstName: String!, lastName: String!, email: String!, password: String!): AuthPayload
+	login(email: String!, password: String!): AuthPayload
+	logout: Boolean
 }

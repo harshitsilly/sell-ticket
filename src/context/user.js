@@ -15,28 +15,39 @@ const CURRENT_USER = gql`
 	}
 `;
 
-// {
-//     events {
-//       id
-//       name
-//       category
-//       date
-//       location
-//       ticketsAvailable {
-//         id
-//         info
-//       }
-//     }
-//   }
+const CURRENT_USER2 = gql`
+	# Write your query or mutation here
+	{
+		currentUser {
+			id
+			firstName
+			lastName
+			email
+		}
+	}
+	{
+		__type(name: "CategoryFormat") {
+			name
+			enumValues {
+				name
+			}
+		}
+	}
+	{
+		events(category: "Sport") {
+			id
+			name
+			category
+			date
+			location
+			ticketsAvailable {
+				id
+				info
+			}
+		}
+	}
+`;
 
-//   {
-//     __type(name: "CategoryFormat") {
-//       name
-//       enumValues {
-//         name
-//       }
-//     }
-//   }
 const UserProvider = ({ children }) => {
 	const { loading, error, data } = useQuery(CURRENT_USER, {
 		fetchPolicy: 'no-cache'

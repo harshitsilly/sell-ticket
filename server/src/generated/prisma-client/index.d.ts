@@ -205,7 +205,12 @@ export type EventOrderByInput =
   | "location_ASC"
   | "location_DESC";
 
-export type CategoryFormat = "Sport" | "Festival" | "Music";
+export type CategoryFormat =
+  | "Sports"
+  | "Festivals"
+  | "Club"
+  | "Nights"
+  | "Concerts";
 
 export type UserOrderByInput =
   | "id_ASC"

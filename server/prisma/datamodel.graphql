@@ -1,26 +1,28 @@
 type User {
-  id: ID! @id
-  firstName: String
-  lastName: String
-  email: String
-  password: String
+	id: ID! @id
+	firstName: String
+	lastName: String
+	email: String
+	password: String
 }
 type TicketsAvailable {
-  id: ID! @id
-  info: String
+	id: ID! @id
+	info: String
 }
 
 enum CategoryFormat {
-  Sports
-  Festival
-  Music
+	Sports
+	Festivals
+	Club
+	Nights
+	Concerts
 }
 
 type Event {
-  id: ID! @id
-  name: String
-  category: CategoryFormat
-  date: String
-  location: String
-  ticketsAvailable: [TicketsAvailable!]! @relation(references: [id])
+	id: ID! @id
+	name: String
+	category: CategoryFormat
+	date: String
+	location: String
+	ticketsAvailable: [TicketsAvailable!]! @relation(references: [id])
 }

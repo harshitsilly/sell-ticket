@@ -20,9 +20,11 @@ type BatchPayload {
 }
 
 enum CategoryFormat {
-  Sport
-  Festival
-  Music
+  Sports
+  Festivals
+  Club
+  Nights
+  Concerts
 }
 
 type Event {

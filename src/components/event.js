@@ -17,7 +17,7 @@ function Event(props) {
 
 					<Box className="eventTicket" direction="row" align="center">
 						<Ticket color="white" />
-						<Text size="1rem">{props.ticketsAvailable}</Text>
+						<Text size="1rem">{props.ticketsAvailable.length}</Text>
 					</Box>
 				</Grid>
 			</Box>
