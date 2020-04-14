@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useLayoutEffect} from 'react';
 import { Button, Box, Form, FormField, Text, Footer } from 'grommet';
 import { Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
@@ -46,8 +46,8 @@ function Category(props) {
 	let onClickEvent = name => {
 		setRedirectToEventDetail(name);
 	};
+	const showMoreRef = React.useRef();
 	let loadEvents = () => {
-		
 		setFirstSkip({first:5,skip:firstSkip.first+ firstSkip.skip})
 		
 	};
@@ -61,7 +61,16 @@ function Category(props) {
 		else{
 			setShowMore(true);
 		}
+		
+		
 	}
+	useLayoutEffect(() => {
+		if(events.length>7 && showMoreRef.current){
+		let showMoreTop = showMoreRef.current.offsetTop;
+		window.scrollTo({ top: showMoreTop });	
+		}
+    
+  }, [events]);
 	const { loading, error, data } = useQuery(Events_Query, {
 		variables: { category , first: firstSkip.first,skip:firstSkip.skip},
 		fetchPolicy: 'no-cache',
@@ -89,6 +98,25 @@ function Category(props) {
 						<LocaltionFiler />
 						<DateFiler />
 					</Box>
+					
+					{data && (
+						<>
+							<Box pad="medium" className="eventList">
+								{events.length === 0 && <Text weight="bold">No Events Found</Text>}
+								{events.length > 0 &&
+									events.map(event => (
+										<Event
+											key={event.id}
+											onClick={() => onClickEvent(event.name)}
+											{...props}
+											{...event}
+										/>
+									))}
+							</Box>
+							
+						</>
+					)}
+
 					{loading && (
 						<Box pad="medium" className="skeletonEvent">
 							<div class="post">
@@ -109,27 +137,11 @@ function Category(props) {
 							</div>
 						</Box>
 					)}
-					{data && (
-						<>
-							<Box pad="medium" className="eventList">
-								{events.length === 0 && <Text weight="bold">No Events Found</Text>}
-								{events.length > 0 &&
-									events.map(event => (
-										<Event
-											key={event.id}
-											onClick={() => onClickEvent(event.name)}
-											{...props}
-											{...event}
-										/>
-									))}
-							</Box>
-							{showMore && (
-								<Box pad="medium">
-									<ShowMore onClick={loadEvents} />
+					{showMore && (
+								<Box ref={showMoreRef} pad="medium">
+									<ShowMore  onClick={loadEvents} />
 								</Box>
 							)}
-						</>
-					)}
 				</Box>
 			</>
 		);
