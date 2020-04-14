@@ -33,7 +33,7 @@ const upsertGoogleUser = async function({ accessToken, refreshToken, profile }) 
 const resolvers = {
 	Query: {
 		currentUser: (parent, args, context) => context.getUser(),
-		events: async (parent, { category }, context) => {
+		events: async (parent, { category ,skip,first}, context) => {
 			const fragment = `
     fragment EventsWithTicketAvailable on Event {
       id
@@ -48,7 +48,8 @@ const resolvers = {
     }
   `;
 
-			return await context.prisma.events({ where: { category } }).$fragment(fragment);
+			return await context.prisma.events({ where: { category },skip,
+    first}).$fragment(fragment);
 		}
 	},
 	Mutation: {

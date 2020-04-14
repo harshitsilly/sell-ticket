@@ -18,7 +18,7 @@ type TicketsAvailable {
 }
 type Query {
 	currentUser: User
-	events(category: String): [Event]
+	events(category: String, skip: Int, first: Int): [Event]
 	ticketsAvailable: [TicketsAvailable]
 }
 

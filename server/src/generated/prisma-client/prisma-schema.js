@@ -27,11 +27,13 @@ enum CategoryFormat {
   Concerts
 }
 
+scalar DateTime
+
 type Event {
   id: ID!
   name: String
   category: CategoryFormat
-  date: String
+  date: DateTime
   location: String
   ticketsAvailable(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable!]
 }
@@ -46,7 +48,7 @@ input EventCreateInput {
   id: ID
   name: String
   category: CategoryFormat
-  date: String
+  date: DateTime
   location: String
   ticketsAvailable: TicketsAvailableCreateManyInput
 }
@@ -73,7 +75,7 @@ type EventPreviousValues {
   id: ID!
   name: String
   category: CategoryFormat
-  date: String
+  date: DateTime
   location: String
 }
 
@@ -98,7 +100,7 @@ input EventSubscriptionWhereInput {
 input EventUpdateInput {
   name: String
   category: CategoryFormat
-  date: String
+  date: DateTime
   location: String
   ticketsAvailable: TicketsAvailableUpdateManyInput
 }
@@ -106,7 +108,7 @@ input EventUpdateInput {
 input EventUpdateManyMutationInput {
   name: String
   category: CategoryFormat
-  date: String
+  date: DateTime
   location: String
 }
 
@@ -143,20 +145,14 @@ input EventWhereInput {
   category_not: CategoryFormat
   category_in: [CategoryFormat!]
   category_not_in: [CategoryFormat!]
-  date: String
-  date_not: String
-  date_in: [String!]
-  date_not_in: [String!]
-  date_lt: String
-  date_lte: String
-  date_gt: String
-  date_gte: String
-  date_contains: String
-  date_not_contains: String
-  date_starts_with: String
-  date_not_starts_with: String
-  date_ends_with: String
-  date_not_ends_with: String
+  date: DateTime
+  date_not: DateTime
+  date_in: [DateTime!]
+  date_not_in: [DateTime!]
+  date_lt: DateTime
+  date_lte: DateTime
+  date_gt: DateTime
+  date_gte: DateTime
   location: String
   location_not: String
   location_in: [String!]

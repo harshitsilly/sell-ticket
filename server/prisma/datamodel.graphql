@@ -22,7 +22,7 @@ type Event {
 	id: ID! @id
 	name: String
 	category: CategoryFormat
-	date: String
+	date: DateTime
 	location: String
 	ticketsAvailable: [TicketsAvailable!]! @relation(references: [id])
 }

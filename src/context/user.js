@@ -34,7 +34,7 @@ const CURRENT_USER2 = gql`
 		}
 	}
 	{
-		events(category: "Sport") {
+		events(category: Sports) {
 			id
 			name
 			category

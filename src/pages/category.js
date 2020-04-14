@@ -15,8 +15,8 @@ import Loader from 'react-loader-spinner';
 
 const Events_Query = gql`
 	# Write your query or mutation here
-	query Events($category: String!) {
-		events(category: $category) {
+	query Events($category: String!,$first: Int,$skip: Int) {
+		events(category: $category,first:$first,skip:$skip) {
 			id
 			name
 			category
@@ -32,8 +32,9 @@ const Events_Query = gql`
 function Category(props) {
 	let category = props.match.params[0];
 	const [events, setEvents] = React.useState([]);
+	const [showMore, setShowMore] = React.useState(false);
 	const [headerClass, setHeaderClass] = React.useState('positionSticky');
-
+    const[firstSkip,setFirstSkip] = React.useState({first:7,skip:0})
 	category = category.charAt(0).toUpperCase() + category.slice(1);
 	window.addEventListener('scroll', event => {
 		if (window.pageYOffset + 60 > (window.screen.height / 100) * 25) {
@@ -46,15 +47,26 @@ function Category(props) {
 		setRedirectToEventDetail(name);
 	};
 	let loadEvents = () => {
-		setEvents(() => [...events]);
+		
+		setFirstSkip({first:5,skip:firstSkip.first+ firstSkip.skip})
+		
 	};
 	const [redirectToEventDetail, setRedirectToEventDetail] = React.useState('');
-
+	let setEventsData = ()=>
+	{
+		data && setEvents(()=>[...events,...data.events]);
+		if(data.events.length<5){
+			setShowMore(false);
+		}
+		else{
+			setShowMore(true);
+		}
+	}
 	const { loading, error, data } = useQuery(Events_Query, {
-		variables: { category },
-		fetchPolicy: 'no-cache'
+		variables: { category , first: firstSkip.first,skip:firstSkip.skip},
+		fetchPolicy: 'no-cache',
+		onCompleted : setEventsData
 	});
-
 	if (error) return `Error! ${error.message}`;
 
 	if (redirectToEventDetail) {
@@ -100,18 +112,18 @@ function Category(props) {
 					{data && (
 						<>
 							<Box pad="medium" className="eventList">
-								{data.events.length === 0 && <Text weight="bold">No Events Found</Text>}
-								{data.events.length > 0 &&
-									data.events.map(event => (
+								{events.length === 0 && <Text weight="bold">No Events Found</Text>}
+								{events.length > 0 &&
+									events.map(event => (
 										<Event
-											key={event.ticketsAvailable}
+											key={event.id}
 											onClick={() => onClickEvent(event.name)}
 											{...props}
 											{...event}
 										/>
 									))}
 							</Box>
-							{data.events.length > 0 && (
+							{showMore && (
 								<Box pad="medium">
 									<ShowMore onClick={loadEvents} />
 								</Box>
