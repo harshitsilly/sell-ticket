@@ -44,9 +44,9 @@ function DateFilter() {
               width="2.5rem"
               pad="small"
               round="medium"
-              background="accent-1"
+              background="status-ok"
             >
-              <Calendar />
+              <Calendar className="svgStrokeBlack svgFillWhite"/>
             </Box>
           }
           label={

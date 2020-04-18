@@ -73,7 +73,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="accent-4">
-									<Attraction />
+									<Attraction className="svgStrokeBlack"/>
 								</Box>
 							}
 							label="Festivals"
@@ -109,7 +109,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="status-ok">
-									<Trophy />
+									<Trophy className="svgStrokeBlack svgFillWhite" />
 								</Box>
 							}
 							label="Sports"
@@ -121,7 +121,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="status-critical">
-									<Multimedia />
+									<Multimedia className="svgStrokeBlack svgFillWhite"/>
 								</Box>
 							}
 							label="Theatre & Comedy"
@@ -133,7 +133,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="accent-4">
-									<Attraction />
+									<Attraction className="svgStrokeBlack"/>
 								</Box>
 							}
 							label="Vouchers & Day Out"

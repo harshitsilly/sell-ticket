@@ -30,7 +30,7 @@ function AppHeader({ className, style, header }) {
         >
           <Box pad="small" direction="row" align="center">
             <Button
-              icon={<Ticket color="#ffffff" />}
+              icon={<Ticket className="svgFillWhite" color="#ffffff" />}
               hoverIndicator
               onClick={() => {
                 setRedirectToApp(true);

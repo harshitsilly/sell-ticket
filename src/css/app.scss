@@ -9,6 +9,25 @@ body {
 
 	height: 100%;
 }
+.svgFillWhite{
+	
+		>path{
+			// stroke:black!important;
+			fill:white!important;
+		}
+}
+.svgStrokeBlack{
+	>path{
+			stroke:black!important;
+		
+		}
+}
+.svgStrokeWhite{
+	>path{
+			stroke:white!important;
+		
+		}
+}
 .appMenuHeader {
 	font-weight: 600;
 	z-index: 2;

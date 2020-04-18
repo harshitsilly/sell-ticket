@@ -31,7 +31,7 @@ export default function() {
               round="medium"
               background="status-error"
             >
-              <CatalogOption />
+              <CatalogOption className="svgStrokeBlack svgFillWhite"/>
             </Box>
           }
           label={
