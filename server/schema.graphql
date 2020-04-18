@@ -10,15 +10,25 @@ type Event {
 	category: String
 	date: String
 	location: String
-	ticketsAvailable: [TicketsAvailable!]
+	numberOfTickets: NumberOfTickets
+	ticketsAvailable: [TicketsAvailable]
+	
+}
+type NumberOfTickets{
+	available: Int
+	sold: Int
 }
 type TicketsAvailable {
 	id: ID
-	info: String
+	user: User 
+	passType: String
+	numberOfTickets: Int 
+	cost: Int
+	event: Event
 }
 type Query {
 	currentUser: User
-	events(category: String, skip: Int, first: Int): [Event]
+	events(id:String,category: String, skip: Int, first: Int): [Event]
 	ticketsAvailable: [TicketsAvailable]
 }
 

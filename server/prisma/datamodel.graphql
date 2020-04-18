@@ -7,7 +7,11 @@ type User {
 }
 type TicketsAvailable {
 	id: ID! @id
-	info: String
+	user: User @relation(link: INLINE)
+	passType: String
+	numberOfTickets: Int @default(value: 1)
+	cost: Int
+	event: Event @relation(link: INLINE)
 }
 
 enum CategoryFormat {

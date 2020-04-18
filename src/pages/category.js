@@ -22,9 +22,8 @@ const Events_Query = gql`
 			category
 			date
 			location
-			ticketsAvailable {
-				id
-				info
+			numberOfTickets{
+				available
 			}
 		}
 	}
@@ -43,8 +42,8 @@ function Category(props) {
 			setHeaderClass('positionSticky');
 		}
 	});
-	let onClickEvent = name => {
-		setRedirectToEventDetail(name);
+	let onClickEvent = event => {
+		setRedirectToEventDetail(event);
 	};
 	const showMoreRef = React.useRef();
 	let loadEvents = () => {
@@ -79,7 +78,10 @@ function Category(props) {
 	if (error) return `Error! ${error.message}`;
 
 	if (redirectToEventDetail) {
-		return <Redirect push="true" to={`/eventDetail:${redirectToEventDetail}`} />;
+		return <Redirect push="true" to={{
+            pathname: `/eventDetail:${redirectToEventDetail.name}`,
+            state: redirectToEventDetail
+        } } />;
 	} else {
 		return (
 			<>
@@ -107,7 +109,7 @@ function Category(props) {
 									events.map(event => (
 										<Event
 											key={event.id}
-											onClick={() => onClickEvent(event.name)}
+											onClick={() => onClickEvent(event)}
 											{...props}
 											{...event}
 										/>

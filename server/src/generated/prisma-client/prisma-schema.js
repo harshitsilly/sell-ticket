@@ -50,7 +50,20 @@ input EventCreateInput {
   category: CategoryFormat
   date: DateTime
   location: String
-  ticketsAvailable: TicketsAvailableCreateManyInput
+  ticketsAvailable: TicketsAvailableCreateManyWithoutEventInput
+}
+
+input EventCreateOneWithoutTicketsAvailableInput {
+  create: EventCreateWithoutTicketsAvailableInput
+  connect: EventWhereUniqueInput
+}
+
+input EventCreateWithoutTicketsAvailableInput {
+  id: ID
+  name: String
+  category: CategoryFormat
+  date: DateTime
+  location: String
 }
 
 type EventEdge {
@@ -102,7 +115,7 @@ input EventUpdateInput {
   category: CategoryFormat
   date: DateTime
   location: String
-  ticketsAvailable: TicketsAvailableUpdateManyInput
+  ticketsAvailable: TicketsAvailableUpdateManyWithoutEventInput
 }
 
 input EventUpdateManyMutationInput {
@@ -110,6 +123,27 @@ input EventUpdateManyMutationInput {
   category: CategoryFormat
   date: DateTime
   location: String
+}
+
+input EventUpdateOneWithoutTicketsAvailableInput {
+  create: EventCreateWithoutTicketsAvailableInput
+  update: EventUpdateWithoutTicketsAvailableDataInput
+  upsert: EventUpsertWithoutTicketsAvailableInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: EventWhereUniqueInput
+}
+
+input EventUpdateWithoutTicketsAvailableDataInput {
+  name: String
+  category: CategoryFormat
+  date: DateTime
+  location: String
+}
+
+input EventUpsertWithoutTicketsAvailableInput {
+  update: EventUpdateWithoutTicketsAvailableDataInput!
+  create: EventCreateWithoutTicketsAvailableInput!
 }
 
 input EventWhereInput {
@@ -240,7 +274,11 @@ type Subscription {
 
 type TicketsAvailable {
   id: ID!
-  info: String
+  user: User
+  passType: String
+  numberOfTickets: Int
+  cost: Int
+  event: Event
 }
 
 type TicketsAvailableConnection {
@@ -251,12 +289,24 @@ type TicketsAvailableConnection {
 
 input TicketsAvailableCreateInput {
   id: ID
-  info: String
+  user: UserCreateOneInput
+  passType: String
+  numberOfTickets: Int
+  cost: Int
+  event: EventCreateOneWithoutTicketsAvailableInput
 }
 
-input TicketsAvailableCreateManyInput {
-  create: [TicketsAvailableCreateInput!]
+input TicketsAvailableCreateManyWithoutEventInput {
+  create: [TicketsAvailableCreateWithoutEventInput!]
   connect: [TicketsAvailableWhereUniqueInput!]
+}
+
+input TicketsAvailableCreateWithoutEventInput {
+  id: ID
+  user: UserCreateOneInput
+  passType: String
+  numberOfTickets: Int
+  cost: Int
 }
 
 type TicketsAvailableEdge {
@@ -267,13 +317,19 @@ type TicketsAvailableEdge {
 enum TicketsAvailableOrderByInput {
   id_ASC
   id_DESC
-  info_ASC
-  info_DESC
+  passType_ASC
+  passType_DESC
+  numberOfTickets_ASC
+  numberOfTickets_DESC
+  cost_ASC
+  cost_DESC
 }
 
 type TicketsAvailablePreviousValues {
   id: ID!
-  info: String
+  passType: String
+  numberOfTickets: Int
+  cost: Int
 }
 
 input TicketsAvailableScalarWhereInput {
@@ -291,20 +347,36 @@ input TicketsAvailableScalarWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  info: String
-  info_not: String
-  info_in: [String!]
-  info_not_in: [String!]
-  info_lt: String
-  info_lte: String
-  info_gt: String
-  info_gte: String
-  info_contains: String
-  info_not_contains: String
-  info_starts_with: String
-  info_not_starts_with: String
-  info_ends_with: String
-  info_not_ends_with: String
+  passType: String
+  passType_not: String
+  passType_in: [String!]
+  passType_not_in: [String!]
+  passType_lt: String
+  passType_lte: String
+  passType_gt: String
+  passType_gte: String
+  passType_contains: String
+  passType_not_contains: String
+  passType_starts_with: String
+  passType_not_starts_with: String
+  passType_ends_with: String
+  passType_not_ends_with: String
+  numberOfTickets: Int
+  numberOfTickets_not: Int
+  numberOfTickets_in: [Int!]
+  numberOfTickets_not_in: [Int!]
+  numberOfTickets_lt: Int
+  numberOfTickets_lte: Int
+  numberOfTickets_gt: Int
+  numberOfTickets_gte: Int
+  cost: Int
+  cost_not: Int
+  cost_in: [Int!]
+  cost_not_in: [Int!]
+  cost_lt: Int
+  cost_lte: Int
+  cost_gt: Int
+  cost_gte: Int
   AND: [TicketsAvailableScalarWhereInput!]
   OR: [TicketsAvailableScalarWhereInput!]
   NOT: [TicketsAvailableScalarWhereInput!]
@@ -328,32 +400,36 @@ input TicketsAvailableSubscriptionWhereInput {
   NOT: [TicketsAvailableSubscriptionWhereInput!]
 }
 
-input TicketsAvailableUpdateDataInput {
-  info: String
-}
-
 input TicketsAvailableUpdateInput {
-  info: String
+  user: UserUpdateOneInput
+  passType: String
+  numberOfTickets: Int
+  cost: Int
+  event: EventUpdateOneWithoutTicketsAvailableInput
 }
 
 input TicketsAvailableUpdateManyDataInput {
-  info: String
+  passType: String
+  numberOfTickets: Int
+  cost: Int
 }
 
-input TicketsAvailableUpdateManyInput {
-  create: [TicketsAvailableCreateInput!]
-  update: [TicketsAvailableUpdateWithWhereUniqueNestedInput!]
-  upsert: [TicketsAvailableUpsertWithWhereUniqueNestedInput!]
+input TicketsAvailableUpdateManyMutationInput {
+  passType: String
+  numberOfTickets: Int
+  cost: Int
+}
+
+input TicketsAvailableUpdateManyWithoutEventInput {
+  create: [TicketsAvailableCreateWithoutEventInput!]
   delete: [TicketsAvailableWhereUniqueInput!]
   connect: [TicketsAvailableWhereUniqueInput!]
   set: [TicketsAvailableWhereUniqueInput!]
   disconnect: [TicketsAvailableWhereUniqueInput!]
+  update: [TicketsAvailableUpdateWithWhereUniqueWithoutEventInput!]
+  upsert: [TicketsAvailableUpsertWithWhereUniqueWithoutEventInput!]
   deleteMany: [TicketsAvailableScalarWhereInput!]
   updateMany: [TicketsAvailableUpdateManyWithWhereNestedInput!]
-}
-
-input TicketsAvailableUpdateManyMutationInput {
-  info: String
 }
 
 input TicketsAvailableUpdateManyWithWhereNestedInput {
@@ -361,15 +437,22 @@ input TicketsAvailableUpdateManyWithWhereNestedInput {
   data: TicketsAvailableUpdateManyDataInput!
 }
 
-input TicketsAvailableUpdateWithWhereUniqueNestedInput {
-  where: TicketsAvailableWhereUniqueInput!
-  data: TicketsAvailableUpdateDataInput!
+input TicketsAvailableUpdateWithoutEventDataInput {
+  user: UserUpdateOneInput
+  passType: String
+  numberOfTickets: Int
+  cost: Int
 }
 
-input TicketsAvailableUpsertWithWhereUniqueNestedInput {
+input TicketsAvailableUpdateWithWhereUniqueWithoutEventInput {
   where: TicketsAvailableWhereUniqueInput!
-  update: TicketsAvailableUpdateDataInput!
-  create: TicketsAvailableCreateInput!
+  data: TicketsAvailableUpdateWithoutEventDataInput!
+}
+
+input TicketsAvailableUpsertWithWhereUniqueWithoutEventInput {
+  where: TicketsAvailableWhereUniqueInput!
+  update: TicketsAvailableUpdateWithoutEventDataInput!
+  create: TicketsAvailableCreateWithoutEventInput!
 }
 
 input TicketsAvailableWhereInput {
@@ -387,20 +470,38 @@ input TicketsAvailableWhereInput {
   id_not_starts_with: ID
   id_ends_with: ID
   id_not_ends_with: ID
-  info: String
-  info_not: String
-  info_in: [String!]
-  info_not_in: [String!]
-  info_lt: String
-  info_lte: String
-  info_gt: String
-  info_gte: String
-  info_contains: String
-  info_not_contains: String
-  info_starts_with: String
-  info_not_starts_with: String
-  info_ends_with: String
-  info_not_ends_with: String
+  user: UserWhereInput
+  passType: String
+  passType_not: String
+  passType_in: [String!]
+  passType_not_in: [String!]
+  passType_lt: String
+  passType_lte: String
+  passType_gt: String
+  passType_gte: String
+  passType_contains: String
+  passType_not_contains: String
+  passType_starts_with: String
+  passType_not_starts_with: String
+  passType_ends_with: String
+  passType_not_ends_with: String
+  numberOfTickets: Int
+  numberOfTickets_not: Int
+  numberOfTickets_in: [Int!]
+  numberOfTickets_not_in: [Int!]
+  numberOfTickets_lt: Int
+  numberOfTickets_lte: Int
+  numberOfTickets_gt: Int
+  numberOfTickets_gte: Int
+  cost: Int
+  cost_not: Int
+  cost_in: [Int!]
+  cost_not_in: [Int!]
+  cost_lt: Int
+  cost_lte: Int
+  cost_gt: Int
+  cost_gte: Int
+  event: EventWhereInput
   AND: [TicketsAvailableWhereInput!]
   OR: [TicketsAvailableWhereInput!]
   NOT: [TicketsAvailableWhereInput!]
@@ -430,6 +531,11 @@ input UserCreateInput {
   lastName: String
   email: String
   password: String
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 type UserEdge {
@@ -476,6 +582,13 @@ input UserSubscriptionWhereInput {
   NOT: [UserSubscriptionWhereInput!]
 }
 
+input UserUpdateDataInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+}
+
 input UserUpdateInput {
   firstName: String
   lastName: String
@@ -488,6 +601,20 @@ input UserUpdateManyMutationInput {
   lastName: String
   email: String
   password: String
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: UserWhereUniqueInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {

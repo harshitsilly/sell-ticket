@@ -190,8 +190,12 @@ export interface ClientConstructor<T> {
 export type TicketsAvailableOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "info_ASC"
-  | "info_DESC";
+  | "passType_ASC"
+  | "passType_DESC"
+  | "numberOfTickets_ASC"
+  | "numberOfTickets_DESC"
+  | "cost_ASC"
+  | "cost_DESC";
 
 export type EventOrderByInput =
   | "id_ASC"
@@ -226,161 +230,23 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface EventCreateInput {
-  id?: Maybe<ID_Input>;
+export interface EventUpdateInput {
   name?: Maybe<String>;
   category?: Maybe<CategoryFormat>;
   date?: Maybe<DateTimeInput>;
   location?: Maybe<String>;
-  ticketsAvailable?: Maybe<TicketsAvailableCreateManyInput>;
+  ticketsAvailable?: Maybe<TicketsAvailableUpdateManyWithoutEventInput>;
 }
 
 export type EventWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface EventUpdateInput {
-  name?: Maybe<String>;
-  category?: Maybe<CategoryFormat>;
-  date?: Maybe<DateTimeInput>;
-  location?: Maybe<String>;
-  ticketsAvailable?: Maybe<TicketsAvailableUpdateManyInput>;
-}
-
-export interface TicketsAvailableWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  info?: Maybe<String>;
-  info_not?: Maybe<String>;
-  info_in?: Maybe<String[] | String>;
-  info_not_in?: Maybe<String[] | String>;
-  info_lt?: Maybe<String>;
-  info_lte?: Maybe<String>;
-  info_gt?: Maybe<String>;
-  info_gte?: Maybe<String>;
-  info_contains?: Maybe<String>;
-  info_not_contains?: Maybe<String>;
-  info_starts_with?: Maybe<String>;
-  info_not_starts_with?: Maybe<String>;
-  info_ends_with?: Maybe<String>;
-  info_not_ends_with?: Maybe<String>;
-  AND?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
-  OR?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
-  NOT?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
-}
-
-export type UserWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
-
-export interface EventWhereInput {
-  id?: Maybe<ID_Input>;
-  id_not?: Maybe<ID_Input>;
-  id_in?: Maybe<ID_Input[] | ID_Input>;
-  id_not_in?: Maybe<ID_Input[] | ID_Input>;
-  id_lt?: Maybe<ID_Input>;
-  id_lte?: Maybe<ID_Input>;
-  id_gt?: Maybe<ID_Input>;
-  id_gte?: Maybe<ID_Input>;
-  id_contains?: Maybe<ID_Input>;
-  id_not_contains?: Maybe<ID_Input>;
-  id_starts_with?: Maybe<ID_Input>;
-  id_not_starts_with?: Maybe<ID_Input>;
-  id_ends_with?: Maybe<ID_Input>;
-  id_not_ends_with?: Maybe<ID_Input>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  category?: Maybe<CategoryFormat>;
-  category_not?: Maybe<CategoryFormat>;
-  category_in?: Maybe<CategoryFormat[] | CategoryFormat>;
-  category_not_in?: Maybe<CategoryFormat[] | CategoryFormat>;
-  date?: Maybe<DateTimeInput>;
-  date_not?: Maybe<DateTimeInput>;
-  date_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  date_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
-  date_lt?: Maybe<DateTimeInput>;
-  date_lte?: Maybe<DateTimeInput>;
-  date_gt?: Maybe<DateTimeInput>;
-  date_gte?: Maybe<DateTimeInput>;
-  location?: Maybe<String>;
-  location_not?: Maybe<String>;
-  location_in?: Maybe<String[] | String>;
-  location_not_in?: Maybe<String[] | String>;
-  location_lt?: Maybe<String>;
-  location_lte?: Maybe<String>;
-  location_gt?: Maybe<String>;
-  location_gte?: Maybe<String>;
-  location_contains?: Maybe<String>;
-  location_not_contains?: Maybe<String>;
-  location_starts_with?: Maybe<String>;
-  location_not_starts_with?: Maybe<String>;
-  location_ends_with?: Maybe<String>;
-  location_not_ends_with?: Maybe<String>;
-  ticketsAvailable_every?: Maybe<TicketsAvailableWhereInput>;
-  ticketsAvailable_some?: Maybe<TicketsAvailableWhereInput>;
-  ticketsAvailable_none?: Maybe<TicketsAvailableWhereInput>;
-  AND?: Maybe<EventWhereInput[] | EventWhereInput>;
-  OR?: Maybe<EventWhereInput[] | EventWhereInput>;
-  NOT?: Maybe<EventWhereInput[] | EventWhereInput>;
-}
-
-export interface TicketsAvailableUpdateManyDataInput {
-  info?: Maybe<String>;
-}
-
-export interface TicketsAvailableUpdateManyInput {
-  create?: Maybe<TicketsAvailableCreateInput[] | TicketsAvailableCreateInput>;
-  update?: Maybe<
-    | TicketsAvailableUpdateWithWhereUniqueNestedInput[]
-    | TicketsAvailableUpdateWithWhereUniqueNestedInput
-  >;
-  upsert?: Maybe<
-    | TicketsAvailableUpsertWithWhereUniqueNestedInput[]
-    | TicketsAvailableUpsertWithWhereUniqueNestedInput
-  >;
-  delete?: Maybe<
-    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
-  >;
-  connect?: Maybe<
-    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
-  >;
-  set?: Maybe<
-    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
-  >;
-  disconnect?: Maybe<
-    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
-  >;
-  deleteMany?: Maybe<
-    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
-  >;
-  updateMany?: Maybe<
-    | TicketsAvailableUpdateManyWithWhereNestedInput[]
-    | TicketsAvailableUpdateManyWithWhereNestedInput
-  >;
+export interface TicketsAvailableUpdateWithoutEventDataInput {
+  user?: Maybe<UserUpdateOneInput>;
+  passType?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  cost?: Maybe<Int>;
 }
 
 export interface UserWhereInput {
@@ -459,6 +325,150 @@ export interface UserWhereInput {
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
 }
 
+export interface UserUpdateOneInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface EventWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  category?: Maybe<CategoryFormat>;
+  category_not?: Maybe<CategoryFormat>;
+  category_in?: Maybe<CategoryFormat[] | CategoryFormat>;
+  category_not_in?: Maybe<CategoryFormat[] | CategoryFormat>;
+  date?: Maybe<DateTimeInput>;
+  date_not?: Maybe<DateTimeInput>;
+  date_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  date_lt?: Maybe<DateTimeInput>;
+  date_lte?: Maybe<DateTimeInput>;
+  date_gt?: Maybe<DateTimeInput>;
+  date_gte?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
+  location_not?: Maybe<String>;
+  location_in?: Maybe<String[] | String>;
+  location_not_in?: Maybe<String[] | String>;
+  location_lt?: Maybe<String>;
+  location_lte?: Maybe<String>;
+  location_gt?: Maybe<String>;
+  location_gte?: Maybe<String>;
+  location_contains?: Maybe<String>;
+  location_not_contains?: Maybe<String>;
+  location_starts_with?: Maybe<String>;
+  location_not_starts_with?: Maybe<String>;
+  location_ends_with?: Maybe<String>;
+  location_not_ends_with?: Maybe<String>;
+  ticketsAvailable_every?: Maybe<TicketsAvailableWhereInput>;
+  ticketsAvailable_some?: Maybe<TicketsAvailableWhereInput>;
+  ticketsAvailable_none?: Maybe<TicketsAvailableWhereInput>;
+  AND?: Maybe<EventWhereInput[] | EventWhereInput>;
+  OR?: Maybe<EventWhereInput[] | EventWhereInput>;
+  NOT?: Maybe<EventWhereInput[] | EventWhereInput>;
+}
+
+export interface TicketsAvailableCreateInput {
+  id?: Maybe<ID_Input>;
+  user?: Maybe<UserCreateOneInput>;
+  passType?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  cost?: Maybe<Int>;
+  event?: Maybe<EventCreateOneWithoutTicketsAvailableInput>;
+}
+
+export interface TicketsAvailableScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  passType?: Maybe<String>;
+  passType_not?: Maybe<String>;
+  passType_in?: Maybe<String[] | String>;
+  passType_not_in?: Maybe<String[] | String>;
+  passType_lt?: Maybe<String>;
+  passType_lte?: Maybe<String>;
+  passType_gt?: Maybe<String>;
+  passType_gte?: Maybe<String>;
+  passType_contains?: Maybe<String>;
+  passType_not_contains?: Maybe<String>;
+  passType_starts_with?: Maybe<String>;
+  passType_not_starts_with?: Maybe<String>;
+  passType_ends_with?: Maybe<String>;
+  passType_not_ends_with?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  numberOfTickets_not?: Maybe<Int>;
+  numberOfTickets_in?: Maybe<Int[] | Int>;
+  numberOfTickets_not_in?: Maybe<Int[] | Int>;
+  numberOfTickets_lt?: Maybe<Int>;
+  numberOfTickets_lte?: Maybe<Int>;
+  numberOfTickets_gt?: Maybe<Int>;
+  numberOfTickets_gte?: Maybe<Int>;
+  cost?: Maybe<Int>;
+  cost_not?: Maybe<Int>;
+  cost_in?: Maybe<Int[] | Int>;
+  cost_not_in?: Maybe<Int[] | Int>;
+  cost_lt?: Maybe<Int>;
+  cost_lte?: Maybe<Int>;
+  cost_gt?: Maybe<Int>;
+  cost_gte?: Maybe<Int>;
+  AND?: Maybe<
+    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
+  >;
+  OR?: Maybe<
+    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
+  >;
+  NOT?: Maybe<
+    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
+  >;
+}
+
+export interface UserUpdateDataInput {
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+}
+
 export interface TicketsAvailableSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -479,9 +489,13 @@ export interface TicketsAvailableSubscriptionWhereInput {
   >;
 }
 
-export interface TicketsAvailableUpdateManyWithWhereNestedInput {
-  where: TicketsAvailableScalarWhereInput;
-  data: TicketsAvailableUpdateManyDataInput;
+export interface EventCreateInput {
+  id?: Maybe<ID_Input>;
+  name?: Maybe<String>;
+  category?: Maybe<CategoryFormat>;
+  date?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
+  ticketsAvailable?: Maybe<TicketsAvailableCreateManyWithoutEventInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -491,7 +505,158 @@ export interface UserUpdateManyMutationInput {
   password?: Maybe<String>;
 }
 
-export interface TicketsAvailableScalarWhereInput {
+export interface TicketsAvailableCreateManyWithoutEventInput {
+  create?: Maybe<
+    | TicketsAvailableCreateWithoutEventInput[]
+    | TicketsAvailableCreateWithoutEventInput
+  >;
+  connect?: Maybe<
+    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
+  >;
+}
+
+export interface TicketsAvailableUpdateManyMutationInput {
+  passType?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  cost?: Maybe<Int>;
+}
+
+export interface TicketsAvailableCreateWithoutEventInput {
+  id?: Maybe<ID_Input>;
+  user?: Maybe<UserCreateOneInput>;
+  passType?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  cost?: Maybe<Int>;
+}
+
+export interface EventUpsertWithoutTicketsAvailableInput {
+  update: EventUpdateWithoutTicketsAvailableDataInput;
+  create: EventCreateWithoutTicketsAvailableInput;
+}
+
+export interface UserCreateOneInput {
+  create?: Maybe<UserCreateInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface EventUpdateOneWithoutTicketsAvailableInput {
+  create?: Maybe<EventCreateWithoutTicketsAvailableInput>;
+  update?: Maybe<EventUpdateWithoutTicketsAvailableDataInput>;
+  upsert?: Maybe<EventUpsertWithoutTicketsAvailableInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<EventWhereUniqueInput>;
+}
+
+export interface UserCreateInput {
+  id?: Maybe<ID_Input>;
+  firstName?: Maybe<String>;
+  lastName?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+}
+
+export interface TicketsAvailableUpdateInput {
+  user?: Maybe<UserUpdateOneInput>;
+  passType?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  cost?: Maybe<Int>;
+  event?: Maybe<EventUpdateOneWithoutTicketsAvailableInput>;
+}
+
+export interface EventUpdateManyMutationInput {
+  name?: Maybe<String>;
+  category?: Maybe<CategoryFormat>;
+  date?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
+}
+
+export interface EventCreateOneWithoutTicketsAvailableInput {
+  create?: Maybe<EventCreateWithoutTicketsAvailableInput>;
+  connect?: Maybe<EventWhereUniqueInput>;
+}
+
+export interface TicketsAvailableUpdateManyWithoutEventInput {
+  create?: Maybe<
+    | TicketsAvailableCreateWithoutEventInput[]
+    | TicketsAvailableCreateWithoutEventInput
+  >;
+  delete?: Maybe<
+    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
+  >;
+  connect?: Maybe<
+    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
+  >;
+  set?: Maybe<
+    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
+  >;
+  update?: Maybe<
+    | TicketsAvailableUpdateWithWhereUniqueWithoutEventInput[]
+    | TicketsAvailableUpdateWithWhereUniqueWithoutEventInput
+  >;
+  upsert?: Maybe<
+    | TicketsAvailableUpsertWithWhereUniqueWithoutEventInput[]
+    | TicketsAvailableUpsertWithWhereUniqueWithoutEventInput
+  >;
+  deleteMany?: Maybe<
+    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | TicketsAvailableUpdateManyWithWhereNestedInput[]
+    | TicketsAvailableUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface EventSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<EventWhereInput>;
+  AND?: Maybe<EventSubscriptionWhereInput[] | EventSubscriptionWhereInput>;
+  OR?: Maybe<EventSubscriptionWhereInput[] | EventSubscriptionWhereInput>;
+  NOT?: Maybe<EventSubscriptionWhereInput[] | EventSubscriptionWhereInput>;
+}
+
+export interface TicketsAvailableUpdateWithWhereUniqueWithoutEventInput {
+  where: TicketsAvailableWhereUniqueInput;
+  data: TicketsAvailableUpdateWithoutEventDataInput;
+}
+
+export type TicketsAvailableWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface TicketsAvailableUpdateManyDataInput {
+  passType?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  cost?: Maybe<Int>;
+}
+
+export type UserWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface TicketsAvailableUpsertWithWhereUniqueWithoutEventInput {
+  where: TicketsAvailableWhereUniqueInput;
+  update: TicketsAvailableUpdateWithoutEventDataInput;
+  create: TicketsAvailableCreateWithoutEventInput;
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput;
+  create: UserCreateInput;
+}
+
+export interface TicketsAvailableUpdateManyWithWhereNestedInput {
+  where: TicketsAvailableScalarWhereInput;
+  data: TicketsAvailableUpdateManyDataInput;
+}
+
+export interface TicketsAvailableWhereInput {
   id?: Maybe<ID_Input>;
   id_not?: Maybe<ID_Input>;
   id_in?: Maybe<ID_Input[] | ID_Input>;
@@ -506,86 +671,56 @@ export interface TicketsAvailableScalarWhereInput {
   id_not_starts_with?: Maybe<ID_Input>;
   id_ends_with?: Maybe<ID_Input>;
   id_not_ends_with?: Maybe<ID_Input>;
-  info?: Maybe<String>;
-  info_not?: Maybe<String>;
-  info_in?: Maybe<String[] | String>;
-  info_not_in?: Maybe<String[] | String>;
-  info_lt?: Maybe<String>;
-  info_lte?: Maybe<String>;
-  info_gt?: Maybe<String>;
-  info_gte?: Maybe<String>;
-  info_contains?: Maybe<String>;
-  info_not_contains?: Maybe<String>;
-  info_starts_with?: Maybe<String>;
-  info_not_starts_with?: Maybe<String>;
-  info_ends_with?: Maybe<String>;
-  info_not_ends_with?: Maybe<String>;
-  AND?: Maybe<
-    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
-  >;
-  OR?: Maybe<
-    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
-  >;
-  NOT?: Maybe<
-    TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
-  >;
+  user?: Maybe<UserWhereInput>;
+  passType?: Maybe<String>;
+  passType_not?: Maybe<String>;
+  passType_in?: Maybe<String[] | String>;
+  passType_not_in?: Maybe<String[] | String>;
+  passType_lt?: Maybe<String>;
+  passType_lte?: Maybe<String>;
+  passType_gt?: Maybe<String>;
+  passType_gte?: Maybe<String>;
+  passType_contains?: Maybe<String>;
+  passType_not_contains?: Maybe<String>;
+  passType_starts_with?: Maybe<String>;
+  passType_not_starts_with?: Maybe<String>;
+  passType_ends_with?: Maybe<String>;
+  passType_not_ends_with?: Maybe<String>;
+  numberOfTickets?: Maybe<Int>;
+  numberOfTickets_not?: Maybe<Int>;
+  numberOfTickets_in?: Maybe<Int[] | Int>;
+  numberOfTickets_not_in?: Maybe<Int[] | Int>;
+  numberOfTickets_lt?: Maybe<Int>;
+  numberOfTickets_lte?: Maybe<Int>;
+  numberOfTickets_gt?: Maybe<Int>;
+  numberOfTickets_gte?: Maybe<Int>;
+  cost?: Maybe<Int>;
+  cost_not?: Maybe<Int>;
+  cost_in?: Maybe<Int[] | Int>;
+  cost_not_in?: Maybe<Int[] | Int>;
+  cost_lt?: Maybe<Int>;
+  cost_lte?: Maybe<Int>;
+  cost_gt?: Maybe<Int>;
+  cost_gte?: Maybe<Int>;
+  event?: Maybe<EventWhereInput>;
+  AND?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
+  OR?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
+  NOT?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
 }
 
-export interface UserCreateInput {
+export interface EventCreateWithoutTicketsAvailableInput {
   id?: Maybe<ID_Input>;
-  firstName?: Maybe<String>;
-  lastName?: Maybe<String>;
-  email?: Maybe<String>;
-  password?: Maybe<String>;
-}
-
-export interface TicketsAvailableUpsertWithWhereUniqueNestedInput {
-  where: TicketsAvailableWhereUniqueInput;
-  update: TicketsAvailableUpdateDataInput;
-  create: TicketsAvailableCreateInput;
-}
-
-export interface TicketsAvailableUpdateManyMutationInput {
-  info?: Maybe<String>;
-}
-
-export interface TicketsAvailableUpdateDataInput {
-  info?: Maybe<String>;
-}
-
-export interface EventUpdateManyMutationInput {
   name?: Maybe<String>;
   category?: Maybe<CategoryFormat>;
   date?: Maybe<DateTimeInput>;
   location?: Maybe<String>;
 }
 
-export interface EventSubscriptionWhereInput {
-  mutation_in?: Maybe<MutationType[] | MutationType>;
-  updatedFields_contains?: Maybe<String>;
-  updatedFields_contains_every?: Maybe<String[] | String>;
-  updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<EventWhereInput>;
-  AND?: Maybe<EventSubscriptionWhereInput[] | EventSubscriptionWhereInput>;
-  OR?: Maybe<EventSubscriptionWhereInput[] | EventSubscriptionWhereInput>;
-  NOT?: Maybe<EventSubscriptionWhereInput[] | EventSubscriptionWhereInput>;
-}
-
-export interface TicketsAvailableCreateInput {
-  id?: Maybe<ID_Input>;
-  info?: Maybe<String>;
-}
-
-export interface TicketsAvailableCreateManyInput {
-  create?: Maybe<TicketsAvailableCreateInput[] | TicketsAvailableCreateInput>;
-  connect?: Maybe<
-    TicketsAvailableWhereUniqueInput[] | TicketsAvailableWhereUniqueInput
-  >;
-}
-
-export interface TicketsAvailableUpdateWithWhereUniqueNestedInput {
-  where: TicketsAvailableWhereUniqueInput;
-  data: TicketsAvailableUpdateDataInput;
+export interface EventUpdateWithoutTicketsAvailableDataInput {
+  name?: Maybe<String>;
+  category?: Maybe<CategoryFormat>;
+  date?: Maybe<DateTimeInput>;
+  location?: Maybe<String>;
 }
 
 export interface UserUpdateInput {
@@ -605,14 +740,6 @@ export interface UserSubscriptionWhereInput {
   OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
-
-export interface TicketsAvailableUpdateInput {
-  info?: Maybe<String>;
-}
-
-export type TicketsAvailableWhereUniqueInput = AtLeastOne<{
-  id: Maybe<ID_Input>;
-}>;
 
 export interface NodeNode {
   id: ID_Output;
@@ -664,28 +791,42 @@ export interface AggregateEventSubscription
 
 export interface TicketsAvailable {
   id: ID_Output;
-  info?: String;
+  passType?: String;
+  numberOfTickets?: Int;
+  cost?: Int;
 }
 
 export interface TicketsAvailablePromise
   extends Promise<TicketsAvailable>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  info: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  passType: () => Promise<String>;
+  numberOfTickets: () => Promise<Int>;
+  cost: () => Promise<Int>;
+  event: <T = EventPromise>() => T;
 }
 
 export interface TicketsAvailableSubscription
   extends Promise<AsyncIterator<TicketsAvailable>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  info: () => Promise<AsyncIterator<String>>;
+  user: <T = UserSubscription>() => T;
+  passType: () => Promise<AsyncIterator<String>>;
+  numberOfTickets: () => Promise<AsyncIterator<Int>>;
+  cost: () => Promise<AsyncIterator<Int>>;
+  event: <T = EventSubscription>() => T;
 }
 
 export interface TicketsAvailableNullablePromise
   extends Promise<TicketsAvailable | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  info: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  passType: () => Promise<String>;
+  numberOfTickets: () => Promise<Int>;
+  cost: () => Promise<Int>;
+  event: <T = EventPromise>() => T;
 }
 
 export interface EventEdge {
@@ -705,98 +846,56 @@ export interface EventEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface AggregateUser {
-  count: Int;
-}
-
-export interface AggregateUserPromise
-  extends Promise<AggregateUser>,
-    Fragmentable {
-  count: () => Promise<Int>;
-}
-
-export interface AggregateUserSubscription
-  extends Promise<AsyncIterator<AggregateUser>>,
-    Fragmentable {
-  count: () => Promise<AsyncIterator<Int>>;
-}
-
-export interface TicketsAvailablePreviousValues {
+export interface User {
   id: ID_Output;
-  info?: String;
+  firstName?: String;
+  lastName?: String;
+  email?: String;
+  password?: String;
 }
 
-export interface TicketsAvailablePreviousValuesPromise
-  extends Promise<TicketsAvailablePreviousValues>,
-    Fragmentable {
+export interface UserPromise extends Promise<User>, Fragmentable {
   id: () => Promise<ID_Output>;
-  info: () => Promise<String>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
 }
 
-export interface TicketsAvailablePreviousValuesSubscription
-  extends Promise<AsyncIterator<TicketsAvailablePreviousValues>>,
+export interface UserSubscription
+  extends Promise<AsyncIterator<User>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  info: () => Promise<AsyncIterator<String>>;
+  firstName: () => Promise<AsyncIterator<String>>;
+  lastName: () => Promise<AsyncIterator<String>>;
+  email: () => Promise<AsyncIterator<String>>;
+  password: () => Promise<AsyncIterator<String>>;
 }
 
-export interface EventConnection {
-  pageInfo: PageInfo;
-  edges: EventEdge[];
-}
-
-export interface EventConnectionPromise
-  extends Promise<EventConnection>,
+export interface UserNullablePromise
+  extends Promise<User | null>,
     Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<EventEdge>>() => T;
-  aggregate: <T = AggregateEventPromise>() => T;
+  id: () => Promise<ID_Output>;
+  firstName: () => Promise<String>;
+  lastName: () => Promise<String>;
+  email: () => Promise<String>;
+  password: () => Promise<String>;
 }
 
-export interface EventConnectionSubscription
-  extends Promise<AsyncIterator<EventConnection>>,
+export interface BatchPayload {
+  count: Long;
+}
+
+export interface BatchPayloadPromise
+  extends Promise<BatchPayload>,
     Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<EventEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateEventSubscription>() => T;
+  count: () => Promise<Long>;
 }
 
-export interface UserEdge {
-  node: User;
-  cursor: String;
-}
-
-export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
-  node: <T = UserPromise>() => T;
-  cursor: () => Promise<String>;
-}
-
-export interface UserEdgeSubscription
-  extends Promise<AsyncIterator<UserEdge>>,
+export interface BatchPayloadSubscription
+  extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
-  node: <T = UserSubscription>() => T;
-  cursor: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserConnection {
-  pageInfo: PageInfo;
-  edges: UserEdge[];
-}
-
-export interface UserConnectionPromise
-  extends Promise<UserConnection>,
-    Fragmentable {
-  pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<UserEdge>>() => T;
-  aggregate: <T = AggregateUserPromise>() => T;
-}
-
-export interface UserConnectionSubscription
-  extends Promise<AsyncIterator<UserConnection>>,
-    Fragmentable {
-  pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateUserSubscription>() => T;
+  count: () => Promise<AsyncIterator<Long>>;
 }
 
 export interface TicketsAvailableSubscriptionPayload {
@@ -824,6 +923,66 @@ export interface TicketsAvailableSubscriptionPayloadSubscription
   previousValues: <T = TicketsAvailablePreviousValuesSubscription>() => T;
 }
 
+export interface AggregateUser {
+  count: Int;
+}
+
+export interface AggregateUserPromise
+  extends Promise<AggregateUser>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateUserSubscription
+  extends Promise<AsyncIterator<AggregateUser>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface UserConnection {
+  pageInfo: PageInfo;
+  edges: UserEdge[];
+}
+
+export interface UserConnectionPromise
+  extends Promise<UserConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<UserEdge>>() => T;
+  aggregate: <T = AggregateUserPromise>() => T;
+}
+
+export interface UserConnectionSubscription
+  extends Promise<AsyncIterator<UserConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<UserEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateUserSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
 export interface AggregateTicketsAvailable {
   count: Int;
 }
@@ -840,29 +999,25 @@ export interface AggregateTicketsAvailableSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface UserSubscriptionPayload {
-  mutation: MutationType;
-  node: User;
-  updatedFields: String[];
-  previousValues: UserPreviousValues;
+export interface EventConnection {
+  pageInfo: PageInfo;
+  edges: EventEdge[];
 }
 
-export interface UserSubscriptionPayloadPromise
-  extends Promise<UserSubscriptionPayload>,
+export interface EventConnectionPromise
+  extends Promise<EventConnection>,
     Fragmentable {
-  mutation: () => Promise<MutationType>;
-  node: <T = UserPromise>() => T;
-  updatedFields: () => Promise<String[]>;
-  previousValues: <T = UserPreviousValuesPromise>() => T;
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<EventEdge>>() => T;
+  aggregate: <T = AggregateEventPromise>() => T;
 }
 
-export interface UserSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
+export interface EventConnectionSubscription
+  extends Promise<AsyncIterator<EventConnection>>,
     Fragmentable {
-  mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = UserSubscription>() => T;
-  updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = UserPreviousValuesSubscription>() => T;
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<EventEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateEventSubscription>() => T;
 }
 
 export interface EventPreviousValues {
@@ -983,29 +1138,6 @@ export interface EventNullablePromise
   }) => T;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface TicketsAvailableEdge {
   node: TicketsAvailable;
   cursor: String;
@@ -1025,56 +1157,71 @@ export interface TicketsAvailableEdgeSubscription
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface BatchPayload {
-  count: Long;
+export interface UserSubscriptionPayload {
+  mutation: MutationType;
+  node: User;
+  updatedFields: String[];
+  previousValues: UserPreviousValues;
 }
 
-export interface BatchPayloadPromise
-  extends Promise<BatchPayload>,
+export interface UserSubscriptionPayloadPromise
+  extends Promise<UserSubscriptionPayload>,
     Fragmentable {
-  count: () => Promise<Long>;
+  mutation: () => Promise<MutationType>;
+  node: <T = UserPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = UserPreviousValuesPromise>() => T;
 }
 
-export interface BatchPayloadSubscription
-  extends Promise<AsyncIterator<BatchPayload>>,
+export interface UserSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<UserSubscriptionPayload>>,
     Fragmentable {
-  count: () => Promise<AsyncIterator<Long>>;
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = UserSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = UserPreviousValuesSubscription>() => T;
 }
 
-export interface User {
+export interface UserEdge {
+  node: User;
+  cursor: String;
+}
+
+export interface UserEdgePromise extends Promise<UserEdge>, Fragmentable {
+  node: <T = UserPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface UserEdgeSubscription
+  extends Promise<AsyncIterator<UserEdge>>,
+    Fragmentable {
+  node: <T = UserSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface TicketsAvailablePreviousValues {
   id: ID_Output;
-  firstName?: String;
-  lastName?: String;
-  email?: String;
-  password?: String;
+  passType?: String;
+  numberOfTickets?: Int;
+  cost?: Int;
 }
 
-export interface UserPromise extends Promise<User>, Fragmentable {
+export interface TicketsAvailablePreviousValuesPromise
+  extends Promise<TicketsAvailablePreviousValues>,
+    Fragmentable {
   id: () => Promise<ID_Output>;
-  firstName: () => Promise<String>;
-  lastName: () => Promise<String>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
+  passType: () => Promise<String>;
+  numberOfTickets: () => Promise<Int>;
+  cost: () => Promise<Int>;
 }
 
-export interface UserSubscription
-  extends Promise<AsyncIterator<User>>,
+export interface TicketsAvailablePreviousValuesSubscription
+  extends Promise<AsyncIterator<TicketsAvailablePreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  firstName: () => Promise<AsyncIterator<String>>;
-  lastName: () => Promise<AsyncIterator<String>>;
-  email: () => Promise<AsyncIterator<String>>;
-  password: () => Promise<AsyncIterator<String>>;
-}
-
-export interface UserNullablePromise
-  extends Promise<User | null>,
-    Fragmentable {
-  id: () => Promise<ID_Output>;
-  firstName: () => Promise<String>;
-  lastName: () => Promise<String>;
-  email: () => Promise<String>;
-  password: () => Promise<String>;
+  passType: () => Promise<AsyncIterator<String>>;
+  numberOfTickets: () => Promise<AsyncIterator<Int>>;
+  cost: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface TicketsAvailableConnection {
@@ -1104,11 +1251,17 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
-export type Int = number;
+export type ID_Input = string | number;
+export type ID_Output = string;
 
 export type Long = string;
+
+/*
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+*/
+export type String = string;
 
 /*
 DateTime scalar input type, allowing Date
@@ -1121,15 +1274,9 @@ DateTime scalar output type, which is always a string
 export type DateTimeOutput = string;
 
 /*
-The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 */
-export type ID_Input = string | number;
-export type ID_Output = string;
-
-/*
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
-*/
-export type String = string;
+export type Int = number;
 
 /**
  * Model Metadata
