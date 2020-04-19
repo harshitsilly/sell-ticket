@@ -27,7 +27,7 @@ if(window.location.href.indexOf("localhost:3000") > -1) {
 }
 else{
 apolloClient ={
-  uri: window.location.href,
+  uri: window.location.origin,
   cache: new InMemoryCache()
 }
 }
