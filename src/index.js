@@ -18,18 +18,18 @@ import RandomGeneratedColor from "./components/randomGeneratedColor";
 
 // 3
 let apolloClient;
-if(window.location.href.indexOf("localhost") > -1) {
- apolloClient = {
-   uri: "http://localhost:3000/api",
-  cache: new InMemoryCache(),
-  credentials: "include"
-}
-}
-else{
+// if(window.location.href.indexOf("localhost") > -1) {
+//  apolloClient = {
+//    uri: "http://localhost:3000/api",
+//   cache: new InMemoryCache(),
+//   credentials: "include"
+// }
+// }
+// else{
 apolloClient ={
   uri: "http://localhost:4001",
   cache: new InMemoryCache()
-}
+// }
 }
 const client = new ApolloClient(apolloClient);
 
@@ -85,4 +85,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
+serviceWorker.unregister();
