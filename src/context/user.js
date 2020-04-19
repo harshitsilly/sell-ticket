@@ -49,12 +49,12 @@ const CURRENT_USER2 = gql`
 `;
 
 const UserProvider = ({ children }) => {
-	const { loading, error, data } = useQuery(CURRENT_USER, {
-		fetchPolicy: 'no-cache'
-	});
-	if (loading) return <Loader />;
-	if (error) return `Error! ${error.message}`;
-
+	// const { loading, error, data } = useQuery(CURRENT_USER, {
+	// 	fetchPolicy: 'no-cache'
+	// });
+	// if (loading) return <Loader />;
+	// if (error) return `Error! ${error.message}`;
+	let data ={currentUser:null}
 	return <UserContext.Provider value={data}>{children}</UserContext.Provider>;
 };
 
