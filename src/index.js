@@ -20,10 +20,9 @@ import RandomGeneratedColor from "./components/randomGeneratedColor";
 const client = new ApolloClient({
   uri:
     window.location.href.indexOf("localhost") > -1
-      ? "http://localhost:3000/api"
+      ? "http://localhost:4001"
       : window.location.href,
-  cache: new InMemoryCache(),
-  credentials: "include"
+  cache: new InMemoryCache()
 });
 
 const theme = {
