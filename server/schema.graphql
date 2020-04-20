@@ -26,10 +26,16 @@ type TicketsAvailable {
 	cost: Int
 	event: Event
 }
+type SearchResult{
+	searchType: String
+	details: Event
+}
 type Query {
 	currentUser: User
 	events(id:String,category: String, skip: Int, first: Int): [Event]
+	eventsSearch(query:String): [Event]
 	ticketsAvailable: [TicketsAvailable]
+	
 }
 
 enum CategoryFormat {

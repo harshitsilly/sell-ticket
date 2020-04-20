@@ -1,7 +1,5 @@
 * {
 	box-sizing: border-box;
-	
-    
 }
 html,
 body {
@@ -9,24 +7,21 @@ body {
 
 	height: 100%;
 }
-.svgFillWhite{
-	
-		>path{
-			// stroke:black!important;
-			fill:white!important;
-		}
+.svgFillWhite {
+	> path {
+		// stroke:black!important;
+		fill: white !important;
+	}
 }
-.svgStrokeBlack{
-	>path{
-			stroke:black!important;
-		
-		}
+.svgStrokeBlack {
+	> path {
+		stroke: black !important;
+	}
 }
-.svgStrokeWhite{
-	>path{
-			stroke:white!important;
-		
-		}
+.svgStrokeWhite {
+	> path {
+		stroke: white !important;
+	}
 }
 .appMenuHeader {
 	font-weight: 600;
@@ -73,6 +68,12 @@ body {
 	font-size: x-large;
 	line-height: 2rem;
 	margin-top: 7vh;
+}
+.searchBox {
+	position: sticky;
+	top: 0px;
+	z-index: 2;
+	background: white;
 }
 .locationSearchIcon {
 	position: absolute;
@@ -214,7 +215,6 @@ body {
 	}
 }
 .eventTicket {
-	
 	display: flex;
 	align-items: center;
 	justify-self: flex-end;
@@ -222,33 +222,30 @@ body {
 	height: 25px;
 	margin-right: 15px;
 	border-radius: 10px;
-	
+
 	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
 	color: white;
 	> svg {
 		transform: rotate(90deg);
 		height: 15px;
-		>path{
+		> path {
 			// stroke:black!important;
-			fill:white!important;
+			fill: white !important;
 		}
-	
 	}
-		>span{
-			
-			font-weight: 500;
-		}
-		
+	> span {
+		font-weight: 500;
+	}
 }
-.eventTicket[ticket-Data]{
-		background: rgb(0, 182, 240);
-	}
+.eventTicket[ticket-Data] {
+	background: rgb(0, 182, 240);
+}
 
-.eventTicket[ticket-Data="0"]{
-		background: lightgray;
-	}
+.eventTicket[ticket-Data='0'] {
+	background: lightgray;
+}
 
-.eventTicket{
+.eventTicket {
 	background: lightgray;
 }
 .eventGrid {
@@ -259,7 +256,7 @@ body {
 	grid-template-columns: 1fr 3fr 1fr;
 	border-radius: 10px;
 }
-.ticketGrid{
+.ticketGrid {
 	height: 100%;
 	display: grid;
 	align-items: center;
@@ -279,10 +276,11 @@ body {
 		line-height: 16px;
 	}
 }
-.ticketCost{
-	font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+.ticketCost {
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
 	font-weight: 550;
-	>img{
+	> img {
 		height: 15px;
 	}
 }
@@ -398,7 +396,7 @@ body {
 		rgba(0, 19, 25, 0) 100%
 	);
 }
-.eventDetailSubHeader{
+.eventDetailSubHeader {
 	z-index: 2;
 }
 .eventDetailHeaderParent {
@@ -406,50 +404,48 @@ body {
 	color: white;
 	height: 225px;
 	position: relative;
-	top:160px;
-	
+	top: 160px;
 }
 .eventDetailHeader {
 	position: relative;
 	z-index: 2;
 	padding-left: 16px;
 }
-.ticketBadge{
+.ticketBadge {
 	background-color: #28383d;
 	border-radius: 20px;
 	height: 35px;
 	padding: 10px;
 	margin-right: 30px;
-	font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
-	
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
 }
-.ticketBadgeType{
-	line-height: 14px!important;
-	font-size: .6rem!important;
+.ticketBadgeType {
+	line-height: 14px !important;
+	font-size: 0.6rem !important;
 	font-weight: 600;
-	opacity: .7;
-	font-size: .8rem;
+	opacity: 0.7;
+	font-size: 0.8rem;
 }
-.ticketBadgeTickets{
-	font-size: .8rem;
-	line-height: 12px!important;
-	font-size: .7rem!important;
+.ticketBadgeTickets {
+	font-size: 0.8rem;
+	line-height: 12px !important;
+	font-size: 0.7rem !important;
 	font-weight: 700;
-	
 }
-.marginBottom1rem{
+.marginBottom1rem {
 	margin-bottom: 1rem;
 }
-.bottomMargindot5rem{
-	margin-bottom: .5rem;
+.bottomMargindot5rem {
+	margin-bottom: 0.5rem;
 }
-.eventDetailTime{
-	font-size: .95rem;
-	>svg{
-		margin-right: .5rem;
-		>path{
-			fill : lightgray!important;
-			stroke: black!important;
+.eventDetailTime {
+	font-size: 0.95rem;
+	> svg {
+		margin-right: 0.5rem;
+		> path {
+			fill: lightgray !important;
+			stroke: black !important;
 		}
 	}
 }
@@ -458,11 +454,11 @@ body {
 	height: 2.5rem;
 	color: white !important;
 	font-weight: 500 !important;
-	font-size: 1rem!important;
-	opacity: .95;
+	font-size: 1rem !important;
+	opacity: 0.95;
 }
-.eventTicketText{
-	margin-right: .5rem;
+.eventTicketText {
+	margin-right: 0.5rem;
 }
 .showMore {
 	background-color: rgb(240, 251, 254);

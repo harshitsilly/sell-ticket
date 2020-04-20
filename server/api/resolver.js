@@ -33,7 +33,7 @@ const upsertGoogleUser = async function({ accessToken, refreshToken, profile }) 
 const resolvers = {
 	Query: {
 		currentUser: (parent, args, context) => context.getUser(),
-		events: async (parent, { id,category ,skip,first}, context) => {
+		events: async (parent, { id, category, skip, first }, context) => {
 			//  code for fragment
 			const fragment = `
     fragment EventsWithTicketAvailable on Event {
@@ -55,17 +55,28 @@ const resolvers = {
     }
   `;
 
-			let data =  await context.prisma.events({ where: {id, category },skip,
-			first}).$fragment(fragment)
-			data = data.map(event=>{
-					return {...event, numberOfTickets : {available : event.ticketsAvailable.reduce((count,ticket)=>{
-						return count + ticket.numberOfTickets;
-					},0)}}
+			let data = await context.prisma.events({ where: { id, category }, skip, first }).$fragment(fragment);
+			data = data.map(event => {
+				return {
+					...event,
+					numberOfTickets: {
+						available: event.ticketsAvailable.reduce((count, ticket) => {
+							return count + ticket.numberOfTickets;
+						}, 0)
+					}
+				};
 			});
 			return data;
-	// return await context.prisma.events({ where: { category },skip,first});
-		}	
-	
+			// return await context.prisma.events({ where: { category },skip,first});
+		},
+		eventsSearch: async (parent, { query, skip, first }, context) => {
+			let data = await context.prisma.events({
+				where: {
+					OR: [{ name_contains: query }, { location_starts_with: query }]
+				}
+			});
+			return data;
+		}
 	},
 	Mutation: {
 		signup: async (parent, { firstName, lastName, email, password }, context) => {

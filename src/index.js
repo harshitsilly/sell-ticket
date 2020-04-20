@@ -12,6 +12,7 @@ import { Grommet } from "grommet";
 import { UserProvider } from "./context/user";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import Search from "./pages/search";
 import EventDetail from "./pages/eventDetail";
 import Category from "./pages/category";
 import RandomGeneratedColor from "./components/randomGeneratedColor";
@@ -60,6 +61,7 @@ ReactDOM.render(
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/search" component={Search} />
             <Route
               path="/eventDetail:id"
               component={props => <EventDetail {...props} />}

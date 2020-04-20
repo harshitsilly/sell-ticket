@@ -14,11 +14,13 @@ function Event(props) {
 						<Text size="1rem">{props.name}</Text>
 						<Text size=".90rem">{props.location}</Text>
 					</Box>
-					<div ticket-Data={props.numberOfTickets.available} className="eventTicket">
-						<Ticket color="white" />
-						<Text  size="1rem">{props.numberOfTickets.available}</Text>
-					</div>
-					
+
+					{props.numberOfTickets && (
+						<div ticket-Data={props.numberOfTickets.available} className="eventTicket">
+							<Ticket color="white" />
+							<Text size="1rem">{props.numberOfTickets.available}</Text>
+						</div>
+					)}
 				</Grid>
 			</Box>
 		</>

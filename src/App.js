@@ -42,13 +42,14 @@ function App() {
 							The Safest way to buy and sell e-tickets.
 						</Text>
 					</Box>
-					<Box direction="row" align="center" pad="medium">
+					<Box  direction="row" align="center" pad="medium">
 						<Search className="appSearchIcon" />
 						<TextInput
 							className="appSearch"
 							placeholder="Search for events,venues and cities"
-							value={value}
-							onChange={event => setValue(event.target.value)}
+							onClick={()=>setRedirect("search")}
+							
+							
 						/>
 					</Box>
 				</Box>
