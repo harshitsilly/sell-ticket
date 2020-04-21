@@ -33,7 +33,7 @@ const upsertGoogleUser = async function({ accessToken, refreshToken, profile }) 
 const resolvers = {
 	Query: {
 		currentUser: (parent, args, context) => context.getUser(),
-		events: async (parent, { id, category, skip, first }, context) => {
+		events: async (parent, { id, category, location, skip, first }, context) => {
 			//  code for fragment
 			const fragment = `
     fragment EventsWithTicketAvailable on Event {
@@ -54,8 +54,8 @@ const resolvers = {
       }
     }
   `;
-
-			let data = await context.prisma.events({ where: { id, category }, skip, first }).$fragment(fragment);
+			let filter = location ? { id, category, location } : { id, category };
+			let data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
 			data = data.map(event => {
 				return {
 					...event,
@@ -69,10 +69,20 @@ const resolvers = {
 			return data;
 			// return await context.prisma.events({ where: { category },skip,first});
 		},
-		eventsSearch: async (parent, { query, skip, first }, context) => {
+		eventsSearch: async (parent, { query, queryType, skip, first }, context) => {
+			let filterArray = [];
+			if (queryType.indexOf('Event') > -1) {
+				filterArray.push({ name_contains: query });
+			}
+			if (queryType.indexOf('Location') > -1) {
+				filterArray.push({ location_starts_with: query });
+			}
+			if (!filterArray.length) {
+				filterArray = [{ name_contains: query }, { location_starts_with: query }];
+			}
 			let data = await context.prisma.events({
 				where: {
-					OR: [{ name_contains: query }, { location_starts_with: query }]
+					OR: filterArray
 				}
 			});
 			return data;

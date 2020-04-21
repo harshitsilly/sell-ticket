@@ -12,36 +12,42 @@ type Event {
 	location: String
 	numberOfTickets: NumberOfTickets
 	ticketsAvailable: [TicketsAvailable]
-	
 }
-type NumberOfTickets{
+type NumberOfTickets {
 	available: Int
 	sold: Int
 }
 type TicketsAvailable {
 	id: ID
-	user: User 
+	user: User
 	passType: String
-	numberOfTickets: Int 
+	numberOfTickets: Int
 	cost: Int
 	event: Event
 }
-type SearchResult{
+type SearchResult {
 	searchType: String
 	details: Event
 }
 type Query {
 	currentUser: User
-	events(id:String,category: String, skip: Int, first: Int): [Event]
-	eventsSearch(query:String): [Event]
+	events(id: String, category: String, location: String, skip: Int, first: Int): [Event]
+	eventsSearch(queryType: [SearchFormat], query: String): [Event]
 	ticketsAvailable: [TicketsAvailable]
-	
 }
 
 enum CategoryFormat {
-	Sport
-	Festival
-	Music
+	Sports
+	Festivals
+	Club
+	Nights
+	Concerts
+}
+
+enum SearchFormat {
+	Event
+	Venue
+	Location
 }
 
 type AuthPayload {

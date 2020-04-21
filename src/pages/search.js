@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { Text, Box, TextInput } from 'grommet';
-import { Search } from 'grommet-icons';
+import { Text, Box, TextInput, Button } from 'grommet';
+import { Search, FormClose } from 'grommet-icons';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 import Event from '../components/event';
+import FilterButton from '../components/filterButton';
 const QUERY_SEARCH = gql`
 	# Write your query or mutation here
-	query SearchResult($query: String!) {
-		eventsSearch(query: $query) {
+	query SearchResult($query: String!, $type: [SearchFormat]) {
+		eventsSearch(query: $query, queryType: $type) {
 			id
 			name
 			category
@@ -21,10 +22,18 @@ const QUERY_SEARCH = gql`
 function SearchPage() {
 	const [events, setEvents] = React.useState([]);
 	const [value, setValue] = React.useState('');
+	const [type, setType] = React.useState([]);
 	const [redirectToEventDetail, setRedirectToEventDetail] = React.useState(false);
 
 	let onClickEvent = event => {
 		setRedirectToEventDetail(event);
+	};
+	let setFilter = (searchType, addFilter) => {
+		if (addFilter) {
+			setType(type => [...type, searchType]);
+		} else {
+			setType(type => type.filter(element => element !== searchType));
+		}
 	};
 	const onSearch = event => {
 		setValue(event.target.value);
@@ -34,7 +43,7 @@ function SearchPage() {
 	};
 	const { loading, error, data } = useQuery(QUERY_SEARCH, {
 		skip: value.length < 3,
-		variables: { query: value },
+		variables: { query: value, type },
 		fetchPolicy: 'no-cache',
 		onCompleted: setSearchData
 	});
@@ -62,7 +71,21 @@ function SearchPage() {
 							onChange={onSearch}
 						/>
 					</Box>
-					{data && (
+					<Box direction="row" className="searchFilterButtonBox">
+						<Text>Filter By :</Text>
+						<Box direction="row" justify="evenly">
+							<FilterButton label="Event" setFilterCallback={setFilter}></FilterButton>
+							<FilterButton label="Location" setFilterCallback={setFilter}></FilterButton>
+							{/* TODO */}
+							<FilterButton
+								label="Venue"
+								setFilterCallback={() => {
+									console.log('test');
+								}}
+							></FilterButton>
+						</Box>
+					</Box>
+					{data && !loading && (
 						<>
 							<Box pad="medium" className="eventList">
 								{events.length === 0 && <Text weight="bold">No Events Found</Text>}
@@ -97,7 +120,7 @@ function SearchPage() {
 	} else {
 		return (
 			<Box height="100vh">
-				<Box direction="row" align="center" pad="medium">
+				<Box className="searchBox" direction="row" align="center" pad="medium">
 					<Search className="appSearchIcon" />
 					<TextInput className="appSearch" placeholder="Search for events,venues and cities" value={value} onChange={onSearch} />
 				</Box>

@@ -44,6 +44,12 @@ body {
 .categoryHeder {
 	z-index: 3;
 }
+.eventListPaddingTop {
+	padding-top: 80px !important;
+}
+.categoryHeaderHeight {
+	height: 60px !important;
+}
 .categoryBackground {
 	z-index: -1;
 	position: absolute;
@@ -74,6 +80,42 @@ body {
 	top: 0px;
 	z-index: 2;
 	background: white;
+	> div {
+		> input {
+			border: 1px solid rgba(0, 0, 0, 0.33) !important;
+		}
+	}
+}
+.searchFilterButtonBox {
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
+	padding: 0 16px;
+	color: rgb(0, 182, 240);
+
+	> span {
+		font-weight: 550;
+		font-size: 0.95rem;
+		min-width: 70px;
+	}
+	> div {
+		width: 100%;
+		button {
+			font-size: 0.85rem;
+			font-weight: 550;
+			color: white;
+			padding: 0 7px;
+			background-color: rgb(0, 182, 240);
+			border: 0px !important;
+			> div {
+				> div {
+					display: none;
+				}
+			}
+		}
+	}
+}
+.displayNoneIcon {
+	display: none !important;
 }
 .locationSearchIcon {
 	position: absolute;
