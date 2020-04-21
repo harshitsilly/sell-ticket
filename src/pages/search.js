@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Text, Box, TextInput, Button } from 'grommet';
 import { Search, FormClose } from 'grommet-icons';
 import gql from 'graphql-tag';
@@ -24,10 +24,14 @@ function SearchPage() {
 	const [value, setValue] = React.useState('');
 	const [type, setType] = React.useState([]);
 	const [redirectToEventDetail, setRedirectToEventDetail] = React.useState(false);
-
+	const searchRef = React.createRef();
 	let onClickEvent = event => {
 		setRedirectToEventDetail(event);
 	};
+	useLayoutEffect(() => {
+		debugger;
+		searchRef.current.focus();
+	});
 	let setFilter = (searchType, addFilter) => {
 		if (addFilter) {
 			setType(type => [...type, searchType]);
@@ -122,7 +126,13 @@ function SearchPage() {
 			<Box height="100vh">
 				<Box className="searchBox" direction="row" align="center" pad="medium">
 					<Search className="appSearchIcon" />
-					<TextInput className="appSearch" placeholder="Search for events,venues and cities" value={value} onChange={onSearch} />
+					<TextInput
+						ref={searchRef}
+						className="appSearch"
+						placeholder="Search for events,venues and cities"
+						value={value}
+						onChange={onSearch}
+					/>
 				</Box>
 			</Box>
 		);
