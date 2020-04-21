@@ -9,11 +9,11 @@ import EventFIlter from './pages/EventFilter';
 import { Redirect } from 'react-router-dom';
 import './css/app.scss';
 
-const appHeight = () => {
-	let vh = window.innerHeight * 0.01;
-	document.documentElement.style.setProperty('--vh', `${vh}px`);
-};
-window.addEventListener('resize', appHeight);
+// const appHeight = () => {
+// 	let vh = window.innerHeight * 0.01;
+// 	document.documentElement.style.setProperty('--vh', `${vh}px`);
+// };
+// window.addEventListener('resize', appHeight);
 // appHeight();
 
 function App() {
@@ -56,7 +56,8 @@ function App() {
 					</Box>
 				</Footer>
 			</Box>
-			<Box flex="false" className="appContentBox" ref={appContent}>
+
+			<Box flex="false" ref={appContent}>
 				<EventFIlter />
 				<Box flex="false" pad="large">
 					<Box>
@@ -82,18 +83,6 @@ function App() {
 						<Button
 							className="categoryButton"
 							icon={
-								<Box width="2.4rem" pad="small" round="medium" background="neutral-3">
-									<Music />
-								</Box>
-							}
-							label="Concerts"
-							onClick={() => {
-								setRedirect('Concerts');
-							}}
-						/>
-						<Button
-							className="categoryButton"
-							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="dark-1">
 									<PlayFill />
 								</Box>
@@ -103,6 +92,19 @@ function App() {
 								setRedirect('Club Nights');
 							}}
 						/>
+						<Button
+							className="categoryButton"
+							icon={
+								<Box width="2.4rem" pad="small" round="medium" background="neutral-3">
+									<Music />
+								</Box>
+							}
+							label="Concerts"
+							onClick={() => {
+								setRedirect('Concerts');
+							}}
+						/>
+
 						<Button
 							className="categoryButton"
 							icon={

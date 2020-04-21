@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Box, DropButton, TextInput } from 'grommet';
 import { Location, CaretDown, Search } from 'grommet-icons';
 import LocationContent from './locationContent';
@@ -14,9 +14,9 @@ function LocaltionFiler({ setLocationCallback }) {
 		setLocation(location);
 		setLocationCallback(location);
 	};
-	useEffect(() => {
+	let setTextInputFocus = () => {
 		dropContentState && locationRef.current.focus();
-	}, [dropContentState]);
+	};
 	return (
 		<>
 			<Box direction="row" pad="none" className="filterBoxBorder">
@@ -59,7 +59,15 @@ function LocaltionFiler({ setLocationCallback }) {
 						))
 					}
 					dropAlign={{ top: 'bottom', right: 'right' }}
-					dropContent={dropContentState && <LocationContent value={value} setLocationAndClose={setLocationAndClose} />}
+					dropContent={
+						dropContentState && (
+							<LocationContent
+								setTextInputFocus={setTextInputFocus}
+								value={value}
+								setLocationAndClose={setLocationAndClose}
+							/>
+						)
+					}
 				/>
 			</Box>
 		</>

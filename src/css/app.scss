@@ -66,10 +66,6 @@ body {
 	background-color: lightslategray;
 }
 
-.appContentBox {
-	height: calc(var(--vh, 1vh) * 100);
-}
-
 .appMenuPage {
 	animation: skew 0.25s !important;
 	transform-style: preserve-3d;

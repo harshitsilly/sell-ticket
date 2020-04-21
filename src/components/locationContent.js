@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Box, Button } from 'grommet';
 import { Search, Down } from 'grommet-icons';
 import Loader from 'react-loader-spinner';
 
-function LocaltionContent({ value, setLocationAndClose }) {
+function LocaltionContent({ value, setLocationAndClose, setTextInputFocus }) {
 	let [locationData, setLocationdata] = React.useState(['Nearby']);
 	useEffect(() => {
 		setTimeout(() => {
@@ -12,7 +12,9 @@ function LocaltionContent({ value, setLocationAndClose }) {
 
 		return () => {};
 	}, []);
-
+	useLayoutEffect(() => {
+		setTextInputFocus();
+	});
 	return (
 		<>
 			<Box pad="medium" className="dropDownContent">
