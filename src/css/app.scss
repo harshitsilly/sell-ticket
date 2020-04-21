@@ -13,9 +13,15 @@ body {
 		fill: white !important;
 	}
 }
+.svgFillBlack {
+	> path {
+		// stroke:black!important;
+		fill: #555555 !important;
+	}
+}
 .svgStrokeBlack {
 	> path {
-		stroke: black !important;
+		stroke: #555555 !important;
 	}
 }
 .svgStrokeWhite {
@@ -83,6 +89,7 @@ body {
 	> div {
 		> input {
 			border: 1px solid rgba(0, 0, 0, 0.33) !important;
+			height: 45px;
 		}
 	}
 }
@@ -159,7 +166,17 @@ body {
 		justify-content: space-between !important;
 	}
 }
-
+.appMenuButtonsBox {
+	padding-bottom: 20px;
+}
+.avatarSize {
+	height: 100px !important;
+	width: 100px !important;
+	> svg {
+		height: 50px !important;
+		width: 50px !important;
+	}
+}
 .categoryButton {
 	margin-top: 10px !important;
 	border: 0px !important;

@@ -25,7 +25,6 @@ function App() {
 	};
 
 	const appContent = React.useRef();
-
 	if (redirect) return <Redirect push="true" to={`/${redirect}`} />;
 
 	return (
@@ -42,14 +41,12 @@ function App() {
 							The Safest way to buy and sell e-tickets.
 						</Text>
 					</Box>
-					<Box  direction="row" align="center" pad="medium">
+					<Box direction="row" align="center" pad="medium">
 						<Search className="appSearchIcon" />
 						<TextInput
 							className="appSearch"
 							placeholder="Search for events,venues and cities"
-							onClick={()=>setRedirect("search")}
-							
-							
+							onClick={() => setRedirect('search')}
 						/>
 					</Box>
 				</Box>
@@ -74,7 +71,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="accent-4">
-									<Attraction className="svgStrokeBlack"/>
+									<Attraction className="svgStrokeBlack" />
 								</Box>
 							}
 							label="Festivals"
@@ -122,7 +119,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="status-critical">
-									<Multimedia className="svgStrokeBlack svgFillWhite"/>
+									<Multimedia className="svgStrokeBlack svgFillWhite" />
 								</Box>
 							}
 							label="Theatre & Comedy"
@@ -134,7 +131,7 @@ function App() {
 							className="categoryButton"
 							icon={
 								<Box width="2.4rem" pad="small" round="medium" background="accent-4">
-									<Attraction className="svgStrokeBlack"/>
+									<Attraction className="svgStrokeBlack" />
 								</Box>
 							}
 							label="Vouchers & Day Out"

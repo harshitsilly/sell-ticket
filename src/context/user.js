@@ -2,7 +2,10 @@ import React, { createContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Loader from '../components/loader';
-const UserContext = createContext();
+const UserContext = createContext({
+	userData: { currentUser: null },
+	setCurrentUserData: () => {}
+});
 const CURRENT_USER = gql`
 	# Write your query or mutation here
 	{
@@ -49,13 +52,18 @@ const CURRENT_USER2 = gql`
 `;
 
 const UserProvider = ({ children }) => {
+	const [userData, setUserData] = React.useState({ currentUser: null });
+
 	const { loading, error, data } = useQuery(CURRENT_USER, {
-		fetchPolicy: 'no-cache'
+		fetchPolicy: 'no-cache',
+		onCompleted: () => {
+			setUserData(data);
+		}
 	});
 	if (loading) return <Loader />;
 	if (error) return `Error! ${error.message}`;
 
-	return <UserContext.Provider value={data}>{children}</UserContext.Provider>;
+	return <UserContext.Provider value={{ userData, setUserData }}>{children}</UserContext.Provider>;
 };
 
 export { UserProvider, UserContext };
