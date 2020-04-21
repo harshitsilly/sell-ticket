@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 import AppMenu from '../pages/AppMenu';
 import { UserContext } from '../context/user';
 
-function AppHeader({ className, style, header }) {
+function AppHeader({ className, style, header, fromApp }) {
 	const { userData } = useContext(UserContext);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
 	const setModalShow = state => {
@@ -19,7 +19,7 @@ function AppHeader({ className, style, header }) {
 	const popUpRef = React.useRef();
 	const [show, setShow] = React.useState();
 	const [cssAnim, setCssAnim] = React.useState();
-	if (redirectToApp) {
+	if (redirectToApp && fromApp !== 'true') {
 		return <Redirect push="true" to="/" />;
 	} else {
 		return (

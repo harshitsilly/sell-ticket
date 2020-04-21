@@ -34,7 +34,7 @@ function App() {
           {postMutation => <button onClick={postMutation}>Submit</button>}
         </Mutation> */}
 
-				<AppHeader />
+				<AppHeader fromApp="true" />
 				<Box height="100%">
 					<Box className="appDesc">
 						<Text size="x-large" weight="bold">
