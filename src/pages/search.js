@@ -29,8 +29,7 @@ function SearchPage() {
 		setRedirectToEventDetail(event);
 	};
 	useLayoutEffect(() => {
-		debugger;
-		searchRef.current.focus();
+		searchRef.current && searchRef.current.focus();
 	});
 	let setFilter = (searchType, addFilter) => {
 		if (addFilter) {

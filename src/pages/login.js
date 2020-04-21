@@ -43,8 +43,8 @@ function Login() {
 			<>
 				<Box pad="large" height="100vh">
 					<Box pad="xlarge" align="center">
-						<Text size="xlarge" weight="bold" color="brand">
-							Sell Ticket
+						<Text size="xlarge" weight="bold" color="dark-2">
+							Login
 						</Text>
 					</Box>
 
@@ -52,7 +52,7 @@ function Login() {
 						<FormField name="email" label="Email" />
 						<FormField name="password" label="Password" />
 						<Box width="100%" pad="small">
-							<Button icon={<LoginIcon />} type="submit" primary label="SignIn" />
+							<Button color="dark-2" icon={<LoginIcon />} type="submit" primary label="SignIn" />
 						</Box>
 					</Form>
 
