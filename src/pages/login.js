@@ -62,7 +62,7 @@ function Login() {
 									required
 									component={props => (
 										<Box direction="row" align="center">
-											<User className="svgStrokeBlack" />
+											<User />
 											<TextInput type="email" {...props} placeholder="Email"></TextInput>
 										</Box>
 									)}
