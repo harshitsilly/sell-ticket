@@ -55,7 +55,7 @@ function EventDetail() {
 	if (error) return `Error! ${error.message}`;
 	return (
 		<>
-			<Box height="70vh" flex="false">
+			<Box height="460px" flex="false">
 				<AppHeader />
 				<Box className="eventDetailHeaderParent" flex="false">
 					<Box className="eventDetailHeader">
