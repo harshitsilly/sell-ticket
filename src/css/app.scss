@@ -29,6 +29,82 @@ body {
 		stroke: white !important;
 	}
 }
+
+.loginPage {
+	overflow: hidden;
+}
+.loginText {
+	> div {
+		> span {
+			font-size: 35px !important;
+			font-weight: 500;
+			line-height: 45px;
+		}
+	}
+
+	padding: 0 0 50px 0;
+}
+.licenseTransformScale {
+	transform: scaleX(-1);
+}
+.loginForm {
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	margin-bottom: 20px !important;
+	border-radius: 20px;
+	> div > div {
+		border: 0;
+		> div {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.33) !important;
+		}
+	}
+	input {
+		border: 0;
+		font-weight: 400;
+	}
+}
+
+.circle:before {
+	content: ' \25CF';
+	font-size: 200px;
+	color: #8b16ff;
+}
+.circle {
+	padding-top: 35px;
+}
+.circleBox {
+	margin-right: -80px;
+}
+.circleBoxSignup {
+	margin-left: -90px;
+	> div:first-child {
+		margin-bottom: -35px;
+	}
+	> div:last-child {
+		margin-bottom: -35px;
+	}
+}
+.circleSmall:before {
+	content: ' \25CF';
+	font-size: 100px;
+	color: #8b16ff;
+}
+.circleSmall {
+	padding-top: 15px;
+}
+.forgetPasswordButton {
+	font-size: 1rem !important;
+	font-weight: 500 !important;
+}
+.signInButton {
+	width: 140px;
+	margin-right: -45px !important;
+	font-size: 1.1rem !important;
+}
+.signUpButtonOnLoginScreen {
+	font-size: 35px !important;
+	font-weight: 500 !important;
+	margin-bottom: -20px !important;
+}
 .appMenuHeader {
 	font-weight: 600;
 	z-index: 2;

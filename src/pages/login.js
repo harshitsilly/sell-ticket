@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { Button, Box, Form, FormField, Text, Footer } from 'grommet';
-import { Google, Login as LoginIcon } from 'grommet-icons';
+import { Button, Box, Form, FormField, Text, TextInput } from 'grommet';
+import { User, License, FormPreviousLink } from 'grommet-icons';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
@@ -41,23 +41,51 @@ function Login() {
 	} else {
 		return (
 			<>
-				<Box pad="large" height="100vh">
-					<Box pad="xlarge" align="center">
-						<Text size="xlarge" weight="bold" color="dark-2">
-							Login
-						</Text>
-					</Box>
+				<Box className="loginPage" pad="medium" height="100vh" justify="between">
+					<Box>
+						{/* <FormPreviousLink /> */}
+						<Box className="loginText" align="center" justify="between" direction="row">
+							<Box>
+								<Text color="dark-1">Welcome Back</Text>
+							</Box>
 
-					<Form onSubmit={onPressSubmitPasswordForm}>
-						<FormField name="email" label="Email" />
-						<FormField name="password" label="Password" />
-						<Box width="100%" pad="small">
-							<Button color="dark-2" icon={<LoginIcon />} type="submit" primary label="SignIn" />
+							<Box align="center" className="circleBox" direction="row">
+								<div class="circleSmall"></div>
+								<div class="circle"></div>
+							</Box>
 						</Box>
-					</Form>
 
+						<Form onSubmit={onPressSubmitPasswordForm}>
+							<Box className="loginForm" pad="large" gap="small">
+								<FormField
+									name="email"
+									required
+									component={props => (
+										<Box direction="row" align="center">
+											<User className="svgStrokeBlack" />
+											<TextInput type="email" {...props} placeholder="Email"></TextInput>
+										</Box>
+									)}
+								/>
+								<FormField
+									name="password"
+									required
+									component={props => (
+										<Box direction="row" align="center">
+											<License className="licenseTransformScale" />
+											<TextInput type="password" {...props} placeholder="Password"></TextInput>
+										</Box>
+									)}
+								/>
+							</Box>
+							<Box direction="row" width="100%" pad="small" justify="between">
+								<Button className="forgetPasswordButton" plain color="dark-1" label="Forget Password?" />
+								<Button className="signInButton" color="#8B16FF" type="submit" primary label="LOGIN" />
+							</Box>
+						</Form>
+					</Box>
 					{mutationError && <p>Error :( Please try again</p>}
-					<Box pad="small">
+					{/* <Box pad="small">
 						<Button
 							primary
 							icon={<Google />}
@@ -67,12 +95,20 @@ function Login() {
 								window.location = '/auth/google';
 							}}
 						/>
-					</Box>
+					</Box> */}
 
 					<Box pad="small" direction="row" justify="between">
-						<Button plain color="brand" label="SignUp" onClick={() => setRedirectToSignUp(true)} />
-
-						<Button plain color="brand" label="Forgot Password" />
+						<Box align="center" className="circleBoxSignup" direction="row-reverse">
+							<div class="circleSmall"></div>
+							<div class="circle"></div>
+						</Box>
+						<Button
+							className="signUpButtonOnLoginScreen"
+							plain
+							color="dark-1"
+							label="SignUp"
+							onClick={() => setRedirectToSignUp(true)}
+						/>
 					</Box>
 				</Box>
 			</>
