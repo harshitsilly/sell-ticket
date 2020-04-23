@@ -35,7 +35,7 @@ function Signup() {
 	} else {
 		return (
 			<>
-				<Box className="loginPage" pad="medium" height="100vh" justify="between">
+				<Box className="loginPage" pad="medium" height="100%" justify="between">
 					<Box className="loginText signupNoPad" align="center" justify="between" direction="row">
 						<Box>
 							<Text color="dark-1">Get On Board</Text>

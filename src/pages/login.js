@@ -41,7 +41,7 @@ function Login() {
 	} else {
 		return (
 			<>
-				<Box className="loginPage" pad="medium" height="100vh" justify="between">
+				<Box className="loginPage" pad="medium" height="100%" justify="between">
 					<Box>
 						{/* <FormPreviousLink /> */}
 						<Box className="loginText" align="center" justify="between" direction="row">
