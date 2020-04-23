@@ -195,7 +195,9 @@ export type TicketsAvailableOrderByInput =
   | "numberOfTickets_ASC"
   | "numberOfTickets_DESC"
   | "cost_ASC"
-  | "cost_DESC";
+  | "cost_DESC"
+  | "comments_ASC"
+  | "comments_DESC";
 
 export type EventOrderByInput =
   | "id_ASC"
@@ -247,6 +249,7 @@ export interface TicketsAvailableUpdateWithoutEventDataInput {
   passType?: Maybe<String>;
   numberOfTickets?: Maybe<Int>;
   cost?: Maybe<Int>;
+  comments?: Maybe<String>;
 }
 
 export interface UserWhereInput {
@@ -404,6 +407,7 @@ export interface TicketsAvailableCreateInput {
   numberOfTickets?: Maybe<Int>;
   cost?: Maybe<Int>;
   event?: Maybe<EventCreateOneWithoutTicketsAvailableInput>;
+  comments?: Maybe<String>;
 }
 
 export interface TicketsAvailableScalarWhereInput {
@@ -451,6 +455,20 @@ export interface TicketsAvailableScalarWhereInput {
   cost_lte?: Maybe<Int>;
   cost_gt?: Maybe<Int>;
   cost_gte?: Maybe<Int>;
+  comments?: Maybe<String>;
+  comments_not?: Maybe<String>;
+  comments_in?: Maybe<String[] | String>;
+  comments_not_in?: Maybe<String[] | String>;
+  comments_lt?: Maybe<String>;
+  comments_lte?: Maybe<String>;
+  comments_gt?: Maybe<String>;
+  comments_gte?: Maybe<String>;
+  comments_contains?: Maybe<String>;
+  comments_not_contains?: Maybe<String>;
+  comments_starts_with?: Maybe<String>;
+  comments_not_starts_with?: Maybe<String>;
+  comments_ends_with?: Maybe<String>;
+  comments_not_ends_with?: Maybe<String>;
   AND?: Maybe<
     TicketsAvailableScalarWhereInput[] | TicketsAvailableScalarWhereInput
   >;
@@ -519,6 +537,7 @@ export interface TicketsAvailableUpdateManyMutationInput {
   passType?: Maybe<String>;
   numberOfTickets?: Maybe<Int>;
   cost?: Maybe<Int>;
+  comments?: Maybe<String>;
 }
 
 export interface TicketsAvailableCreateWithoutEventInput {
@@ -527,6 +546,7 @@ export interface TicketsAvailableCreateWithoutEventInput {
   passType?: Maybe<String>;
   numberOfTickets?: Maybe<Int>;
   cost?: Maybe<Int>;
+  comments?: Maybe<String>;
 }
 
 export interface EventUpsertWithoutTicketsAvailableInput {
@@ -562,6 +582,7 @@ export interface TicketsAvailableUpdateInput {
   numberOfTickets?: Maybe<Int>;
   cost?: Maybe<Int>;
   event?: Maybe<EventUpdateOneWithoutTicketsAvailableInput>;
+  comments?: Maybe<String>;
 }
 
 export interface EventUpdateManyMutationInput {
@@ -634,6 +655,7 @@ export interface TicketsAvailableUpdateManyDataInput {
   passType?: Maybe<String>;
   numberOfTickets?: Maybe<Int>;
   cost?: Maybe<Int>;
+  comments?: Maybe<String>;
 }
 
 export type UserWhereUniqueInput = AtLeastOne<{
@@ -703,6 +725,20 @@ export interface TicketsAvailableWhereInput {
   cost_gt?: Maybe<Int>;
   cost_gte?: Maybe<Int>;
   event?: Maybe<EventWhereInput>;
+  comments?: Maybe<String>;
+  comments_not?: Maybe<String>;
+  comments_in?: Maybe<String[] | String>;
+  comments_not_in?: Maybe<String[] | String>;
+  comments_lt?: Maybe<String>;
+  comments_lte?: Maybe<String>;
+  comments_gt?: Maybe<String>;
+  comments_gte?: Maybe<String>;
+  comments_contains?: Maybe<String>;
+  comments_not_contains?: Maybe<String>;
+  comments_starts_with?: Maybe<String>;
+  comments_not_starts_with?: Maybe<String>;
+  comments_ends_with?: Maybe<String>;
+  comments_not_ends_with?: Maybe<String>;
   AND?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
   OR?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
   NOT?: Maybe<TicketsAvailableWhereInput[] | TicketsAvailableWhereInput>;
@@ -794,6 +830,7 @@ export interface TicketsAvailable {
   passType?: String;
   numberOfTickets?: Int;
   cost?: Int;
+  comments?: String;
 }
 
 export interface TicketsAvailablePromise
@@ -805,6 +842,7 @@ export interface TicketsAvailablePromise
   numberOfTickets: () => Promise<Int>;
   cost: () => Promise<Int>;
   event: <T = EventPromise>() => T;
+  comments: () => Promise<String>;
 }
 
 export interface TicketsAvailableSubscription
@@ -816,6 +854,7 @@ export interface TicketsAvailableSubscription
   numberOfTickets: () => Promise<AsyncIterator<Int>>;
   cost: () => Promise<AsyncIterator<Int>>;
   event: <T = EventSubscription>() => T;
+  comments: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TicketsAvailableNullablePromise
@@ -827,6 +866,7 @@ export interface TicketsAvailableNullablePromise
   numberOfTickets: () => Promise<Int>;
   cost: () => Promise<Int>;
   event: <T = EventPromise>() => T;
+  comments: () => Promise<String>;
 }
 
 export interface EventEdge {
@@ -1204,6 +1244,7 @@ export interface TicketsAvailablePreviousValues {
   passType?: String;
   numberOfTickets?: Int;
   cost?: Int;
+  comments?: String;
 }
 
 export interface TicketsAvailablePreviousValuesPromise
@@ -1213,6 +1254,7 @@ export interface TicketsAvailablePreviousValuesPromise
   passType: () => Promise<String>;
   numberOfTickets: () => Promise<Int>;
   cost: () => Promise<Int>;
+  comments: () => Promise<String>;
 }
 
 export interface TicketsAvailablePreviousValuesSubscription
@@ -1222,6 +1264,7 @@ export interface TicketsAvailablePreviousValuesSubscription
   passType: () => Promise<AsyncIterator<String>>;
   numberOfTickets: () => Promise<AsyncIterator<Int>>;
   cost: () => Promise<AsyncIterator<Int>>;
+  comments: () => Promise<AsyncIterator<String>>;
 }
 
 export interface TicketsAvailableConnection {

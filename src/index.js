@@ -14,6 +14,7 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import Search from './pages/search';
 import EventDetail from './pages/eventDetail';
+import SellTicket from './pages/startSellling';
 import Category from './pages/category';
 import RandomGeneratedColor from './components/randomGeneratedColor';
 
@@ -57,6 +58,7 @@ ReactDOM.render(
 						<Route path="/signup" component={Signup} />
 						<Route path="/search" component={Search} />
 						<Route path="/eventDetail:id" component={props => <EventDetail {...props} />} />
+						<Route path="/sellTicket:id" component={props => <SellTicket {...props} />} />
 						<Route
 							path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
 							component={props => <RandomGeneratedColor {...props} render={props => <Category {...props} />} />}

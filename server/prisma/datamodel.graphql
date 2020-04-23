@@ -12,6 +12,7 @@ type TicketsAvailable {
 	numberOfTickets: Int @default(value: 1)
 	cost: Int
 	event: Event @relation(link: INLINE)
+	comments: String
 }
 
 enum CategoryFormat {

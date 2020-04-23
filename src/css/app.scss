@@ -482,6 +482,9 @@ body {
 	background-size: cover;
 	background-position: center center;
 }
+.sellTicketBackground {
+	height: 200px;
+}
 
 .eventDetailBackground::before,
 .eventDetailBackground::after {
@@ -539,6 +542,25 @@ body {
 	height: 225px;
 	position: relative;
 	top: 160px;
+}
+.sellTicketHeaderParent {
+	height: 125px;
+	top: 30px;
+}
+.sellTicketCost {
+	width: 30px;
+
+	text-align: center;
+}
+.sellTicketComment {
+	textarea {
+		height: 50px;
+		padding-left: 15px;
+		font-weight: 400;
+	}
+}
+.sellTicketFormBox {
+	padding-top: 60px !important;
 }
 .eventDetailHeader {
 	position: relative;

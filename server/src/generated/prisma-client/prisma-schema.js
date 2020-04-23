@@ -279,6 +279,7 @@ type TicketsAvailable {
   numberOfTickets: Int
   cost: Int
   event: Event
+  comments: String
 }
 
 type TicketsAvailableConnection {
@@ -294,6 +295,7 @@ input TicketsAvailableCreateInput {
   numberOfTickets: Int
   cost: Int
   event: EventCreateOneWithoutTicketsAvailableInput
+  comments: String
 }
 
 input TicketsAvailableCreateManyWithoutEventInput {
@@ -307,6 +309,7 @@ input TicketsAvailableCreateWithoutEventInput {
   passType: String
   numberOfTickets: Int
   cost: Int
+  comments: String
 }
 
 type TicketsAvailableEdge {
@@ -323,6 +326,8 @@ enum TicketsAvailableOrderByInput {
   numberOfTickets_DESC
   cost_ASC
   cost_DESC
+  comments_ASC
+  comments_DESC
 }
 
 type TicketsAvailablePreviousValues {
@@ -330,6 +335,7 @@ type TicketsAvailablePreviousValues {
   passType: String
   numberOfTickets: Int
   cost: Int
+  comments: String
 }
 
 input TicketsAvailableScalarWhereInput {
@@ -377,6 +383,20 @@ input TicketsAvailableScalarWhereInput {
   cost_lte: Int
   cost_gt: Int
   cost_gte: Int
+  comments: String
+  comments_not: String
+  comments_in: [String!]
+  comments_not_in: [String!]
+  comments_lt: String
+  comments_lte: String
+  comments_gt: String
+  comments_gte: String
+  comments_contains: String
+  comments_not_contains: String
+  comments_starts_with: String
+  comments_not_starts_with: String
+  comments_ends_with: String
+  comments_not_ends_with: String
   AND: [TicketsAvailableScalarWhereInput!]
   OR: [TicketsAvailableScalarWhereInput!]
   NOT: [TicketsAvailableScalarWhereInput!]
@@ -406,18 +426,21 @@ input TicketsAvailableUpdateInput {
   numberOfTickets: Int
   cost: Int
   event: EventUpdateOneWithoutTicketsAvailableInput
+  comments: String
 }
 
 input TicketsAvailableUpdateManyDataInput {
   passType: String
   numberOfTickets: Int
   cost: Int
+  comments: String
 }
 
 input TicketsAvailableUpdateManyMutationInput {
   passType: String
   numberOfTickets: Int
   cost: Int
+  comments: String
 }
 
 input TicketsAvailableUpdateManyWithoutEventInput {
@@ -442,6 +465,7 @@ input TicketsAvailableUpdateWithoutEventDataInput {
   passType: String
   numberOfTickets: Int
   cost: Int
+  comments: String
 }
 
 input TicketsAvailableUpdateWithWhereUniqueWithoutEventInput {
@@ -502,6 +526,20 @@ input TicketsAvailableWhereInput {
   cost_gt: Int
   cost_gte: Int
   event: EventWhereInput
+  comments: String
+  comments_not: String
+  comments_in: [String!]
+  comments_not_in: [String!]
+  comments_lt: String
+  comments_lte: String
+  comments_gt: String
+  comments_gte: String
+  comments_contains: String
+  comments_not_contains: String
+  comments_starts_with: String
+  comments_not_starts_with: String
+  comments_ends_with: String
+  comments_not_ends_with: String
   AND: [TicketsAvailableWhereInput!]
   OR: [TicketsAvailableWhereInput!]
   NOT: [TicketsAvailableWhereInput!]

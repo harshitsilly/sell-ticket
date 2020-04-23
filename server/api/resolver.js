@@ -89,6 +89,25 @@ const resolvers = {
 		}
 	},
 	Mutation: {
+		addTicket: async (parent, { passType, numberOfTickets, cost, event, comments }, context) => {
+			const newTicket = {
+				passType,
+				numberOfTickets,
+				cost,
+				comments,
+				event: {
+					connect: {
+						id: event
+					}
+				},
+				user: {
+					connect: {
+						id: context.getUser() ? context.getUser().id : ''
+					}
+				}
+			};
+			return await context.prisma.createTicketsAvailable(newTicket);
+		},
 		signup: async (parent, { firstName, lastName, email, password }, context) => {
 			const existingUsers = await context.prisma.users();
 			const userWithEmailAlreadyExists = !!existingUsers.find(user => user.email === email);
@@ -122,6 +141,7 @@ const resolvers = {
 			return { user };
 		},
 		logout: (parent, args, context) => context.logout(),
+
 		authGoogle: async (_, { input: { accessToken } }, context) => {
 			try {
 				// data contains the accessToken, refreshToken and profile from passport

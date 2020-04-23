@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Text, Button } from 'grommet';
 import { useLocation } from 'react-router-dom';
 import { Location, Calendar, Ticket } from 'grommet-icons';
+import { Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import AppHeader from '../components/appHeader';
@@ -38,6 +39,7 @@ function EventDetail() {
 	const [numberOfTickets, setNumberOfTickets] = React.useState({});
 	const [showMore, setShowMore] = React.useState(false);
 	const [firstSkip, setFirstSkip] = React.useState({ first: 7, skip: 0 });
+	const [redirect, setRedirect] = React.useState();
 	let setEventsData = () => {
 		data && setTickets(() => [...tickets, ...data.events[0].ticketsAvailable]);
 		setNumberOfTickets(data.events[0].numberOfTickets);
@@ -53,6 +55,16 @@ function EventDetail() {
 		onCompleted: setEventsData
 	});
 	if (error) return `Error! ${error.message}`;
+	if (redirect)
+		return (
+			<Redirect
+				push="true"
+				to={{
+					pathname: `/sellTicket:${name}`,
+					state: { name, date, location, id }
+				}}
+			/>
+		);
 	return (
 		<>
 			<Box height="460px" flex="false">
@@ -79,7 +91,15 @@ function EventDetail() {
 							{location}
 						</Box>
 
-						<Button primary className="sellTicketV2" color="status-ok" label="Sell Tickets for this event" onClick={() => {}} />
+						<Button
+							primary
+							className="sellTicketV2"
+							color="status-ok"
+							label="Sell Tickets for this event"
+							onClick={() => {
+								setRedirect(true);
+							}}
+						/>
 					</Box>
 				</Box>
 

@@ -24,6 +24,7 @@ type TicketsAvailable {
 	numberOfTickets: Int
 	cost: Int
 	event: Event
+	comments: String
 }
 type SearchResult {
 	searchType: String
@@ -54,6 +55,10 @@ type AuthPayload {
 	user: User
 }
 
+type TicketPayload {
+	ticket: TicketsAvailable
+}
+
 type AuthResponse {
 	token: String
 	name: String
@@ -63,6 +68,7 @@ input AuthInput {
 }
 
 type Mutation {
+	addTicket(passType: String!, numberOfTickets: Int!, cost: Int!, event: String, comments: String): TicketPayload
 	authGoogle(input: AuthInput!): AuthResponse
 	signup(firstName: String!, lastName: String!, email: String!, password: String!): AuthPayload
 	login(email: String!, password: String!): AuthPayload
