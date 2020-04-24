@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { Button, Box, Form, FormField, Text, TextInput } from 'grommet';
 import { User, License, FormPreviousLink } from 'grommet-icons';
 import gql from 'graphql-tag';
@@ -21,7 +21,10 @@ const POST_MUTATION = gql`
 `;
 function Login() {
 	const { setUserData } = useContext(UserContext);
-
+	const loginBoxRef = React.createRef(null);
+	useLayoutEffect(() => {
+		loginBoxRef.current && (loginBoxRef.current.style.height = window.innerHeight + 'px');
+	});
 	let [postMutation, { loading, error: mutationError }] = useMutation(POST_MUTATION, {
 		onCompleted({ login }) {
 			setRedirectToApp(true);
@@ -41,7 +44,7 @@ function Login() {
 	} else {
 		return (
 			<>
-				<Box className="loginPage" pad="medium" height="-webkit-fill-available" justify="between">
+				<Box ref={loginBoxRef} className="loginPage" pad="medium" justify="between">
 					<Box>
 						{/* <FormPreviousLink /> */}
 						<Box className="loginText" align="center" justify="between" direction="row">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Button, Box, Form, FormField, Text, TextInput } from 'grommet';
 import { User, MailOption, License } from 'grommet-icons';
 import gql from 'graphql-tag';
@@ -26,8 +26,12 @@ function Signup() {
 	const onPressSubmitPasswordForm = event => {
 		postMutation({ variables: { ...event.value } });
 	};
+	const signupBoxRef = React.createRef(null);
 	const [redirectToLogin, setRedirectToLogin] = React.useState(false);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
+	useLayoutEffect(() => {
+		signupBoxRef.current && (signupBoxRef.current.style.height = window.innerHeight + 'px');
+	});
 	if (redirectToApp) {
 		return <Redirect to="/" />;
 	} else if (redirectToLogin) {
@@ -35,7 +39,7 @@ function Signup() {
 	} else {
 		return (
 			<>
-				<Box className="loginPage" pad="medium" height="-webkit-fill-available" justify="between">
+				<Box ref={signupBoxRef} className="loginPage" pad="medium" height="-webkit-fill-available" justify="between">
 					<Box className="loginText signupNoPad" align="center" justify="between" direction="row">
 						<Box>
 							<Text color="dark-1">Get On Board</Text>
