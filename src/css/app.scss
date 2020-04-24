@@ -8,6 +8,11 @@ body {
 	height: 100%;
 }
 
+.appLogoHeader {
+	width: 150px;
+	padding-top: 3px;
+}
+
 .svgFillWhite {
 	> path {
 		// stroke:black!important;
@@ -43,7 +48,10 @@ body {
 		}
 	}
 
-	padding: 0 0 50px 0;
+	padding: 0 0 20px 0;
+}
+.siginAppLogo {
+	padding-bottom: 40px;
 }
 .loginText.signupNoPad {
 	padding: 0;

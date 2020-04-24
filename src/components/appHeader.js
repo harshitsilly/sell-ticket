@@ -26,24 +26,13 @@ function AppHeader({ className, style, header, fromApp }) {
 			<>
 				<Header style={style} className={className ? `${className} appMenuHeader` : 'appMenuHeader'}>
 					<Box pad="small" direction="row" align="center">
-						<Button
-							icon={<Ticket className="svgFillWhite" color="#ffffff" />}
-							hoverIndicator
+						<Box
 							onClick={() => {
 								setRedirectToApp(true);
 							}}
-						/>
-						<Button
-							plain
-							onClick={() => {
-								setRedirectToApp(true);
-							}}
-							color="white"
-							weight="bold"
-							size="20px"
 						>
-							{className === 'positionFixed' ? header : 'sellTicket'}
-						</Button>
+							<img className="appLogoHeader" src="logo/logo_white.png" alt="" />
+						</Box>
 					</Box>
 					<Button icon={<Menu color="#ffffff" />} onClick={() => setModalShow(true)} hoverIndicator />
 					{show && (
@@ -54,11 +43,14 @@ function AppHeader({ className, style, header, fromApp }) {
 							onClickOutside={() => setModalShow(false)}
 						>
 							<Header className="appMenuHeader">
-								<Box direction="row" align="center">
-									<Button icon={<Ticket className="svgStrokeBlack svgFillBlack" color="dark-2" />} hoverIndicator />
-									<Text color="dark-2" weight="bold">
-										sellTicket
-									</Text>
+								<Box pad="small" direction="row" align="center">
+									<Box
+										onClick={() => {
+											setRedirectToApp(true);
+										}}
+									>
+										<img className="appLogoHeader" src="logo/logo_black.png" alt="" />
+									</Box>
 								</Box>
 								<Button icon={<Close color="dark-1" />} onClick={() => setModalShow(false)} />
 							</Header>

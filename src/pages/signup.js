@@ -50,7 +50,9 @@ function Signup() {
 							<div class="circle"></div>
 						</Box>
 					</Box>
-
+					<Box className="sigupAppLogo" align="center" justify="center">
+						<img className="appLogoHeader" src="logo/logo_black.png" alt="" />
+					</Box>
 					<Form onSubmit={onPressSubmitPasswordForm}>
 						<Box className="loginForm" pad="large" gap="small">
 							<Box direction="row">

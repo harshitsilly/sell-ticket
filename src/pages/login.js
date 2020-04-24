@@ -57,7 +57,9 @@ function Login() {
 								<div class="circle"></div>
 							</Box>
 						</Box>
-
+						<Box className="siginAppLogo" align="center" justify="center">
+							<img className="appLogoHeader" src="logo/logo_black.png" alt="" />
+						</Box>
 						<Form onSubmit={onPressSubmitPasswordForm}>
 							<Box className="loginForm" pad="large" gap="small">
 								<FormField
