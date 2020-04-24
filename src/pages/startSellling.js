@@ -41,7 +41,13 @@ function StartSelling() {
 	};
 	const [redirectToLogin, setRedirectToLogin] = React.useState(false);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
-	// !userData.currentUser && setRedirectToLogin(true);
+	if (!userData.currentUser) {
+		setTimeout(() => {
+			setRedirectToLogin(true);
+			userData.currentUser = 'test';
+		}, 1000);
+	}
+
 	if (loading) return <Loader />;
 	if (error) return `Error! ${error.message}`;
 	if (redirectToLogin) {
@@ -58,85 +64,85 @@ function StartSelling() {
 	} else {
 		return (
 			<Box height="460px" flex="false">
-				<AppHeader />
-				<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
-					<Box className="eventDetailHeader">
-						<Text size="large" weight="bold">
-							{name}
-						</Text>
+				{!userData.currentUser && (
+					<Box align="center" justify="center">
+						<Loader text="User not login. Redirecting To Login Page" />
 					</Box>
-					<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
-						<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
-							<Calendar color="grey" />
-							{date}
-						</Box>
-						<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
-							<Location color="grey" />
-							{location}
-						</Box>
-					</Box>
-				</Box>
-				<div className="sellTicketBackground eventDetailBackground" />
-				{/* {!userData.currentUser && (
-						<Box align="center" justify="center">
-							<Loader type="Oval" color="#7D4CDB" width="20px" height="20px" />
-							<Text>You are not login(smile). Redirecting To Login Page</Text>
-						</Box>
-					) &&
-					setRedirectToLogin(true)} */}
-
+				)}
 				{userData.currentUser && (
-					<Box pad="medium" className="sellTicketFormBox">
-						<Form onSubmit={onPressSubmitPasswordForm}>
-							<Box className="loginForm" pad="large" gap="small">
-								<FormField
-									name="numberOfTickets"
-									required
-									component={props => (
-										<Box direction="row" align="center">
-											<Ticket />
-											<TextInput type="number" {...props} placeholder="Tickets To Sell"></TextInput>
-										</Box>
-									)}
-								/>
-								<FormField
-									name="passType"
-									required
-									component={props => (
-										<Box direction="row" align="center">
-											<Tag className="licenseTransformScale" />
-											<TextInput {...props} placeholder="Ticket Type"></TextInput>
-										</Box>
-									)}
-								/>
-								<FormField
-									name="cost"
-									required
-									component={props => (
-										<Box direction="row" align="center">
-											<Text className="ticketCost sellTicketCost" size="1rem">
-												<img src="rupee.svg" alt="" />
-											</Text>
+					<>
+						<AppHeader />
+						<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
+							<Box className="eventDetailHeader">
+								<Text size="large" weight="bold">
+									{name}
+								</Text>
+							</Box>
+							<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
+								<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
+									<Calendar color="grey" />
+									{date}
+								</Box>
+								<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
+									<Location color="grey" />
+									{location}
+								</Box>
+							</Box>
+						</Box>
+						<div className="sellTicketBackground eventDetailBackground" />
 
-											<TextInput {...props} placeholder="Cost per ticket"></TextInput>
-										</Box>
-									)}
-								/>
-								<FormField
-									name="comments"
-									component={props => (
-										<Box direction="row" align="center" justify="center" className="sellTicketComment">
-											<Chat className="licenseTransformScale" />
-											<TextArea {...props} placeholder="Comments"></TextArea>
-										</Box>
-									)}
-								/>
-							</Box>
-							<Box direction="row" width="100%" pad="small" justify="center">
-								<Button color="#8B16FF" type="submit" primary label="Submit" />
-							</Box>
-						</Form>
-					</Box>
+						<Box pad="medium" className="sellTicketFormBox">
+							<Form onSubmit={onPressSubmitPasswordForm}>
+								<Box className="loginForm" pad="large" gap="small">
+									<FormField
+										name="numberOfTickets"
+										required
+										component={props => (
+											<Box direction="row" align="center">
+												<Ticket />
+												<TextInput type="number" {...props} placeholder="Tickets To Sell"></TextInput>
+											</Box>
+										)}
+									/>
+									<FormField
+										name="passType"
+										required
+										component={props => (
+											<Box direction="row" align="center">
+												<Tag className="licenseTransformScale" />
+												<TextInput {...props} placeholder="Ticket Type"></TextInput>
+											</Box>
+										)}
+									/>
+									<FormField
+										name="cost"
+										required
+										component={props => (
+											<Box direction="row" align="center">
+												<Text className="ticketCost sellTicketCost" size="1rem">
+													<img src="rupee.svg" alt="" />
+												</Text>
+
+												<TextInput {...props} placeholder="Cost per ticket"></TextInput>
+											</Box>
+										)}
+									/>
+									<FormField
+										name="comments"
+										component={props => (
+											<Box direction="row" align="center" justify="center" className="sellTicketComment">
+												<Chat className="licenseTransformScale" />
+												<TextArea {...props} placeholder="Comments"></TextArea>
+											</Box>
+										)}
+									/>
+								</Box>
+								<Box direction="row" width="100%" pad="small" justify="center">
+									<Button color="#8B16FF" type="submit" primary label="Submit" />
+								</Box>
+							</Form>
+						</Box>
+					</>
 				)}
 			</Box>
 		);
