@@ -8,6 +8,7 @@ import gql from 'graphql-tag';
 import AppHeader from '../components/appHeader';
 import TicketBadge from '../components/ticketBadge';
 import TicketDetails from '../components/ticketDetails';
+import Share from '../components/share';
 
 const Events_Detail_Query = gql`
 	# Write your query or mutation here
@@ -92,10 +93,13 @@ function EventDetail() {
 						</Text>
 					</Box>
 					<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
-						<Box className="marginBottom1rem" justify="start" direction="row">
-							<TicketBadge type="AVAILABLE" ticketsAvailable={numberOfTickets.available} />
-							<TicketBadge type="SOLD" ticketsAvailable="25" />
-							<TicketBadge type="WANTED" ticketsAvailable="65" />
+						<Box direction="row" justify="between">
+							<Box className="marginBottom1rem" justify="start" direction="row">
+								<TicketBadge type="AVAILABLE" ticketsAvailable={numberOfTickets.available} />
+								<TicketBadge type="SOLD" ticketsAvailable="25" />
+								<TicketBadge type="WANTED" ticketsAvailable="65" />
+							</Box>
+							<Share />
 						</Box>
 
 						<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
