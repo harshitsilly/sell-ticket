@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Loader from '../components/loader';
+import UserTickets from '../pages/userTickets';
 
 const POST_MUTATION = gql`
 	mutation {
@@ -14,11 +15,15 @@ const POST_MUTATION = gql`
 function AppMenu({ userData }) {
 	let [postMutation, { loading, error: mutationError }] = useMutation(POST_MUTATION, {
 		onCompleted({ login }) {
-			setRedirect(true);
+			setRedirect('login');
 		}
 	});
 	const onPressLogout = postMutation;
 	const [redirect, setRedirect] = React.useState(false);
+	const [userTicket, setUserTicket] = React.useState(false);
+	const onPressYourTickets = () => {
+		setUserTicket(true);
+	};
 	if (loading) return <Loader />;
 	if (redirect) {
 		return <Redirect push="true" to="/login" />;
@@ -38,15 +43,33 @@ function AppMenu({ userData }) {
 							</Box>
 						</>
 					)}
-					<Box className="appMenuButtonsBox">
-						{!userData && (
-							<Button reverse className="appMenuButton" icon={<Next />} label="Login" onClick={() => setRedirect(true)} />
-						)}
-						{userData && <Button reverse className="appMenuButton" icon={<Next />} label="Logout" onClick={onPressLogout} />}
-						<Button reverse className="appMenuButton" icon={<Next />} label="Sell Tickets" onClick={() => {}} />
-						<Button reverse className="appMenuButton" icon={<Next />} label="How It Works" onClick={() => {}} />
-						<Button reverse className="appMenuButton" icon={<Next />} label="Help" onClick={() => {}} />
-					</Box>
+					{userTicket && (
+						<div className="appUserTicketsBox">
+							<UserTickets />
+						</div>
+					)}
+					{!userTicket && (
+						<Box className="appMenuButtonsBox">
+							{!userData && (
+								<Button reverse className="appMenuButton" icon={<Next />} label="Login" onClick={() => setRedirect(true)} />
+							)}
+							{userData && (
+								<Button
+									reverse
+									className="appMenuButton"
+									icon={<Next />}
+									label="Your Tickets"
+									onClick={onPressYourTickets}
+								/>
+							)}
+							{userData && (
+								<Button reverse className="appMenuButton" icon={<Next />} label="Logout" onClick={onPressLogout} />
+							)}
+							<Button reverse className="appMenuButton" icon={<Next />} label="Sell Tickets" onClick={() => {}} />
+							{/* <Button reverse className="appMenuButton" icon={<Next />} label="How It Works" onClick={() => {}} /> */}
+							<Button reverse className="appMenuButton" icon={<Next />} label="Help" onClick={() => {}} />
+						</Box>
+					)}
 				</Box>
 			</>
 		);

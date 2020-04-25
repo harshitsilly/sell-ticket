@@ -40,6 +40,10 @@ function EventDetail() {
 	const [showMore, setShowMore] = React.useState(false);
 	const [firstSkip, setFirstSkip] = React.useState({ first: 7, skip: 0 });
 	const [redirect, setRedirect] = React.useState();
+	const [redirectToBuyTicket, setRedirectToBuyTicket] = React.useState();
+	let onClickTicket = ticketDetails => {
+		setRedirectToBuyTicket(ticketDetails);
+	};
 	let setEventsData = () => {
 		data && setTickets(() => [...tickets, ...data.events[0].ticketsAvailable]);
 		setNumberOfTickets(data.events[0].numberOfTickets);
@@ -65,6 +69,18 @@ function EventDetail() {
 				}}
 			/>
 		);
+	if (redirectToBuyTicket) {
+		const { id: ticketId, cost, numberOfTickets, user } = redirectToBuyTicket;
+		return (
+			<Redirect
+				push="true"
+				to={{
+					pathname: `/buyTicket:${ticketId}`,
+					state: { name, date, location, id, ticketId, cost, numberOfTickets, user }
+				}}
+			/>
+		);
+	}
 	return (
 		<>
 			<Box height="460px" flex="false">
@@ -119,8 +135,8 @@ function EventDetail() {
 					{data && (
 						<>
 							<Box pad="medium" className="eventList">
-								{tickets.length === 0 && <Text weight="bold">No Tickets Available. Check back later.</Text>}
-								{tickets.length > 0 && tickets.map(ticket => <TicketDetails {...ticket} />)}
+								{tickets.length === 0 && <Text weight="bold">Sold Out. Check back later.</Text>}
+								{tickets.length > 0 && tickets.map(ticket => <TicketDetails onClickTicket={onClickTicket} {...ticket} />)}
 							</Box>
 						</>
 					)}

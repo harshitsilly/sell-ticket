@@ -4,6 +4,15 @@ type User {
 	lastName: String
 	email: String
 	password: String
+	tickets: [EventTickets]
+}
+type EventTickets {
+	id: ID! @id
+	name: String
+	passType: String
+	date: String
+	location: String
+	numberOfTickets: Int
 }
 type TicketsAvailable {
 	id: ID! @id

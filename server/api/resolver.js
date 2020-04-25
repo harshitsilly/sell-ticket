@@ -69,6 +69,23 @@ const resolvers = {
 			return data;
 			// return await context.prisma.events({ where: { category },skip,first});
 		},
+		userTickets: async (parent, { id, category, location, skip, first }, context) => {
+			//  code for fragment
+			const fragment = `
+    fragment UsersWithTicket on user {
+		id
+		tickets{
+			id
+			name
+			passType
+			date
+			location
+			numberOfTickets
+		}
+	}`;
+			let userId = context.getUser().id;
+			return await context.prisma.user({ id: userId }).$fragment(fragment);
+		},
 		eventsSearch: async (parent, { query, queryType, skip, first }, context) => {
 			let filterArray = [];
 			if (queryType.indexOf('Event') > -1) {
@@ -89,6 +106,41 @@ const resolvers = {
 		}
 	},
 	Mutation: {
+		buyTicket: async (parent, { ticketIds }, context) => {
+			const { id } = context.getUser();
+			const fragment = `
+    fragment TicketAvailablesWithEvent on TicketAvailable {
+      id
+     numberOfTickets
+	  passType
+	  event{
+		  id
+		  name
+		  location
+		  date
+	  }
+      
+    }
+  `;
+			const ticket = await context.prisma.ticketsAvailable({ id: ticketIds[0] }).$fragment(fragment);
+
+			let createTicket = {
+				...ticket,
+				...ticket.event,
+				numberOfTickets: ticket.numberOfTickets
+			};
+			delete createTicket.comments;
+			delete createTicket.id;
+			delete createTicket.event;
+			let userUpdateData = {
+				tickets: {
+					create: [createTicket]
+				}
+			};
+			let userData = await context.prisma.updateUser({ where: { id: id }, data: userUpdateData });
+			await context.prisma.deleteManyTicketsAvailables({ id_in: [...ticketIds] });
+			return { text: 'Success' };
+		},
 		addTicket: async (parent, { passType, numberOfTickets, cost, event, comments }, context) => {
 			const newTicket = {
 				passType,

@@ -3,7 +3,7 @@ import { Button, Box, Form, FormField, Text, TextInput } from 'grommet';
 import { User, License, FormPreviousLink } from 'grommet-icons';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import Loader from '../components/loader';
 import { UserContext } from '../context/user';
 
@@ -27,7 +27,7 @@ function Login() {
 	});
 	let [postMutation, { loading, error: mutationError }] = useMutation(POST_MUTATION, {
 		onCompleted({ login }) {
-			setRedirectToApp(true);
+			setRedirectToPage(true);
 			setUserData({ currentUser: login.user });
 		}
 	});
@@ -35,11 +35,11 @@ function Login() {
 		postMutation({ variables: { ...event.value } });
 	};
 	const [redirectToSignUp, setRedirectToSignUp] = React.useState(false);
-	const [redirectToApp, setRedirectToApp] = React.useState(false);
+	const [redirectToPage, setRedirectToPage] = React.useState(false);
 	if (loading) return <Loader />;
 	if (redirectToSignUp) {
 		return <Redirect push="true" to="/signup" />;
-	} else if (redirectToApp) {
+	} else if (redirectToPage) {
 		return <Redirect to="/" />;
 	} else {
 		return (

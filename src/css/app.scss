@@ -419,11 +419,34 @@ body {
 	}
 }
 .ticketCost {
+	padding-top: 4px;
 	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
 		'segoe ui', arial, sans-serif;
 	font-weight: 550;
 	> img {
 		height: 15px;
+	}
+}
+.ticketCostBuyTicket {
+	padding-top: 4px;
+	> img {
+		height: 15px;
+	}
+}
+.verified {
+	margin-top: -42px;
+	> svg {
+		> path {
+			stroke: green !important;
+			opacity: 0.85;
+		}
+	}
+	> span {
+		font-size: 0.9rem;
+		opacity: 0.85;
+		padding-left: 5px;
+		font-weight: 550;
+		color: green;
 	}
 }
 .eventList {
@@ -570,6 +593,47 @@ body {
 .sellTicketFormBox {
 	padding-top: 60px !important;
 }
+.buyTicketPaddingTop {
+	padding-top: 60px !important;
+}
+.buyTicketLogo {
+	width: 130px;
+	padding-bottom: 20px;
+}
+.ticketCostCalculator {
+	border-bottom: 1px dashed black;
+}
+.buyTicketFormBox {
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
+	border-radius: 20px;
+}
+.userTicketBox {
+	box-shadow: 1px 2px 4px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
+	border-radius: 20px;
+	margin-bottom: 30px;
+	padding: 16px 16px 0 16px;
+}
+.appUserTicketsBox {
+	overflow-y: scroll;
+	padding: 8px 2px 0 2px;
+	height: 400px;
+	margin: 0px 6px;
+}
+.buyTicketButtonBox {
+	padding-top: 20px !important;
+	> button {
+		border-radius: 20px !important;
+		height: 2.5rem;
+		color: white !important;
+		font-weight: 500 !important;
+		font-size: 1rem !important;
+		opacity: 0.95;
+	}
+}
 .eventDetailHeader {
 	position: relative;
 	z-index: 2;
@@ -611,6 +675,23 @@ body {
 			fill: lightgray !important;
 			stroke: black !important;
 		}
+	}
+}
+.userTicketDetail {
+	font-size: 0.95rem;
+	> svg {
+		margin-right: 0.5rem;
+	}
+	> span {
+		padding-left: 10px;
+	}
+}
+.userTicketLocation {
+	padding-left: 16px;
+	> button {
+		margin-right: -35px;
+		font-size: 1rem;
+		font-weight: 550;
 	}
 }
 .sellTicketV2 {

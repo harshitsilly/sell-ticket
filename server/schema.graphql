@@ -3,6 +3,7 @@ type User {
 	firstName: String
 	lastName: String
 	email: String
+	tickets: [EventTickets]
 }
 type Event {
 	id: ID
@@ -12,6 +13,14 @@ type Event {
 	location: String
 	numberOfTickets: NumberOfTickets
 	ticketsAvailable: [TicketsAvailable]
+}
+type EventTickets {
+	id: ID
+	name: String
+	passType: String
+	date: String
+	location: String
+	numberOfTickets: Int
 }
 type NumberOfTickets {
 	available: Int
@@ -35,6 +44,7 @@ type Query {
 	events(id: String, category: String, location: String, skip: Int, first: Int): [Event]
 	eventsSearch(queryType: [SearchFormat], query: String): [Event]
 	ticketsAvailable: [TicketsAvailable]
+	userTickets: User
 }
 
 enum CategoryFormat {
@@ -59,6 +69,11 @@ type TicketPayload {
 	ticket: TicketsAvailable
 }
 
+type BuyTicketPayload {
+	ticketIds: [String]
+	text: String
+}
+
 type AuthResponse {
 	token: String
 	name: String
@@ -69,6 +84,7 @@ input AuthInput {
 
 type Mutation {
 	addTicket(passType: String!, numberOfTickets: Int!, cost: Int!, event: String, comments: String): TicketPayload
+	buyTicket(ticketIds: [String]!): BuyTicketPayload
 	authGoogle(input: AuthInput!): AuthResponse
 	signup(firstName: String!, lastName: String!, email: String!, password: String!): AuthPayload
 	login(email: String!, password: String!): AuthPayload
