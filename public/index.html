@@ -75,7 +75,7 @@
 		// Except if you clear your storage
 		const subscribe = async registration => {
 			// First get a public key from our Express server
-			const response = await fetch('/api/vapid-public-key');
+			const response = await fetch('/vapid-public-key');
 			const body = await response.json();
 			const publicKey = body.publicKey;
 
@@ -91,7 +91,7 @@
 			});
 
 			// Sending the subscription object to our Express server
-			await fetch('/api/subscribe', {
+			await fetch('/subscribe', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(subscription.toJSON())
