@@ -19,18 +19,19 @@ import BuyTicket from './pages/buyTicket';
 
 import Category from './pages/category';
 import RandomGeneratedColor from './components/randomGeneratedColor';
+import InstallPwa from './components/installPwa';
 
 // 3
 let apolloClient;
 if (window.location.href.indexOf('localhost:3000') > -1) {
 	apolloClient = {
-		uri: 'http://localhost:3000/api',
+		uri: 'http://localhost:3000/api/graphql',
 		cache: new InMemoryCache(),
 		credentials: 'include'
 	};
 } else {
 	apolloClient = {
-		uri: window.location.origin,
+		uri: window.location.origin + '/graphql',
 		cache: new InMemoryCache()
 	};
 }
@@ -52,6 +53,7 @@ const theme = {
 
 ReactDOM.render(
 	<ApolloProvider client={client}>
+		<InstallPwa />
 		<Grommet theme={theme}>
 			<UserProvider>
 				<Router>
@@ -79,4 +81,4 @@ ReactDOM.render(
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

@@ -35,7 +35,43 @@ body {
 		stroke: white !important;
 	}
 }
+.installPwa {
+	position: fixed;
+	bottom: 10px;
+	margin: 5px;
+	z-index: 10;
+}
+.installAppLogo {
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
 
+	> img {
+		height: 80px;
+	}
+	> div {
+		> span:first-child {
+			font-weight: 550;
+		}
+		> span:last-child {
+			font-size: 1rem;
+			opacity: 0.7;
+		}
+	}
+}
+.installPwaDsiplayNone {
+	display: none !important;
+}
+.installAppButton {
+	> button:first-child {
+		font-size: 1.1rem;
+		font-weight: 400;
+		opacity: 0.7;
+		padding-right: 20px;
+	}
+	> button:last-child {
+		color: #7f38fb;
+	}
+}
 .loginPage {
 	overflow: hidden;
 }
