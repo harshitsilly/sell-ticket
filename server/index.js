@@ -113,9 +113,9 @@ server.express.get('/*', function(req, res) {
 	res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 const options = {
-	port: 4001,
+	port: process.env.port || 4001,
 	endpoint: '/graphql',
 	subscriptions: '/subscriptions',
 	playground: '/playground'
 };
-server.start(options, ({ port }) => console.log(`Server is running on http://localhost:${process.env.port || port}`));
+server.start(options, ({ port }) => console.log(`Server is running on http://localhost:${port}`));
