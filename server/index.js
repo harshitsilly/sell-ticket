@@ -113,7 +113,7 @@ server.express.get('/*', function(req, res) {
 	res.sendFile(path.join(__dirname, '../build/index.html'));
 });
 const options = {
-	port: process.env.port || 4001,
+	port: process.env.PORT || 4001,
 	endpoint: '/graphql',
 	subscriptions: '/subscriptions',
 	playground: '/playground'
