@@ -1,5 +1,7 @@
 const uuid = require('uuid/v1');
 const passport = require('passport');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const authenticateGoogle = (req, res) =>
 	new Promise((resolve, reject) => {
@@ -167,12 +169,12 @@ const resolvers = {
 			if (userWithEmailAlreadyExists) {
 				throw new Error('User with email already exists');
 			}
-
+			const hashPassword = bcrypt.hashSync(password, saltRounds);
 			const newUser = {
 				firstName,
 				lastName,
 				email,
-				password
+				password: hashPassword
 			};
 
 			await context.prisma.createUser(newUser);

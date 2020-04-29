@@ -5,6 +5,7 @@ type User {
 	email: String
 	password: String
 	tickets: [EventTickets]
+	endpoint: String
 }
 type EventTickets {
 	id: ID! @id

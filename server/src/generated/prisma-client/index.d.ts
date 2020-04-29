@@ -287,7 +287,9 @@ export type UserOrderByInput =
   | "email_ASC"
   | "email_DESC"
   | "password_ASC"
-  | "password_DESC";
+  | "password_DESC"
+  | "endpoint_ASC"
+  | "endpoint_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
@@ -335,6 +337,7 @@ export interface UserUpdateDataInput {
   email?: Maybe<String>;
   password?: Maybe<String>;
   tickets?: Maybe<EventTicketsUpdateManyInput>;
+  endpoint?: Maybe<String>;
 }
 
 export interface EventTicketsWhereInput {
@@ -583,6 +586,7 @@ export interface UserUpdateManyMutationInput {
   lastName?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+  endpoint?: Maybe<String>;
 }
 
 export interface UserCreateOneInput {
@@ -604,6 +608,7 @@ export interface UserCreateInput {
   email?: Maybe<String>;
   password?: Maybe<String>;
   tickets?: Maybe<EventTicketsCreateManyInput>;
+  endpoint?: Maybe<String>;
 }
 
 export interface EventUpsertWithoutTicketsAvailableInput {
@@ -865,6 +870,20 @@ export interface UserWhereInput {
   tickets_every?: Maybe<EventTicketsWhereInput>;
   tickets_some?: Maybe<EventTicketsWhereInput>;
   tickets_none?: Maybe<EventTicketsWhereInput>;
+  endpoint?: Maybe<String>;
+  endpoint_not?: Maybe<String>;
+  endpoint_in?: Maybe<String[] | String>;
+  endpoint_not_in?: Maybe<String[] | String>;
+  endpoint_lt?: Maybe<String>;
+  endpoint_lte?: Maybe<String>;
+  endpoint_gt?: Maybe<String>;
+  endpoint_gte?: Maybe<String>;
+  endpoint_contains?: Maybe<String>;
+  endpoint_not_contains?: Maybe<String>;
+  endpoint_starts_with?: Maybe<String>;
+  endpoint_not_starts_with?: Maybe<String>;
+  endpoint_ends_with?: Maybe<String>;
+  endpoint_not_ends_with?: Maybe<String>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -975,6 +994,7 @@ export interface UserUpdateInput {
   email?: Maybe<String>;
   password?: Maybe<String>;
   tickets?: Maybe<EventTicketsUpdateManyInput>;
+  endpoint?: Maybe<String>;
 }
 
 export interface UserUpsertNestedInput {
@@ -1132,6 +1152,7 @@ export interface UserPreviousValues {
   lastName?: String;
   email?: String;
   password?: String;
+  endpoint?: String;
 }
 
 export interface UserPreviousValuesPromise
@@ -1142,6 +1163,7 @@ export interface UserPreviousValuesPromise
   lastName: () => Promise<String>;
   email: () => Promise<String>;
   password: () => Promise<String>;
+  endpoint: () => Promise<String>;
 }
 
 export interface UserPreviousValuesSubscription
@@ -1152,6 +1174,7 @@ export interface UserPreviousValuesSubscription
   lastName: () => Promise<AsyncIterator<String>>;
   email: () => Promise<AsyncIterator<String>>;
   password: () => Promise<AsyncIterator<String>>;
+  endpoint: () => Promise<AsyncIterator<String>>;
 }
 
 export interface AggregateEvent {
@@ -1237,6 +1260,7 @@ export interface User {
   lastName?: String;
   email?: String;
   password?: String;
+  endpoint?: String;
 }
 
 export interface UserPromise extends Promise<User>, Fragmentable {
@@ -1254,6 +1278,7 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  endpoint: () => Promise<String>;
 }
 
 export interface UserSubscription
@@ -1273,6 +1298,7 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  endpoint: () => Promise<AsyncIterator<String>>;
 }
 
 export interface UserNullablePromise
@@ -1292,6 +1318,7 @@ export interface UserNullablePromise
     first?: Int;
     last?: Int;
   }) => T;
+  endpoint: () => Promise<String>;
 }
 
 export interface EventTickets {

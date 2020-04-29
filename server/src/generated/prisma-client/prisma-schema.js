@@ -878,6 +878,7 @@ type User {
   email: String
   password: String
   tickets(where: EventTicketsWhereInput, orderBy: EventTicketsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventTickets!]
+  endpoint: String
 }
 
 type UserConnection {
@@ -893,6 +894,7 @@ input UserCreateInput {
   email: String
   password: String
   tickets: EventTicketsCreateManyInput
+  endpoint: String
 }
 
 input UserCreateOneInput {
@@ -916,6 +918,8 @@ enum UserOrderByInput {
   email_DESC
   password_ASC
   password_DESC
+  endpoint_ASC
+  endpoint_DESC
 }
 
 type UserPreviousValues {
@@ -924,6 +928,7 @@ type UserPreviousValues {
   lastName: String
   email: String
   password: String
+  endpoint: String
 }
 
 type UserSubscriptionPayload {
@@ -950,6 +955,7 @@ input UserUpdateDataInput {
   email: String
   password: String
   tickets: EventTicketsUpdateManyInput
+  endpoint: String
 }
 
 input UserUpdateInput {
@@ -958,6 +964,7 @@ input UserUpdateInput {
   email: String
   password: String
   tickets: EventTicketsUpdateManyInput
+  endpoint: String
 }
 
 input UserUpdateManyMutationInput {
@@ -965,6 +972,7 @@ input UserUpdateManyMutationInput {
   lastName: String
   email: String
   password: String
+  endpoint: String
 }
 
 input UserUpdateOneInput {
@@ -1055,6 +1063,20 @@ input UserWhereInput {
   tickets_every: EventTicketsWhereInput
   tickets_some: EventTicketsWhereInput
   tickets_none: EventTicketsWhereInput
+  endpoint: String
+  endpoint_not: String
+  endpoint_in: [String!]
+  endpoint_not_in: [String!]
+  endpoint_lt: String
+  endpoint_lte: String
+  endpoint_gt: String
+  endpoint_gte: String
+  endpoint_contains: String
+  endpoint_not_contains: String
+  endpoint_starts_with: String
+  endpoint_not_starts_with: String
+  endpoint_ends_with: String
+  endpoint_not_ends_with: String
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

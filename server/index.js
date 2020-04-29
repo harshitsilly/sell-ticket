@@ -8,7 +8,7 @@ const { GraphQLLocalStrategy, buildContext } = require('graphql-passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcrypt');
 const resolvers = require('./api/resolver');
 const { prisma } = require('./src/generated/prisma-client');
 const JWT_SECRET = 'bad Secret';
@@ -24,7 +24,7 @@ const SESSION_SECRECT = 'bad secret';
 passport.use(
 	new GraphQLLocalStrategy(async (email, password, done) => {
 		const users = await prisma.users();
-		const matchingUser = users.find(user => email === user.email && password === user.password);
+		const matchingUser = users.find(user => email === user.email && bcrypt.compareSync(password, user.password));
 		const error = matchingUser ? null : new Error('no matching user');
 		done(error, matchingUser);
 	})
@@ -133,9 +133,10 @@ server.express.get('/vapid-public-key', (req, res) => {
 });
 
 // Allows our client to subscribe
-server.express.post('/subscribe', (req, res) => {
+server.express.post('/subscribe', async (req, res) => {
 	const subscription = req.body;
-	registerTasks(subscription);
+	await prisma.updateUser({ data: { endpoint: subscription.endpoint }, where: { id: req.user.id } });
+	// registerTasks(subscription);
 	res.send('subscribed!');
 });
 

@@ -4,6 +4,7 @@ type User {
 	lastName: String
 	email: String
 	tickets: [EventTickets]
+	endpoint: String
 }
 type Event {
 	id: ID
