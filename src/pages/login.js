@@ -1,6 +1,6 @@
 import React, { useContext, useLayoutEffect } from 'react';
 import { Button, Box, Form, FormField, Text, TextInput } from 'grommet';
-import { User, License, FormPreviousLink } from 'grommet-icons';
+import { User, License, Twitter, FacebookOption, Google } from 'grommet-icons';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -90,17 +90,30 @@ function Login() {
 						</Form>
 					</Box>
 					{mutationError && <p>Error :( Please try again</p>}
-					{/* <Box pad="small">
+					<Box direction="row" pad="small" gap="medium" justify="between" align="center">
+						<Box>Or Login with</Box>
 						<Button
-							primary
-							icon={<Google />}
-							label="Login"
-							color="status-critical"
+							plain
+							icon={<Twitter color="#22A1F1" />}
 							onClick={() => {
 								window.location = '/auth/google';
 							}}
 						/>
-					</Box> */}
+						<Button
+							plain
+							icon={<FacebookOption color="#3C5A97" />}
+							onClick={() => {
+								window.location = '/auth/google';
+							}}
+						/>
+						<Button
+							plain
+							icon={<Google color="#EA4537" />}
+							onClick={() => {
+								window.location = '/auth/google';
+							}}
+						/>
+					</Box>
 
 					<Box pad="small" direction="row" justify="between">
 						<Box align="center" className="circleBoxSignup" direction="row-reverse">

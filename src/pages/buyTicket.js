@@ -38,12 +38,12 @@ function BuyTicket() {
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
 	const [ticketIds, setTicketIds] = React.useState([]);
 	const [value, setValue] = React.useState('1');
-	// if (!userData.currentUser) {
-	// 	setTimeout(() => {
-	// 		setRedirectToLogin(true);
-	// 		userData.currentUser = 'test';
-	// 	}, 1000);
-	// }
+	if (!userData.currentUser) {
+		setTimeout(() => {
+			setRedirectToLogin(true);
+			userData.currentUser = 'test';
+		}, 1000);
+	}
 
 	if (loading) return <Loader />;
 	if (error) return `Error! ${error.message}`;

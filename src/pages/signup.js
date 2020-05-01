@@ -131,7 +131,7 @@ function Signup() {
 								label="Already have a account?"
 								onClick={() => setRedirectToLogin(true)}
 							/>
-							<Button className="signInButton" color="#8B16FF" type="submit" primary label="Signup" />
+							<Button className="signInButton" color="#8B16FF" type="submit" primary label="SIGNUP" />
 						</Box>
 					</Form>
 

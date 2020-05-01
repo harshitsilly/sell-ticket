@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Button } from 'grommet';
 import { useLocation } from 'react-router-dom';
-import { Location, Calendar, Ticket } from 'grommet-icons';
+import { Location, Calendar, Ticket, Notification } from 'grommet-icons';
 import { Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -126,7 +126,7 @@ function EventDetail() {
 				<div className="eventDetailBackground" />
 			</Box>
 			<Box>
-				<Box pad="medium" direction="row">
+				<Box pad="medium" align="center" direction="row">
 					<Text className="eventTicketText" size="large" weight="bold">
 						Tickets
 					</Text>
@@ -134,6 +134,11 @@ function EventDetail() {
 						<Ticket color="white" />
 						<Text size="1rem">{numberOfTickets.available}</Text>
 					</div>
+					{data && tickets.length === 0 && (
+						<Box direction="row-reverse" width="100%">
+							<Button primary className="notifyButton" reverse icon={<Notification />} label="Notify" />
+						</Box>
+					)}
 				</Box>
 				<Box>
 					{data && (

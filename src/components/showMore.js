@@ -2,7 +2,7 @@ import { Box, Text } from 'grommet';
 import { AddCircle } from 'grommet-icons';
 import React from 'react';
 
-function ShowMore({ name,onClick }) {
+function ShowMore({ name, onClick }) {
 	return (
 		<>
 			<Box onClick={onClick} className="showMore" direction="row" align="center">

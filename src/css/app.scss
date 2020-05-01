@@ -201,16 +201,36 @@ body {
 	line-height: 2rem;
 	margin-top: 7vh;
 }
-.searchBox {
+.backButton {
+	position: absolute;
+	> svg {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+.backButton.relative {
+	position: relative;
+}
+.searchHeader {
 	position: sticky;
 	top: 0px;
 	z-index: 2;
-	background: white;
+	background-color: white;
+	padding-bottom: 10px;
+}
+.searchBox {
 	> div {
 		> input {
 			border: 1px solid rgba(0, 0, 0, 0.33) !important;
 			height: 45px;
 		}
+	}
+	width: 100%;
+}
+.searchBox.categoryHeaderHeight {
+	.appSearchIcon {
+		left: 75px;
 	}
 }
 .searchFilterButtonBox {
@@ -233,6 +253,7 @@ body {
 			padding: 0 7px;
 			background-color: rgb(0, 182, 240);
 			border: 0px !important;
+			box-shadow: none !important;
 			> div {
 				> div {
 					display: none;
@@ -269,11 +290,12 @@ body {
 	padding-left: 45px !important;
 	height: 55px;
 	border-radius: 10px !important;
+	max-width: 700px;
 }
 .appSearchIcon {
 	position: absolute;
 	z-index: 2;
-	left: 30px;
+	left: 25px;
 }
 
 .appMenuButton {
@@ -751,6 +773,12 @@ body {
 	stroke: rgb(0, 182, 240);
 	height: 35px;
 	width: 35px;
+}
+.notifyButton {
+	background-color: #22a1f1 !important;
+	color: white;
+	border: 0 !important;
+	margin-right: -25px !important;
 }
 .showMoreText {
 	color: rgb(0, 182, 240);
