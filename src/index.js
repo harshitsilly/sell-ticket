@@ -20,7 +20,9 @@ import BuyTicket from './pages/buyTicket';
 import Category from './pages/category';
 import RandomGeneratedColor from './components/randomGeneratedColor';
 import InstallPwa from './components/installPwa';
-
+import SwipeableViews from 'react-swipeable-views';
+import AppMenu from './pages/AppMenu';
+import AreaPage from './pages/area';
 // 3
 let apolloClient;
 if (window.location.href.indexOf('localhost:3000') > -1) {
@@ -56,22 +58,26 @@ ReactDOM.render(
 		<InstallPwa />
 		<Grommet theme={theme}>
 			<UserProvider>
-				<Router>
-					<Switch>
-						<Route path="/login" component={Login} />
+				<SwipeableViews index="1">
+					<AreaPage />
+					<Router>
+						<Switch>
+							<Route path="/login" component={Login} />
 
-						<Route path="/signup" component={Signup} />
-						<Route path="/search" component={Search} />
-						<Route path="/eventDetail:id" component={props => <EventDetail {...props} />} />
-						<Route path="/sellTicket:id" component={props => <SellTicket {...props} />} />
-						<Route path="/buyTicket:id" component={props => <BuyTicket {...props} />} />
-						<Route
-							path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
-							component={props => <RandomGeneratedColor {...props} render={props => <Category {...props} />} />}
-						/>
-						<Route path="/" component={App} />
-					</Switch>
-				</Router>
+							<Route path="/signup" component={Signup} />
+							<Route path="/search" component={Search} />
+							<Route path="/eventDetail:id" component={props => <EventDetail {...props} />} />
+							<Route path="/sellTicket:id" component={props => <SellTicket {...props} />} />
+							<Route path="/buyTicket:id" component={props => <BuyTicket {...props} />} />
+							<Route
+								path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
+								component={props => <RandomGeneratedColor {...props} render={props => <Category {...props} />} />}
+							/>
+							<Route path="/" component={App} />
+						</Switch>
+					</Router>
+					<AppMenu />
+				</SwipeableViews>
 			</UserProvider>
 		</Grommet>
 	</ApolloProvider>,

@@ -5,11 +5,10 @@ import { Ticket, Close, Menu } from 'grommet-icons';
 import { Redirect } from 'react-router-dom';
 
 import AppMenu from '../pages/AppMenu';
-import { UserContext } from '../context/user';
+
 import BackButton from '../components/backButton';
 
 function AppHeader({ className, style, header, fromApp, back, history }) {
-	const { userData } = useContext(UserContext);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
 	const setModalShow = state => {
 		setCssAnim(state);
@@ -17,8 +16,10 @@ function AppHeader({ className, style, header, fromApp, back, history }) {
 			setShow(state);
 		}, 0);
 	};
+
 	const popUpRef = React.useRef();
 	const [show, setShow] = React.useState();
+
 	const [cssAnim, setCssAnim] = React.useState();
 	if (redirectToApp && fromApp !== 'true') {
 		return <Redirect push="true" to="/" />;
@@ -58,7 +59,7 @@ function AppHeader({ className, style, header, fromApp, back, history }) {
 								</Box>
 								<Button icon={<Close color="dark-1" />} onClick={() => setModalShow(false)} />
 							</Header>
-							<AppMenu userData={userData.currentUser} />
+							<AppMenu />
 						</Layer>
 					)}
 				</Header>

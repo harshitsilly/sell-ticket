@@ -6,13 +6,15 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Loader from '../components/loader';
 import UserTickets from '../pages/userTickets';
-
+import { UserContext } from '../context/user';
 const POST_MUTATION = gql`
 	mutation {
 		logout
 	}
 `;
-function AppMenu({ userData }) {
+function AppMenu() {
+	let { userData } = useContext(UserContext);
+	userData = userData.currentUser;
 	let [postMutation, { loading, error: mutationError }] = useMutation(POST_MUTATION, {
 		onCompleted({ login }) {
 			setRedirect('login');

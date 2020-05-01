@@ -234,11 +234,7 @@ body {
 	}
 	width: 100%;
 }
-.searchBox.categoryHeaderHeight {
-	.appSearchIcon {
-		left: 75px;
-	}
-}
+
 .searchFilterButtonBox {
 	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
 		'segoe ui', arial, sans-serif;
@@ -299,9 +295,9 @@ body {
 	max-width: 700px;
 }
 .appSearchIcon {
-	position: absolute;
+	position: fixed;
 	z-index: 2;
-	left: 25px;
+	width: 50px !important;
 }
 
 .appMenuButton {

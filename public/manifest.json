@@ -3,17 +3,17 @@
 	"name": "Sell Ticket",
 	"icons": [
 		{
-			"src": "/sell_ticket/res/mipmap-xxhdpi/sell_ticket.png",
+			"src": "/st/res/mipmap-xxhdpi/sell_ticket.png",
 			"type": "image/png",
 			"sizes": "144x144"
 		},
 		{
-			"src": "/sell_ticket/res/mipmap-xhdpi/sell_ticket.png",
+			"src": "/st/res/mipmap-xhdpi/sell_ticket.png",
 			"type": "image/png",
 			"sizes": "96x96"
 		},
 		{
-			"src": "/sell_ticket/res/mipmap-xxxhdpi/sell_ticket.png",
+			"src": "/st/res/mipmap-xxxhdpi/sell_ticket.png",
 			"type": "image/png",
 			"sizes": "192x192"
 		}
