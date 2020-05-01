@@ -14,6 +14,7 @@ type Event {
 	location: String
 	numberOfTickets: NumberOfTickets
 	ticketsAvailable: [TicketsAvailable]
+	notifyUsers: [User]
 }
 type EventTickets {
 	id: ID
@@ -66,6 +67,9 @@ type AuthPayload {
 	user: User
 }
 
+type NotifyPayload {
+	data: String
+}
 type TicketPayload {
 	ticket: TicketsAvailable
 }
@@ -86,6 +90,7 @@ input AuthInput {
 type Mutation {
 	addTicket(passType: String!, numberOfTickets: Int!, cost: Int!, event: String, comments: String): TicketPayload
 	buyTicket(ticketIds: [String]!): BuyTicketPayload
+	notifyEvent(eventId: String!, notify: Boolean!): NotifyPayload
 	authGoogle(input: AuthInput!): AuthResponse
 	signup(firstName: String!, lastName: String!, email: String!, password: String!): AuthPayload
 	login(email: String!, password: String!): AuthPayload

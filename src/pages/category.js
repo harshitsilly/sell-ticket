@@ -91,9 +91,14 @@ function Category(props) {
 			<>
 				<Box>
 					<Box className={`${headerClass} categoryHeder`} height="25vh">
-						<AppHeader style={{ backgroundColor: props.styleColor }} className={appHeaderClass} header={category} />
+						<AppHeader
+							history={props.history}
+							style={{ backgroundColor: props.styleColor }}
+							className={appHeaderClass}
+							header={category}
+						/>
 						<Box pad="medium" justify="center" align="center">
-							<Text color="#fff" weight="bold" size="large">
+							<Text color="#fff" size="40px">
 								{category}
 							</Text>
 						</Box>

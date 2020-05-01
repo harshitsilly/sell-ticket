@@ -40,6 +40,7 @@ type Event {
   date: DateTime
   location: String
   ticketsAvailable(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable!]
+  notifyUsers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 type EventConnection {
@@ -55,6 +56,7 @@ input EventCreateInput {
   date: DateTime
   location: String
   ticketsAvailable: TicketsAvailableCreateManyWithoutEventInput
+  notifyUsers: UserCreateManyInput
 }
 
 input EventCreateOneWithoutTicketsAvailableInput {
@@ -68,6 +70,7 @@ input EventCreateWithoutTicketsAvailableInput {
   category: CategoryFormat
   date: DateTime
   location: String
+  notifyUsers: UserCreateManyInput
 }
 
 type EventEdge {
@@ -428,6 +431,7 @@ input EventUpdateInput {
   date: DateTime
   location: String
   ticketsAvailable: TicketsAvailableUpdateManyWithoutEventInput
+  notifyUsers: UserUpdateManyInput
 }
 
 input EventUpdateManyMutationInput {
@@ -451,6 +455,7 @@ input EventUpdateWithoutTicketsAvailableDataInput {
   category: CategoryFormat
   date: DateTime
   location: String
+  notifyUsers: UserUpdateManyInput
 }
 
 input EventUpsertWithoutTicketsAvailableInput {
@@ -516,6 +521,9 @@ input EventWhereInput {
   ticketsAvailable_every: TicketsAvailableWhereInput
   ticketsAvailable_some: TicketsAvailableWhereInput
   ticketsAvailable_none: TicketsAvailableWhereInput
+  notifyUsers_every: UserWhereInput
+  notifyUsers_some: UserWhereInput
+  notifyUsers_none: UserWhereInput
   AND: [EventWhereInput!]
   OR: [EventWhereInput!]
   NOT: [EventWhereInput!]
@@ -897,6 +905,11 @@ input UserCreateInput {
   endpoint: String
 }
 
+input UserCreateManyInput {
+  create: [UserCreateInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
 input UserCreateOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
@@ -929,6 +942,96 @@ type UserPreviousValues {
   email: String
   password: String
   endpoint: String
+}
+
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  firstName: String
+  firstName_not: String
+  firstName_in: [String!]
+  firstName_not_in: [String!]
+  firstName_lt: String
+  firstName_lte: String
+  firstName_gt: String
+  firstName_gte: String
+  firstName_contains: String
+  firstName_not_contains: String
+  firstName_starts_with: String
+  firstName_not_starts_with: String
+  firstName_ends_with: String
+  firstName_not_ends_with: String
+  lastName: String
+  lastName_not: String
+  lastName_in: [String!]
+  lastName_not_in: [String!]
+  lastName_lt: String
+  lastName_lte: String
+  lastName_gt: String
+  lastName_gte: String
+  lastName_contains: String
+  lastName_not_contains: String
+  lastName_starts_with: String
+  lastName_not_starts_with: String
+  lastName_ends_with: String
+  lastName_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  endpoint: String
+  endpoint_not: String
+  endpoint_in: [String!]
+  endpoint_not_in: [String!]
+  endpoint_lt: String
+  endpoint_lte: String
+  endpoint_gt: String
+  endpoint_gte: String
+  endpoint_contains: String
+  endpoint_not_contains: String
+  endpoint_starts_with: String
+  endpoint_not_starts_with: String
+  endpoint_ends_with: String
+  endpoint_not_ends_with: String
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
 }
 
 type UserSubscriptionPayload {
@@ -967,12 +1070,37 @@ input UserUpdateInput {
   endpoint: String
 }
 
+input UserUpdateManyDataInput {
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  endpoint: String
+}
+
+input UserUpdateManyInput {
+  create: [UserCreateInput!]
+  update: [UserUpdateWithWhereUniqueNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueNestedInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
 input UserUpdateManyMutationInput {
   firstName: String
   lastName: String
   email: String
   password: String
   endpoint: String
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneInput {
@@ -984,7 +1112,18 @@ input UserUpdateOneInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateDataInput!
+}
+
 input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserUpsertWithWhereUniqueNestedInput {
+  where: UserWhereUniqueInput!
   update: UserUpdateDataInput!
   create: UserCreateInput!
 }

@@ -3,12 +3,13 @@ import { Box, Text, Button } from 'grommet';
 import { useLocation } from 'react-router-dom';
 import { Location, Calendar, Ticket, Notification } from 'grommet-icons';
 import { Redirect } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import AppHeader from '../components/appHeader';
 import TicketBadge from '../components/ticketBadge';
 import TicketDetails from '../components/ticketDetails';
 import Share from '../components/share';
+import Switch from 'react-switch';
 
 const Events_Detail_Query = gql`
 	# Write your query or mutation here
@@ -32,7 +33,14 @@ const Events_Detail_Query = gql`
 	}
 `;
 
-function EventDetail() {
+const POST_MUTATION_NOTIFY = gql`
+	mutation NotifyEvent($eventId: String!, $notify: Boolean!) {
+		notifyEvent(eventId: $eventId, notify: $notify) {
+			data
+		}
+	}
+`;
+function EventDetail({ history }) {
 	let { name, date, location, id } = useLocation().state;
 	date = new Date(date);
 	date = date.toLocaleString();
@@ -41,6 +49,7 @@ function EventDetail() {
 	const [showMore, setShowMore] = React.useState(false);
 	const [firstSkip, setFirstSkip] = React.useState({ first: 7, skip: 0 });
 	const [redirect, setRedirect] = React.useState();
+	const [notify, setNotify] = React.useState(false);
 	const [redirectToBuyTicket, setRedirectToBuyTicket] = React.useState();
 	let onClickTicket = ticketDetails => {
 		setRedirectToBuyTicket(ticketDetails);
@@ -53,6 +62,20 @@ function EventDetail() {
 		} else {
 			setShowMore(true);
 		}
+	};
+	const [postMutation, { loadingNotify, errorNotify }] = useMutation(POST_MUTATION_NOTIFY, {
+		onCompleted(data) {
+			console.log('sss');
+		}
+	});
+	let onPressNotify = () => {
+		postMutation({
+			variables: {
+				eventId: id,
+				notify: !notify
+			}
+		});
+		setNotify(!notify);
 	};
 	const { loading, error, data } = useQuery(Events_Detail_Query, {
 		variables: { id, first: firstSkip.first, skip: firstSkip.skip },
@@ -85,7 +108,7 @@ function EventDetail() {
 	return (
 		<>
 			<Box height="460px" flex="false">
-				<AppHeader />
+				<AppHeader history={history} />
 				<Box className="eventDetailHeaderParent" flex="false">
 					<Box className="eventDetailHeader">
 						<Text size="large" weight="bold">
@@ -136,7 +159,20 @@ function EventDetail() {
 					</div>
 					{data && tickets.length === 0 && (
 						<Box direction="row-reverse" width="100%">
-							<Button primary className="notifyButton" reverse icon={<Notification />} label="Notify" />
+							<Box direction="row" align="center">
+								<Text className="notifyText" color="#00b6f0">
+									Notify{' '}
+								</Text>
+								<Switch
+									onChange={onPressNotify}
+									checked={notify}
+									handleDiameter={28}
+									offColor="#d3d3d3"
+									onColor="#00b6f0"
+									offHandleColor="#00b6f0"
+									onHandleColor="#08f"
+								/>
+							</Box>
 						</Box>
 					)}
 				</Box>

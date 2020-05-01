@@ -6,8 +6,9 @@ import { Redirect } from 'react-router-dom';
 
 import AppMenu from '../pages/AppMenu';
 import { UserContext } from '../context/user';
+import BackButton from '../components/backButton';
 
-function AppHeader({ className, style, header, fromApp }) {
+function AppHeader({ className, style, header, fromApp, back, history }) {
 	const { userData } = useContext(UserContext);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
 	const setModalShow = state => {
@@ -25,15 +26,18 @@ function AppHeader({ className, style, header, fromApp }) {
 		return (
 			<>
 				<Header style={style} className={className ? `${className} appMenuHeader` : 'appMenuHeader'}>
-					<Box pad="small" direction="row" align="center">
-						<Box
-							onClick={() => {
-								setRedirectToApp(true);
-							}}
-						>
-							<img className="appLogoHeader" src="logo/logo_white.png" alt="" />
+					{!back && (
+						<Box pad="small" direction="row" align="center">
+							<Box
+								onClick={() => {
+									setRedirectToApp(true);
+								}}
+							>
+								<img className="appLogoHeader" src="logo/logo_white.png" alt="" />
+							</Box>
 						</Box>
-					</Box>
+					)}
+					{back && <BackButton history={history} color="light-1" />}
 					<Button icon={<Menu color="#ffffff" />} onClick={() => setModalShow(true)} hoverIndicator />
 					{show && (
 						<Layer

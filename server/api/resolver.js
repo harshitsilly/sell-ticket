@@ -1,7 +1,28 @@
 const uuid = require('uuid/v1');
 const passport = require('passport');
+const notification = require('./notification');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+
+const fragment = `
+    fragment EventsWithTicketAvailable on Event {
+      id
+      name
+      category
+      date
+      location
+      ticketsAvailable {
+		id
+		passType
+		user {
+			firstName
+			lastName
+		}
+		numberOfTickets
+		cost
+      }
+    }
+  `;
 
 const authenticateGoogle = (req, res) =>
 	new Promise((resolve, reject) => {
@@ -37,25 +58,7 @@ const resolvers = {
 		currentUser: (parent, args, context) => context.getUser(),
 		events: async (parent, { id, category, location, skip, first }, context) => {
 			//  code for fragment
-			const fragment = `
-    fragment EventsWithTicketAvailable on Event {
-      id
-      name
-      category
-      date
-      location
-      ticketsAvailable {
-		id
-		passType
-		user {
-			firstName
-			lastName
-		}
-		numberOfTickets
-		cost
-      }
-    }
-  `;
+
 			let filter = location ? { id, category, location } : { id, category };
 			let data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
 			data = data.map(event => {
@@ -160,7 +163,13 @@ const resolvers = {
 					}
 				}
 			};
-			return await context.prisma.createTicketsAvailable(newTicket);
+			let eventData = await context.prisma.event({ id: event }).$fragment(fragment);
+
+			await context.prisma.createTicketsAvailable(newTicket);
+			if (eventData.ticketsAvailable.length === 0) {
+				notification.sendNotification(event);
+			}
+			return;
 		},
 		signup: async (parent, { firstName, lastName, email, password }, context) => {
 			const existingUsers = await context.prisma.users();
@@ -193,6 +202,24 @@ const resolvers = {
 
 			await context.login(user);
 			return { user };
+		},
+		notifyEvent: async (parent, { eventId, notify }, context) => {
+			let notifyUser = notify
+				? {
+						connect: {
+							id: context.getUser().id
+						}
+				  }
+				: {
+						disconnect: {
+							id: context.getUser().id
+						}
+				  };
+			let eventUpdateData = {
+				notifyUsers: notifyUser
+			};
+			await context.prisma.updateEvent({ where: { id: eventId }, data: eventUpdateData });
+			return { data: 'Success' };
 		},
 		logout: (parent, args, context) => context.logout(),
 

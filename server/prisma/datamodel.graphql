@@ -40,4 +40,5 @@ type Event {
 	date: DateTime
 	location: String
 	ticketsAvailable: [TicketsAvailable!]! @relation(references: [id])
+	notifyUsers: [User]
 }

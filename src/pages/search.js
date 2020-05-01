@@ -84,7 +84,7 @@ function SearchPage({ history }) {
 				</Box>
 				<Box className="searchHeader">
 					<Box direction="row" align="center" pad="medium">
-						{headerClass && <BackButton position={headerClass ? 'relative' : 'absolute'} history={history} />}
+						{headerClass && <BackButton position={headerClass ? 'relative' : 'absolute'} history={history} size="large" />}
 						<Box className={headerClass ? `searchBox ${headerClass}` : 'searchBox'} direction="row" align="center">
 							<Search className="appSearchIcon" />
 							<TextInput

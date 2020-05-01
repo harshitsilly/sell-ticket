@@ -135,7 +135,7 @@ server.express.get('/vapid-public-key', (req, res) => {
 // Allows our client to subscribe
 server.express.post('/subscribe', async (req, res) => {
 	const subscription = req.body;
-	await prisma.updateUser({ data: { endpoint: subscription.endpoint }, where: { id: req.user.id } });
+	await prisma.updateUser({ data: { endpoint: JSON.stringify(subscription) }, where: { id: req.user.id } });
 	// registerTasks(subscription);
 	res.send('subscribed!');
 });
@@ -146,7 +146,7 @@ const registerTasks = subscription => {
 	// the endpoints are the keys of our subscriptions object
 	// Every 3 seconds we will send a notification with the message 'hey this is a push!'
 	const intervalID = setInterval(() => {
-		sendNotification(subscription, 'Hey this is a push!');
+		// sendNotification(subscription, 'Hey this is a push!');
 	}, 10000);
 	allSubscriptions[endpoint] = intervalID;
 };
@@ -164,24 +164,6 @@ server.express.post('/unsubscribe', (req, res) => {
 // This function takes a subscription object and a payload as an argument
 // It will try to encrypt the payload
 // then attempt to send a notification via the subscription's endpoint
-const sendNotification = async (subscription, payload) => {
-	// This means we won't resend a notification if the client is offline
-	const options = {
-		TTL: 0
-	};
-
-	if (!subscription.keys) {
-		payload = payload || null;
-	}
-
-	// web-push's sendNotification function does all the work for us
-	try {
-		const res = await webPush.sendNotification(subscription, payload, options);
-		console.log(res, 'sent!');
-	} catch (e) {
-		console.log('error sending', e);
-	}
-};
 
 server.express.use(serveStatic('build'));
 server.express.get('/*', function(req, res) {

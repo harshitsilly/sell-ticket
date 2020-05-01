@@ -204,6 +204,12 @@ body {
 .backButton {
 	position: absolute;
 	> svg {
+		width: 45px;
+		height: 45px;
+	}
+}
+.backButton.large {
+	> svg {
 		width: 50px;
 		height: 50px;
 	}
@@ -385,6 +391,7 @@ body {
 	position: fixed;
 	width: 100%;
 	top: 0;
+	height: 60px;
 }
 .eventBox {
 	height: 60px;
@@ -444,6 +451,10 @@ body {
 
 .eventTicket[ticket-Data='0'] {
 	background: lightgray;
+}
+.notifyText {
+	font-weight: 550;
+	padding-right: 5px;
 }
 
 .eventTicket {
@@ -779,6 +790,10 @@ body {
 	color: white;
 	border: 0 !important;
 	margin-right: -25px !important;
+}
+.notificatioIcon {
+	height: 20px !important;
+	width: 20px !important;
 }
 .showMoreText {
 	color: rgb(0, 182, 240);
