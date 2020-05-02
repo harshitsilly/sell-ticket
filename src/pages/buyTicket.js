@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { Button, Box, Form, FormField, Text, TextInput, Select } from 'grommet';
 import { Calendar, Location, Validate } from 'grommet-icons';
 import { useLocation } from 'react-router-dom';
@@ -18,7 +18,7 @@ const POST_MUTATION = gql`
 `;
 function BuyTicket() {
 	const { userData } = useContext(UserContext);
-
+	const ticketBGRef = React.createRef(null);
 	const { id, name, date, location, user, ticketId, numberOfTickets, cost } = useLocation().state;
 	console.log(id);
 
@@ -34,6 +34,9 @@ function BuyTicket() {
 			}
 		});
 	};
+	useLayoutEffect(() => {
+		ticketBGRef.current && (ticketBGRef.current.style.width = window.innerWidth - 32 + 'px');
+	});
 	const [redirectToLogin, setRedirectToLogin] = React.useState(false);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
 	const [ticketIds, setTicketIds] = React.useState([]);
@@ -60,7 +63,7 @@ function BuyTicket() {
 		);
 	} else {
 		return (
-			<Box flex="false">
+			<Box flex="false" background="brand" height="100vh">
 				{!userData.currentUser && (
 					<Box align="center" justify="center">
 						<Loader text="User not login. Redirecting To Login Page" />
@@ -69,62 +72,66 @@ function BuyTicket() {
 				{userData.currentUser && (
 					<>
 						<AppHeader />
-						<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
-							<Box className="eventDetailHeader">
-								<Text size="large" weight="bold">
-									{name}
-								</Text>
-							</Box>
-							<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
-								<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
-									<Calendar color="grey" />
-									{date}
-								</Box>
-								<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
-									<Location color="grey" />
-									{location}
-								</Box>
-							</Box>
-						</Box>
-						<div className="sellTicketBackground eventDetailBackground" />
 
-						<Box pad="medium" className="buyTicketPaddingTop">
-							<Box pad="medium" className="buyTicketFormBox">
-								<Box pad="medium" align="center">
-									<img className="buyTicketLogo" src="logo/logo_transparent.png" alt="" />
+						<Box background="light-1" className="ticketSell ticketSellRadius">
+							<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
+								<Box className="eventDetailHeader">
+									<Text size="large" weight="bold">
+										{name}
+									</Text>
 								</Box>
-								<Box direction="row" justify="around">
-									<Box gap="medium" align="start">
-										<Text weight="bold">Sold By</Text>
-										<Text weight="bold">Tickets</Text>
-										<Text weight="bold">Cost/Ticket</Text>
-										<Text weight="bold">&nbsp;</Text>
-										<Text weight="bold">Total Cost</Text>
+								<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
+									<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
+										<Calendar color="grey" />
+										{date}
 									</Box>
-									<Box gap="medium" align="end">
-										<Text>{`${user.firstName} ${user.lastName}`}</Text>
-										<Text>{numberOfTickets}</Text>
-										<Box direction="row" align="center" className="ticketCostBuyTicket" size="1rem">
-											<img src="rupee.svg" alt=""></img>
-											{cost}
-										</Box>
-
-										<Text className="ticketCostCalculator">
-											{numberOfTickets} &#215; {cost}
-										</Text>
-										<Box direction="row" align="center" className="ticketCost" size="1rem">
-											<img src="rupee.svg" alt=""></img>
-											{numberOfTickets * cost}
-										</Box>
+									<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
+										<Location color="grey" />
+										{location}
 									</Box>
 								</Box>
+							</Box>
 
-								<Box className="buyTicketButtonBox" direction="row" width="100%" pad="small" justify="center">
-									<Button primary label="Buy" onClick={onClickBuyButton} />
+							<div ref={ticketBGRef} className="sellTicketBackground eventDetailBackground" />
+
+							<Box pad="medium" className="buyTicketPaddingTop">
+								<Box className="qrCode" align="end">
+									<img src="qr_code.png" alt="" />
 								</Box>
-								<Box className="verified" direction="row" width="100%" pad="small" justify="end">
-									<Validate />
-									<Text>verified</Text>
+								<Box pad="medium">
+									<Box direction="row" justify="around">
+										<Box gap="medium" align="start">
+											<Text weight="bold">Sold By</Text>
+											<Text weight="bold">Tickets</Text>
+											<Text weight="bold">Cost/Ticket</Text>
+											<Text weight="bold">&nbsp;</Text>
+											<Text weight="bold">Total Cost</Text>
+										</Box>
+										<Box gap="medium" align="end">
+											<Text>{`${user.firstName} ${user.lastName}`}</Text>
+											<Text>{numberOfTickets}</Text>
+											<Box direction="row" align="center" className="ticketCostBuyTicket" size="1rem">
+												<img src="rupee.svg" alt=""></img>
+												{cost}
+											</Box>
+
+											<Text className="ticketCostCalculator">
+												{numberOfTickets} &#215; {cost}
+											</Text>
+											<Box direction="row" align="center" className="ticketCost" size="1rem">
+												<img src="rupee.svg" alt=""></img>
+												{numberOfTickets * cost}
+											</Box>
+										</Box>
+									</Box>
+
+									<Box className="buyTicketButtonBox" direction="row" width="100%" pad="small" justify="center">
+										<Button primary label="Buy" onClick={onClickBuyButton} />
+									</Box>
+									<Box className="verified" direction="row" width="100%" pad="small" justify="end">
+										<Validate />
+										<Text>verified</Text>
+									</Box>
 								</Box>
 							</Box>
 						</Box>

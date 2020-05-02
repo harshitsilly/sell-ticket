@@ -218,6 +218,9 @@ body {
 .backButton.relative {
 	position: relative;
 }
+.searchBG {
+	background: #0e1013;
+}
 .searchHeader {
 	position: sticky;
 	top: 0px;
@@ -575,12 +578,22 @@ body {
 	position: absolute;
 	width: 100%;
 	height: 260px;
-	background-image: url(https://cdn.ticketswap.com/static/images/placeholders/festival-4.jpg);
+	background: url(https://cdn.ticketswap.com/static/images/placeholders/festival-4.jpg);
 	background-size: cover;
 	background-position: center center;
 }
 .sellTicketBackground {
 	height: 200px;
+}
+.qrCode {
+	height: 0;
+	> img {
+		width: 80px;
+		padding-bottom: 10px;
+	}
+	position: relative;
+	top: -220px;
+	z-index: 2;
 }
 
 .eventDetailBackground::before,
@@ -630,6 +643,16 @@ body {
 		rgba(0, 19, 25, 0) 100%
 	);
 }
+
+.ticketSell {
+	margin: 16px;
+	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
+		'segoe ui', arial, sans-serif;
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+}
+.ticketSellRadius {
+	border-radius: 25px;
+}
 .eventDetailSubHeader {
 	z-index: 2;
 }
@@ -642,7 +665,7 @@ body {
 }
 .sellTicketHeaderParent {
 	height: 125px;
-	top: 30px;
+	top: 115px;
 }
 .sellTicketCost {
 	width: 30px;
@@ -660,21 +683,13 @@ body {
 	padding-top: 60px !important;
 }
 .buyTicketPaddingTop {
-	padding-top: 60px !important;
+	padding-top: 120px !important;
 }
-.buyTicketLogo {
-	width: 130px;
-	padding-bottom: 20px;
-}
+
 .ticketCostCalculator {
 	border-bottom: 1px dashed black;
 }
-.buyTicketFormBox {
-	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
-	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
-		'segoe ui', arial, sans-serif;
-	border-radius: 20px;
-}
+
 .userTicketBox {
 	box-shadow: 1px 2px 4px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
 	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
