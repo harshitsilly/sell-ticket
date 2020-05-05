@@ -52,6 +52,9 @@ function AppMenu() {
 					)}
 					{!userTicket && (
 						<Box className="appMenuButtonsBox">
+							{/* <Text size="large" weight="bold">
+								Upcoming
+							</Text> */}
 							{!userData && (
 								<Button reverse className="appMenuButton" icon={<Next />} label="Login" onClick={() => setRedirect(true)} />
 							)}

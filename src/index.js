@@ -58,26 +58,26 @@ ReactDOM.render(
 		<InstallPwa />
 		<Grommet theme={theme}>
 			<UserProvider>
-				<SwipeableViews index="1">
-					<AreaPage />
-					<Router>
-						<Switch>
-							<Route path="/login" component={Login} />
+				{/* <SwipeableViews index="1"> */}
+				{/* <AreaPage /> */}
+				<Router>
+					<Switch>
+						<Route path="/login" component={Login} />
 
-							<Route path="/signup" component={Signup} />
-							<Route path="/search" component={Search} />
-							<Route path="/eventDetail:id" component={props => <EventDetail {...props} />} />
-							<Route path="/sellTicket:id" component={props => <SellTicket {...props} />} />
-							<Route path="/buyTicket:id" component={props => <BuyTicket {...props} />} />
-							<Route
-								path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
-								component={props => <RandomGeneratedColor {...props} render={props => <Category {...props} />} />}
-							/>
-							<Route path="/" component={App} />
-						</Switch>
-					</Router>
-					<AppMenu />
-				</SwipeableViews>
+						<Route path="/signup" component={Signup} />
+						<Route path="/search" component={Search} />
+						<Route path="/eventDetail:id" component={props => <EventDetail {...props} />} />
+						<Route path="/sellTicket:id" component={props => <SellTicket {...props} />} />
+						<Route path="/buyTicket:id" component={props => <BuyTicket {...props} />} />
+						<Route
+							path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
+							component={props => <RandomGeneratedColor {...props} render={props => <Category {...props} />} />}
+						/>
+						<Route path="/" component={App} />
+					</Switch>
+				</Router>
+				{/* <AppMenu /> */}
+				{/* </SwipeableViews> */}
 			</UserProvider>
 		</Grommet>
 	</ApolloProvider>,

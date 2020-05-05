@@ -81,6 +81,14 @@ function AreaPage({ history }) {
 						<Text size="40px">In Your Area</Text>
 					</Box>
 				</Box>
+				<Box background="dark-1" className={headerClass} direction="row" align="center" height="25vh">
+					<Box width="100%" align="center" justify="center">
+						<Text size="40px">Upcoming Events</Text>
+					</Box>
+				</Box>
+				<div style={{ width: '50vmin', height: '400', paddingBottom: '74%', position: 'relative' }}>
+					<img src="https://media.giphy.com/media/sXgNCQ6qvKVm8/source.gif" width="100%" height="100%" alt=""></img>
+				</div>
 
 				{loading && (
 					<Box pad="medium" className="skeletonEvent">

@@ -40,7 +40,7 @@ function BuyTicket() {
 	const [redirectToLogin, setRedirectToLogin] = React.useState(false);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
 	const [ticketIds, setTicketIds] = React.useState([]);
-	const [value, setValue] = React.useState('1');
+	const [value, setValue] = React.useState(1);
 	if (!userData.currentUser) {
 		setTimeout(() => {
 			setRedirectToLogin(true);
@@ -109,18 +109,24 @@ function BuyTicket() {
 										</Box>
 										<Box gap="medium" align="end">
 											<Text>{`${user.firstName} ${user.lastName}`}</Text>
-											<Text>{numberOfTickets}</Text>
+											<Select
+												className="ticketSelect"
+												options={[...Array(numberOfTickets + 1).keys()].slice(1)}
+												value={value}
+												onChange={({ option }) => setValue(option)}
+											/>
+											{/* <Text>{numberOfTickets}</Text> */}
 											<Box direction="row" align="center" className="ticketCostBuyTicket" size="1rem">
 												<img src="rupee.svg" alt=""></img>
 												{cost}
 											</Box>
 
 											<Text className="ticketCostCalculator">
-												{numberOfTickets} &#215; {cost}
+												{value} &#215; {cost}
 											</Text>
 											<Box direction="row" align="center" className="ticketCost" size="1rem">
 												<img src="rupee.svg" alt=""></img>
-												{numberOfTickets * cost}
+												{value * cost}
 											</Box>
 										</Box>
 									</Box>
