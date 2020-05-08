@@ -35,14 +35,23 @@ function AppMenu() {
 				<Box pad="medium" justify="between" height="100vh">
 					{userData && (
 						<>
-							<Box align="center" pad="medium" gap="large">
-								<Avatar className="avatarSize" background="brand">
-									<User color="white" />
-								</Avatar>
+							<Box direction="row" align="center" pad="medium" gap="large">
 								<Text weight="bold" color="dark-2" size="20px">
 									Welcome {userData.firstName}
 								</Text>
+								<Avatar className="avatarSize" background="brand">
+									<User color="white" />
+								</Avatar>
 							</Box>
+
+							{/* <Button
+								reverse
+								className="appMenuYourTickets"
+								icon={<Next />}
+								label="Your Tickets"
+								onClick={onPressYourTickets}
+							/> */}
+							<Button reverse className="appMenuButton" icon={<Next />} label="Your Tickets" onClick={onPressYourTickets} />
 						</>
 					)}
 					{userTicket && (
@@ -58,15 +67,7 @@ function AppMenu() {
 							{!userData && (
 								<Button reverse className="appMenuButton" icon={<Next />} label="Login" onClick={() => setRedirect(true)} />
 							)}
-							{userData && (
-								<Button
-									reverse
-									className="appMenuButton"
-									icon={<Next />}
-									label="Your Tickets"
-									onClick={onPressYourTickets}
-								/>
-							)}
+
 							{userData && (
 								<Button reverse className="appMenuButton" icon={<Next />} label="Logout" onClick={onPressLogout} />
 							)}

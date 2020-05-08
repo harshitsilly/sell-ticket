@@ -10,8 +10,8 @@ import Loader from '../components/loader';
 import { UserContext } from '../context/user';
 
 const POST_MUTATION = gql`
-	mutation BuyTicket($ticketIds: [String]!) {
-		buyTicket(ticketIds: $ticketIds) {
+	mutation BuyTicket($ticketIds: [String]!, $noOfTickets: Int!) {
+		buyTicket(ticketIds: $ticketIds, noOfTickets: $noOfTickets) {
 			text
 		}
 	}
@@ -30,7 +30,8 @@ function BuyTicket() {
 	const onClickBuyButton = () => {
 		postMutation({
 			variables: {
-				ticketIds: [ticketId]
+				ticketIds: [ticketId],
+				noOfTickets: value
 			}
 		});
 	};
@@ -63,7 +64,7 @@ function BuyTicket() {
 		);
 	} else {
 		return (
-			<Box flex="false" background="brand" height="100vh">
+			<Box flex="false" height="100vh">
 				{!userData.currentUser && (
 					<Box align="center" justify="center">
 						<Loader text="User not login. Redirecting To Login Page" />
@@ -72,8 +73,10 @@ function BuyTicket() {
 				{userData.currentUser && (
 					<>
 						<AppHeader />
+						<div className="ticketBuyBG1"> </div>
 
-						<Box background="light-1" className="ticketSell ticketSellRadius">
+						<div className="ticketBuyCircle"></div>
+						<Box background="light-1" className="ticketSell ticketSellRadius ticketBuyCircle">
 							<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
 								<Box className="eventDetailHeader">
 									<Text size="large" weight="bold">

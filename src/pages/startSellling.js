@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Button, Box, Form, FormField, Text, TextInput, TextArea } from 'grommet';
+import { Button, Box, Form, FormField, Text, TextInput, TextArea, Select } from 'grommet';
 import { Calendar, Location, Chat, Tag, Ticket } from 'grommet-icons';
 import { useLocation } from 'react-router-dom';
 import gql from 'graphql-tag';
@@ -63,7 +63,7 @@ function StartSelling() {
 		);
 	} else {
 		return (
-			<Box height="460px" flex="false">
+			<Box height="100vh" className="ticketSellMainBG" flex="false">
 				{!userData.currentUser && (
 					<Box align="center" justify="center">
 						<Loader text="User not login. Redirecting To Login Page" />
@@ -71,25 +71,26 @@ function StartSelling() {
 				)}
 				{userData.currentUser && (
 					<>
+						<div className="ticketSellBG1"> </div>
+						<div className="ticketSellBG2"> </div>
 						<AppHeader />
-						<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
+						<Box className="sellTicketHeader" flex="false" align="center">
 							<Box className="eventDetailHeader">
 								<Text size="large" weight="bold">
 									{name}
 								</Text>
 							</Box>
-							<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
+							<Box pad="medium" justify="evenly" align="center" className="eventDetailSubHeader">
 								<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
-									<Calendar color="grey" />
+									<Calendar color="white" />
 									{date}
 								</Box>
 								<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
-									<Location color="grey" />
+									<Location color="white" />
 									{location}
 								</Box>
 							</Box>
 						</Box>
-						<div className="sellTicketBackground eventDetailBackground" />
 
 						<Box pad="medium" className="sellTicketFormBox">
 							<Form onSubmit={onPressSubmitPasswordForm}>
@@ -99,7 +100,15 @@ function StartSelling() {
 										required
 										component={props => (
 											<Box direction="row" align="center">
-												<Ticket />
+												<div className="eventTicketV2">
+													<Ticket color="white" />
+												</div>
+												{/* <Select
+													{...props}
+													className="ticketSelect"
+													options={[...Array(5).keys()].slice(1)}
+													valueKey="value"
+												/> */}
 												<TextInput type="number" {...props} placeholder="Tickets To Sell"></TextInput>
 											</Box>
 										)}
@@ -109,7 +118,10 @@ function StartSelling() {
 										required
 										component={props => (
 											<Box direction="row" align="center">
-												<Tag className="licenseTransformScale" />
+												<Box width="2.4rem" pad="small" round="medium" background="status-error">
+													<Tag className="svgStrokeBlack svgFillWhite" />
+												</Box>
+												{/* <Tag className="licenseTransformScale" /> */}
 												<TextInput {...props} placeholder="Ticket Type"></TextInput>
 											</Box>
 										)}
@@ -119,9 +131,9 @@ function StartSelling() {
 										required
 										component={props => (
 											<Box direction="row" align="center">
-												<Text className="ticketCost sellTicketCost" size="1rem">
+												<div className="ticketCost sellTicketCost">
 													<img src="rupee.svg" alt="" />
-												</Text>
+												</div>
 
 												<TextInput {...props} placeholder="Cost per ticket"></TextInput>
 											</Box>
@@ -131,14 +143,17 @@ function StartSelling() {
 										name="comments"
 										component={props => (
 											<Box direction="row" align="center" justify="center" className="sellTicketComment">
-												<Chat className="licenseTransformScale" />
+												<Box width="2.4rem" pad="small" round="medium" background="status-warning">
+													<Chat className="licenseTransformScale svgStrokeBlack" />
+												</Box>
+
 												<TextArea {...props} placeholder="Comments"></TextArea>
 											</Box>
 										)}
 									/>
 								</Box>
 								<Box direction="row" width="100%" pad="small" justify="center">
-									<Button color="#8B16FF" type="submit" primary label="Submit" />
+									<Button className="sellButton" color="brand" type="submit" primary label="Sell" />
 								</Box>
 							</Form>
 						</Box>

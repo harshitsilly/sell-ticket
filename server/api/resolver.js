@@ -111,7 +111,7 @@ const resolvers = {
 		}
 	},
 	Mutation: {
-		buyTicket: async (parent, { ticketIds }, context) => {
+		buyTicket: async (parent, { ticketIds, noOfTickets }, context) => {
 			const { id } = context.getUser();
 			const fragment = `
     fragment TicketAvailablesWithEvent on TicketAvailable {
@@ -132,7 +132,7 @@ const resolvers = {
 			let createTicket = {
 				...ticket,
 				...ticket.event,
-				numberOfTickets: ticket.numberOfTickets
+				numberOfTickets: noOfTickets
 			};
 			delete createTicket.comments;
 			delete createTicket.id;
@@ -142,8 +142,14 @@ const resolvers = {
 					create: [createTicket]
 				}
 			};
-			let userData = await context.prisma.updateUser({ where: { id: id }, data: userUpdateData });
-			await context.prisma.deleteManyTicketsAvailables({ id_in: [...ticketIds] });
+			await context.prisma.updateUser({ where: { id: id }, data: userUpdateData });
+			let ticketUpdateData = {
+				numberOfTickets: ticket.numberOfTickets - noOfTickets
+			};
+			ticket.numberOfTickets === noOfTickets
+				? await context.prisma.deleteManyTicketsAvailables({ id_in: [...ticketIds] })
+				: await context.prisma.updateTicketsAvailable({ where: { id: ticket.id }, data: ticketUpdateData });
+
 			return { text: 'Success' };
 		},
 		addTicket: async (parent, { passType, numberOfTickets, cost, event, comments }, context) => {
