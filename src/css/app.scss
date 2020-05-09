@@ -572,7 +572,6 @@ body {
 }
 
 .ticketSellContent {
-	border: 2px solid #9dca74;
 	border-radius: 25px;
 	margin: 0 16px;
 	padding: 16px;
@@ -812,6 +811,7 @@ body {
 	padding-top: 32px !important;
 	color: #001319;
 	padding-bottom: 0 !important;
+	border-bottom: 1px solid lightgray;
 }
 .sellTicketCost {
 	display: flex;
