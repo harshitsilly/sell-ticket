@@ -104,6 +104,7 @@ function Category(props) {
 						</Box>
 
 						<Box style={{ backgroundColor: props.styleColor }} className="categoryBackground"></Box>
+						<Box style={{ backgroundColor: props.styleColor }} className="categoryBackground2"></Box>
 					</Box>
 					<Box className={appHeaderClass === 'positionSticky' ? 'filterBox' : 'filterBoxRow'}>
 						<LocaltionFiler setLocationCallback={setLocationCallback} />

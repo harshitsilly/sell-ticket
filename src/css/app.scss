@@ -1,4 +1,4 @@
-// brand-color - #7d4cdb,//8b16ff,//#036ee3
+// brand-color - #7d4cdb,//#8b16ff,//#036ee3// #FF698A pink// FF8A64 orange//#9DCA74 green
 
 * {
 	box-sizing: border-box;
@@ -13,6 +13,12 @@ body {
 .appLogoHeader {
 	width: 150px;
 	padding-top: 3px;
+}
+
+.defalultBoxShadowButton {
+	> button {
+		box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	}
 }
 
 // test
@@ -190,10 +196,25 @@ body {
 	top: 0;
 	height: 25vh;
 	width: 100vw;
-
-	background-color: lightslategray;
 }
+.categoryBackground2 {
+	z-index: -1;
+	position: absolute;
+	top: 25vh;
+	height: 20px;
+	width: 100vw;
+}
+.categoryBackground2:before {
+	position: absolute;
+	content: '';
+	width: 120vw;
+	height: 40px;
 
+	left: calc(50% - 60vw);
+	background-color: white;
+	border-radius: 50% 50% 0 0;
+	z-index: 2;
+}
 .appMenuPage {
 	transform-style: preserve-3d;
 }
@@ -363,6 +384,7 @@ body {
 }
 
 .filterBox {
+	z-index: 3;
 	margin: 24px 12px;
 	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
 	border-radius: 20px;
@@ -549,8 +571,14 @@ body {
 	z-index: 2;
 }
 
+.ticketSellContent {
+	border: 2px solid #9dca74;
+	border-radius: 25px;
+	margin: 0 16px;
+	padding: 16px;
+}
 .verified {
-	margin-top: -42px;
+	margin-left: -16px;
 	> svg {
 		> path {
 			stroke: green !important;
@@ -567,6 +595,7 @@ body {
 }
 .eventList {
 	z-index: 1;
+	padding-top: 0 !important;
 }
 .eventNameBox {
 	> span:first-child {
@@ -631,7 +660,7 @@ body {
 }
 .sellTicketBackground {
 	height: 200px;
-	border-radius: 25px;
+	top: 0;
 }
 
 .qrCode {
@@ -641,7 +670,7 @@ body {
 		padding-bottom: 10px;
 	}
 	position: relative;
-	top: -245px;
+	top: -110px;
 	z-index: 2;
 }
 
@@ -652,7 +681,7 @@ body {
 	left: 0;
 	right: 0;
 }
-.eventDetailBackground:not(.sellTicketBackground)::before {
+.eventDetailBackground::before {
 	height: 50%;
 	opacity: 0.65;
 	top: 0;
@@ -696,12 +725,25 @@ body {
 
 .ticketSell {
 	z-index: 2;
-	margin: 16px;
+
 	font-family: 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto,
 		'segoe ui', arial, sans-serif;
-	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
 }
+.ticketSellBox {
+	z-index: 1;
+	border-top-left-radius: 25px;
+	border-top-right-radius: 25px;
+	top: 125px;
+	position: relative;
+	box-shadow: 0 1px 2px rgba(0, 19, 25, 0.2), 0 4px 12px rgba(0, 19, 25, 0.1);
+	> div:last-child {
+		height: 100%;
+	}
+}
+
 .ticketSellRadius {
+	top: 50px;
+	position: relative;
 	border-radius: 25px;
 }
 
@@ -714,22 +756,44 @@ body {
 	background-color: #7d4cdb;
 	background-image: linear-gradient(#7d4cdb, mediumpurple);
 }
+.ticketBuyBG1::before {
+	position: absolute;
+	content: '';
+	width: 30vw;
+	top: 175px;
+	height: 20px;
+	left: calc(50% - 15vw);
+	background-color: #7d4cdb;
+	border-radius: 0 0 50% 50%;
+	z-index: 2;
+	opacity: 0.9;
+}
 
 .ticketSellBG1 {
 	position: absolute;
 	width: 100%;
-	height: 40vh;
+	height: 55vh;
 	overflow: hidden;
 	background-color: #7d4cdb;
 }
 .ticketSellBG2 {
 	position: absolute;
 	width: 100%;
-	top: 40vh;
-	height: 15vh;
+	top: 50vh;
+	height: 100px;
 	overflow: hidden;
 	border-radius: 0 0 70% 70%;
 	background-color: #7d4cdb;
+}
+.ticketSellBG2:before {
+	position: absolute;
+	content: '';
+	width: 120vw;
+	height: 100px;
+
+	left: calc(50% - 60vw);
+	background-color: white;
+	border-radius: 50% 50% 0 0;
 }
 .ticketSellMainBG {
 	// background-color: mediumpurple;
@@ -745,8 +809,9 @@ body {
 	top: 160px;
 }
 .sellTicketHeaderParent {
-	height: 125px;
-	top: 115px;
+	padding-top: 32px !important;
+	color: #001319;
+	padding-bottom: 0 !important;
 }
 .sellTicketCost {
 	display: flex;
@@ -778,9 +843,6 @@ body {
 		}
 	}
 }
-.buyTicketPaddingTop {
-	padding-top: 120px !important;
-}
 
 .ticketCostCalculator {
 	border-bottom: 1px dashed black;
@@ -801,14 +863,9 @@ body {
 	margin: 0px 6px;
 }
 .buyTicketButtonBox {
-	padding-top: 20px !important;
+	padding: 20px 0 !important;
 	> button {
-		border-radius: 20px !important;
-		height: 2.5rem;
-		color: white !important;
-		font-weight: 500 !important;
-		font-size: 1rem !important;
-		opacity: 0.95;
+		margin: 0 16px;
 	}
 }
 .sellTicketHeader {
@@ -819,6 +876,9 @@ body {
 	position: relative;
 	z-index: 2;
 	padding-left: 16px;
+}
+.sellDetailHeader {
+	padding-bottom: 8px;
 }
 .ticketBadge {
 	background-color: #28383d;
@@ -885,10 +945,23 @@ body {
 }
 .sellButton {
 	border-radius: 20px !important;
-	height: 2.5rem;
+
 	color: white !important;
 	font-weight: 500 !important;
 	opacity: 0.95;
+	width: 100%;
+	height: 50px;
+	font-size: 19px;
+}
+.buyButton {
+	border-radius: 20px !important;
+
+	color: white !important;
+	font-weight: 500 !important;
+	opacity: 0.95;
+	width: 100%;
+	height: 50px;
+	font-size: 19px;
 }
 .sellTicketV2 {
 	border-radius: 10px !important;

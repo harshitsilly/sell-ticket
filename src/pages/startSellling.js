@@ -153,7 +153,13 @@ function StartSelling() {
 									/>
 								</Box>
 								<Box direction="row" width="100%" pad="small" justify="center">
-									<Button className="sellButton" color="brand" type="submit" primary label="Sell" />
+									<Button
+										className="sellButton defalultBoxShadowButton"
+										color="brand"
+										type="submit"
+										primary
+										label="Sell Ticket"
+									/>
 								</Box>
 							</Form>
 						</Box>

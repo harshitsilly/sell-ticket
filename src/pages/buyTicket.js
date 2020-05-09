@@ -36,7 +36,7 @@ function BuyTicket() {
 		});
 	};
 	useLayoutEffect(() => {
-		ticketBGRef.current && (ticketBGRef.current.style.width = window.innerWidth - 32 + 'px');
+		ticketBGRef.current && (ticketBGRef.current.style.height = window.innerHeight - 173 + 'px');
 	});
 	const [redirectToLogin, setRedirectToLogin] = React.useState(false);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
@@ -72,74 +72,80 @@ function BuyTicket() {
 				)}
 				{userData.currentUser && (
 					<>
-						<AppHeader />
-						<div className="ticketBuyBG1"> </div>
+						{/* <div className="ticketBuyBG1"> </div> */}
 
-						<div className="ticketBuyCircle"></div>
-						<Box background="light-1" className="ticketSell ticketSellRadius ticketBuyCircle">
-							<Box className="eventDetailHeaderParent sellTicketHeaderParent" flex="false">
-								<Box className="eventDetailHeader">
-									<Text size="large" weight="bold">
-										{name}
-									</Text>
-								</Box>
-								<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
-									<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
-										<Calendar color="grey" />
-										{date}
+						<Box className="ticketSell">
+							<AppHeader />
+							<div className="sellTicketBackground eventDetailBackground" />
+
+							<Box ref={ticketBGRef} background="light-1" className="ticketSellBox">
+								<Box pad="large" className="sellTicketHeaderParent" flex="false">
+									<Box className="sellDetailHeader">
+										<Text size="large" weight="bold">
+											{name}
+										</Text>
 									</Box>
-									<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
-										<Location color="grey" />
-										{location}
-									</Box>
-								</Box>
-							</Box>
-
-							<div ref={ticketBGRef} className="sellTicketBackground eventDetailBackground" />
-
-							<Box pad="medium" className="buyTicketPaddingTop">
-								<Box className="qrCode" align="end">
-									<img src="qr_code.png" alt="" />
-								</Box>
-								<Box pad="medium">
-									<Box direction="row" justify="around">
-										<Box gap="medium" align="start">
-											<Text weight="bold">Sold By</Text>
-											<Text weight="bold">Tickets</Text>
-											<Text weight="bold">Cost/Ticket</Text>
-											<Text weight="bold">&nbsp;</Text>
-											<Text weight="bold">Total Cost</Text>
+									<Box justify="evenly" className="eventDetailSubHeader">
+										<Box className="bottomMargindot5rem eventDetailTime" justify="start" align="center" direction="row">
+											<Calendar color="grey" />
+											{date}
 										</Box>
-										<Box gap="medium" align="end">
-											<Text>{`${user.firstName} ${user.lastName}`}</Text>
-											<Select
-												className="ticketSelect"
-												options={[...Array(numberOfTickets + 1).keys()].slice(1)}
-												value={value}
-												onChange={({ option }) => setValue(option)}
-											/>
-											{/* <Text>{numberOfTickets}</Text> */}
-											<Box direction="row" align="center" className="ticketCostBuyTicket" size="1rem">
-												<img src="rupee.svg" alt=""></img>
-												{cost}
-											</Box>
+										<Box className="marginBottom1rem eventDetailTime" justify="start" align="center" direction="row">
+											<Location color="grey" />
+											{location}
+										</Box>
+									</Box>
+								</Box>
 
-											<Text className="ticketCostCalculator">
-												{value} &#215; {cost}
-											</Text>
-											<Box direction="row" align="center" className="ticketCost" size="1rem">
-												<img src="rupee.svg" alt=""></img>
-												{value * cost}
+								<Box justify="between">
+									<Box className="qrCode" align="end">
+										<img src="qr_code.png" alt="" />
+									</Box>
+									{/* <Box className="verified" direction="row" width="100%" pad="small" justify="end">
+										<Validate />
+										<Text>verified</Text>
+									</Box> */}
+									<Box className="ticketSellContent">
+										<Box direction="row" justify="between">
+											<Box gap="medium" align="start">
+												<Text weight="bold">Sold By</Text>
+												<Text weight="bold">Tickets</Text>
+												<Text weight="bold">Cost/Ticket</Text>
+												<Text weight="bold">&nbsp;</Text>
+												<Text weight="bold">Total Cost</Text>
+											</Box>
+											<Box gap="medium" align="end">
+												<Text>{`${user.firstName} ${user.lastName}`}</Text>
+												<Select
+													className="ticketSelect"
+													options={[...Array(numberOfTickets + 1).keys()].slice(1)}
+													value={value}
+													onChange={({ option }) => setValue(option)}
+												/>
+												{/* <Text>{numberOfTickets}</Text> */}
+												<Box direction="row" align="center" className="ticketCostBuyTicket" size="1rem">
+													<img src="rupee.svg" alt=""></img>
+													{cost}
+												</Box>
+
+												<Text className="ticketCostCalculator">
+													{value} &#215; {cost}
+												</Text>
+												<Box direction="row" align="center" className="ticketCost" size="1rem">
+													<img src="rupee.svg" alt=""></img>
+													{value * cost}
+												</Box>
 											</Box>
 										</Box>
 									</Box>
 
 									<Box className="buyTicketButtonBox" direction="row" width="100%" pad="small" justify="center">
-										<Button primary label="Buy" onClick={onClickBuyButton} />
-									</Box>
-									<Box className="verified" direction="row" width="100%" pad="small" justify="end">
-										<Validate />
-										<Text>verified</Text>
+										<Button
+											className="buyButton defalultBoxShadowButton"
+											primary
+											label="Buy Ticket"
+											onClick={onClickBuyButton}
+										/>
 									</Box>
 								</Box>
 							</Box>
