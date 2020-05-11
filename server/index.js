@@ -57,7 +57,7 @@ passport.use(
 		{
 			consumerKey: 'gGDup6JvkmOb4ZT8KhfVCJX8T',
 			consumerSecret: 'heOP8jUkaPTKbYYYSf9tZcuJji616iqHClk8fRgpj8fiu7TJOZ',
-			callbackURL: '/auth/twitter/callback'
+			callbackURL: 'https://sell--ticket.herokuapp.com/auth/twitter/callback'
 		},
 		function(token, tokenSecret, profile, cb) {
 			console.log(profile);
