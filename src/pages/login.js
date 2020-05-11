@@ -96,7 +96,7 @@ function Login() {
 							plain
 							icon={<Twitter color="#22A1F1" />}
 							onClick={() => {
-								window.location = '/auth/google';
+								window.location = '/auth/twitter';
 							}}
 						/>
 						<Button

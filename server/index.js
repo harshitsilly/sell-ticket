@@ -5,6 +5,7 @@ const session = require('express-session');
 const path = require('path');
 const passport = require('passport');
 const { GraphQLLocalStrategy, buildContext } = require('graphql-passport');
+const TwitterStrategy = require('passport-twitter');
 const GoogleStrategy = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 const jwt = require('jsonwebtoken');
@@ -48,6 +49,19 @@ passport.use(
 			callbackURL: 'http://localhost:4001/auth/google/callback'
 		},
 		GoogleTokenStrategyCallback
+	)
+);
+
+passport.use(
+	new TwitterStrategy(
+		{
+			consumerKey: 'gGDup6JvkmOb4ZT8KhfVCJX8T',
+			consumerSecret: 'heOP8jUkaPTKbYYYSf9tZcuJji616iqHClk8fRgpj8fiu7TJOZ',
+			callbackURL: '/auth/twitter/callback'
+		},
+		function(token, tokenSecret, profile, cb) {
+			console.log(profile);
+		}
 	)
 );
 
@@ -106,6 +120,15 @@ server.express.use('/auth/google/callback', passport.authenticate('google', { fa
 			httpOnly: true
 		})
 		.redirect('/');
+});
+
+server.express.get('/auth/twitter', () => {
+	passport.authenticate('twitter');
+});
+
+server.express.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), function(req, res) {
+	// Successful authentication, redirect home.
+	res.redirect('/index.html');
 });
 
 // push notification
