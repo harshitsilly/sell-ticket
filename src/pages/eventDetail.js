@@ -55,8 +55,8 @@ function EventDetail({ history }) {
 		setRedirectToBuyTicket(ticketDetails);
 	};
 	let setEventsData = () => {
-		data && setTickets(() => [...tickets, ...data.events[0].ticketsAvailable]);
-		setNumberOfTickets(data.events[0].numberOfTickets);
+		data && data.events[0] && setTickets(() => [...tickets, ...data.events[0].ticketsAvailable]);
+		data && data.events[0] && setNumberOfTickets(data.events[0].numberOfTickets);
 		if (data.events.length < 5) {
 			setShowMore(false);
 		} else {

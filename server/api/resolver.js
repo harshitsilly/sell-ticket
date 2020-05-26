@@ -4,26 +4,6 @@ const notification = require('./notification');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-const fragment = `
-    fragment EventsWithTicketAvailable on Event {
-      id
-      name
-      category
-      date
-      location
-      ticketsAvailable {
-		id
-		passType
-		user {
-			firstName
-			lastName
-		}
-		numberOfTickets
-		cost
-      }
-    }
-  `;
-
 const authenticateGoogle = (req, res) =>
 	new Promise((resolve, reject) => {
 		passport.authenticate('google-token', { session: false }, (err, data, info) => {
@@ -59,8 +39,33 @@ const resolvers = {
 		events: async (parent, { id, category, location, skip, first }, context) => {
 			//  code for fragment
 
-			let filter = location ? { id, category, location } : { id, category };
-			let data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
+			const fragment = `
+    fragment EventsWithTicketAvailable on Event {
+      id
+      name
+      category
+      date
+      location
+      ticketsAvailable(where:{user :{id_not : "${context.getUser().id}"}}) {
+		id
+		passType
+		user {
+			id
+			firstName
+			lastName
+		}
+		numberOfTickets
+		cost
+      }
+    }
+  `;
+			let absFilter = { id, category };
+
+			let filter = location ? { ...absFilter, location } : absFilter;
+			let data;
+
+			data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
+
 			data = data.map(event => {
 				return {
 					...event,
@@ -153,6 +158,26 @@ const resolvers = {
 			return { text: 'Success' };
 		},
 		addTicket: async (parent, { passType, numberOfTickets, cost, event, comments }, context) => {
+			const fragment = `
+    fragment EventsWithTicketAvailable on Event {
+      id
+      name
+      category
+      date
+      location
+      ticketsAvailable {
+		id
+		passType
+		user {
+			id
+			firstName
+			lastName
+		}
+		numberOfTickets
+		cost
+      }
+    }
+  `;
 			const newTicket = {
 				passType,
 				numberOfTickets,
