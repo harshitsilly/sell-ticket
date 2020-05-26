@@ -15,4 +15,4 @@ true:
   branch: master
 
 notifications:
-  webhooks: https://outlook.office.com/webhook/2235fdbc-cc22-4c73-9e4e-85867a7dd193@63886f82-1054-44ed-abf1-1f94bb74985a/TravisCI/b403949f99074f3784a8503ee9caf239/57fa2627-140e-4d70-8dc3-90202f532880
+  webhooks: https://outlook.office.com/webhook/2235fdbc-cc22-4c73-9e4e-85867a7dd193@63886f82-1054-44ed-abf1-1f94bb74985a/TravisCI/16fdcd411ddf4effaba4ba66ac767b7a/57fa2627-140e-4d70-8dc3-90202f532880
