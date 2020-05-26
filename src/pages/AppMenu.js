@@ -51,7 +51,6 @@ function AppMenu() {
 								label="Your Tickets"
 								onClick={onPressYourTickets}
 							/> */}
-							<Button reverse className="appMenuButton" icon={<Next />} label="Your Tickets" onClick={onPressYourTickets} />
 						</>
 					)}
 					{userTicket && (
@@ -68,6 +67,7 @@ function AppMenu() {
 								<Button reverse className="appMenuButton" icon={<Next />} label="Login" onClick={() => setRedirect(true)} />
 							)}
 
+							<Button reverse className="appMenuButton" icon={<Next />} label="Your Tickets" onClick={onPressYourTickets} />
 							{userData && (
 								<Button reverse className="appMenuButton" icon={<Next />} label="Logout" onClick={onPressLogout} />
 							)}
