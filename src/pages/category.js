@@ -35,7 +35,7 @@ function Category(props) {
 	const [location, setLocation] = React.useState('');
 	category = category.charAt(0).toUpperCase() + category.slice(1);
 	window.addEventListener('scroll', event => {
-		if (window.pageYOffset + 125 > (window.screen.height / 100) * 25) {
+		if (window.pageYOffset > 50) {
 			setAppHeaderClass('positionFixed');
 			setheaderClass('categoryHeaderHeight');
 		} else {
