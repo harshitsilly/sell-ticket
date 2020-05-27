@@ -46,7 +46,7 @@ const resolvers = {
       category
       date
       location
-      ticketsAvailable(where:{user :{id_not : "${context.getUser().id}"}}) {
+      ticketsAvailable(where:{user :{id_not : "${context.getUser() ? context.getUser().id : ''}"}}) {
 		id
 		passType
 		user {
