@@ -13,7 +13,7 @@ import Event from '../components/event';
 const Events_Query = gql`
 	# Write your query or mutation here
 	query Events($category: String!, $location: String, $first: Int, $skip: Int) {
-		events(category: $category, location: $location, first: $first, skip: $skip) {
+		events(category: $category, location: $location, userTicket: false, first: $first, skip: $skip) {
 			id
 			name
 			category

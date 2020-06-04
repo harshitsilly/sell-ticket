@@ -36,17 +36,19 @@ const upsertGoogleUser = async function({ accessToken, refreshToken, profile }) 
 const resolvers = {
 	Query: {
 		currentUser: (parent, args, context) => context.getUser(),
-		events: async (parent, { id, category, location, skip, first }, context) => {
+		events: async (parent, { id, category, location, userTicket, skip, first }, context) => {
 			//  code for fragment
 
-			const fragment = `
+			let fragment;
+			if (id) {
+				fragment = `
     fragment EventsWithTicketAvailable on Event {
       id
       name
       category
       date
       location
-      ticketsAvailable(where:{user :{id_not : "${context.getUser() ? context.getUser().id : ''}"}}) {
+      ticketsAvailable(where:{user :{${userTicket ? 'id' : 'id_not'} : "${context.getUser() ? context.getUser().id : ''}"}}) {
 		id
 		passType
 		user {
@@ -59,6 +61,29 @@ const resolvers = {
       }
     }
   `;
+			} else {
+				fragment = `
+    fragment EventsWithTicketAvailable on Event {
+      id
+      name
+      category
+      date
+      location
+      ticketsAvailable{
+		id
+		passType
+		user {
+			id
+			firstName
+			lastName
+		}
+		numberOfTickets
+		cost
+      }
+    }
+  `;
+			}
+
 			let absFilter = { id, category };
 
 			let filter = location ? { ...absFilter, location } : absFilter;

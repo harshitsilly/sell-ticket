@@ -43,7 +43,7 @@ type SearchResult {
 }
 type Query {
 	currentUser: User
-	events(id: String, category: String, location: String, skip: Int, first: Int): [Event]
+	events(id: String, category: String, location: String, userTicket: Boolean, skip: Int, first: Int): [Event]
 	eventsSearch(queryType: [SearchFormat], query: String): [Event]
 	ticketsAvailable: [TicketsAvailable]
 	userTickets: User

@@ -1,4 +1,4 @@
-// brand-color - #7d4cdb,//#8b16ff,//#036ee3// #FF698A pink// FF8A64 orange//#9DCA74 green
+// brand-color - #7d4cdb,//#8b16ff,//#036ee3// #FF698A pink// #FF8A64 orange//#9DCA74 green
 
 * {
 	box-sizing: border-box;
@@ -497,6 +497,9 @@ body {
 }
 .eventTicket[ticket-Data] {
 	background: rgb(0, 182, 240);
+}
+.eventTicket[ticket-Data][ticket-color] {
+	background: #ff698a;
 }
 
 .eventTicket[ticket-Data='0'] {

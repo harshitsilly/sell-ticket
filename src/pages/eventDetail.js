@@ -13,8 +13,8 @@ import Switch from 'react-switch';
 
 const Events_Detail_Query = gql`
 	# Write your query or mutation here
-	query Events($id: String!, $first: Int, $skip: Int) {
-		events(id: $id, first: $first, skip: $skip) {
+	query Events($id: String!, $userTicket: Boolean, $first: Int, $skip: Int) {
+		events(id: $id, userTicket: $userTicket, first: $first, skip: $skip) {
 			id
 			numberOfTickets {
 				available
@@ -45,7 +45,8 @@ function EventDetail({ history }) {
 	date = new Date(date);
 	date = date.toLocaleString();
 	const [tickets, setTickets] = React.useState([]);
-	const [numberOfTickets, setNumberOfTickets] = React.useState({});
+	const [yourTickets, setYourTickets] = React.useState([]);
+	const [numberOfTickets, setNumberOfTickets] = React.useState(0);
 	const [showMore, setShowMore] = React.useState(false);
 	const [firstSkip, setFirstSkip] = React.useState({ first: 7, skip: 0 });
 	const [redirect, setRedirect] = React.useState();
@@ -56,13 +57,23 @@ function EventDetail({ history }) {
 	};
 	let setEventsData = () => {
 		data && data.events[0] && setTickets(() => [...tickets, ...data.events[0].ticketsAvailable]);
-		data && data.events[0] && setNumberOfTickets(data.events[0].numberOfTickets);
+		data && data.events[0] && setNumberOfTickets(numberOfTickets => numberOfTickets + data.events[0].numberOfTickets.available);
 		if (data.events.length < 5) {
 			setShowMore(false);
 		} else {
 			setShowMore(true);
 		}
 	};
+	let setEventsDataYourTickets = () => {
+		console.log(dataYourTickets);
+		dataYourTickets &&
+			dataYourTickets.events[0] &&
+			setYourTickets(() => [...yourTickets, ...dataYourTickets.events[0].ticketsAvailable]);
+		dataYourTickets &&
+			dataYourTickets.events[0] &&
+			setNumberOfTickets(numberOfTickets => numberOfTickets + dataYourTickets.events[0].numberOfTickets.available);
+	};
+
 	const [postMutation, { loadingNotify, errorNotify }] = useMutation(POST_MUTATION_NOTIFY, {
 		onCompleted(data) {
 			console.log('sss');
@@ -78,9 +89,14 @@ function EventDetail({ history }) {
 		setNotify(!notify);
 	};
 	const { loading, error, data } = useQuery(Events_Detail_Query, {
-		variables: { id, first: firstSkip.first, skip: firstSkip.skip },
+		variables: { id, userTicket: false, first: firstSkip.first, skip: firstSkip.skip },
 		fetchPolicy: 'no-cache',
 		onCompleted: setEventsData
+	});
+	const { loadingYourTickets, errorYourTickets, data: dataYourTickets } = useQuery(Events_Detail_Query, {
+		variables: { id, userTicket: true },
+		fetchPolicy: 'no-cache',
+		onCompleted: setEventsDataYourTickets
 	});
 	if (error) return `Error! ${error.message}`;
 	if (redirect)
@@ -118,7 +134,7 @@ function EventDetail({ history }) {
 					<Box pad="medium" justify="evenly" className="eventDetailSubHeader">
 						<Box direction="row" justify="between">
 							<Box className="marginBottom1rem" justify="start" direction="row">
-								<TicketBadge type="AVAILABLE" ticketsAvailable={numberOfTickets.available} />
+								<TicketBadge type="AVAILABLE" ticketsAvailable={numberOfTickets} />
 								<TicketBadge type="SOLD" ticketsAvailable="25" />
 								<TicketBadge type="WANTED" ticketsAvailable="65" />
 							</Box>
@@ -149,15 +165,18 @@ function EventDetail({ history }) {
 				<div className="eventDetailBackground" />
 			</Box>
 			<Box>
-				<Box pad="medium" align="center" direction="row">
-					<Text className="eventTicketText" size="large" weight="bold">
-						Tickets
-					</Text>
-					<div ticket-Data={numberOfTickets.available} className="eventTicket">
-						<Ticket color="white" />
-						<Text size="1rem">{numberOfTickets.available}</Text>
-					</div>
-					{data && tickets.length === 0 && (
+				{data && tickets.length === 0 && (
+					<Box pad="medium" align="center" direction="row">
+						<>
+							<Text className="eventTicketText" size="large" weight="bold">
+								Tickets
+							</Text>
+							<div ticket-Data={numberOfTickets} className="eventTicket">
+								<Ticket color="white" />
+								<Text size="1rem">{numberOfTickets}</Text>
+							</div>
+						</>
+
 						<Box direction="row-reverse" width="100%">
 							<Box direction="row" align="center">
 								<Text className="notifyText" color="#00b6f0">
@@ -174,12 +193,41 @@ function EventDetail({ history }) {
 								/>
 							</Box>
 						</Box>
-					)}
-				</Box>
+					</Box>
+				)}
 				<Box>
+					{dataYourTickets && (
+						<>
+							<Box pad="medium" className="eventList">
+								<Box direction="row">
+									<Text className="eventTicketText" size="large" weight="bold">
+										Your Tickets On Sale
+									</Text>
+									<div
+										ticket-Data={dataYourTickets.events[0].numberOfTickets.available}
+										ticket-Color="#FF698A"
+										className="eventTicket"
+									>
+										<Ticket color="white" />
+										<Text size="1rem">{dataYourTickets.events[0].numberOfTickets.available}</Text>
+									</div>
+								</Box>
+								{yourTickets.length > 0 && yourTickets.map(ticket => <TicketDetails ticketColor="#FF698A" {...ticket} />)}
+							</Box>
+						</>
+					)}
 					{data && (
 						<>
 							<Box pad="medium" className="eventList">
+								<Box direction="row">
+									<Text className="eventTicketText" size="large" weight="bold">
+										All Tickets
+									</Text>
+									<div ticket-Data={data.events[0].numberOfTickets.available} className="eventTicket">
+										<Ticket color="white" />
+										<Text size="1rem">{data.events[0].numberOfTickets.available}</Text>
+									</div>
+								</Box>
 								{tickets.length === 0 && <Text weight="bold">Sold Out. Check back later.</Text>}
 								{tickets.length > 0 && tickets.map(ticket => <TicketDetails onClickTicket={onClickTicket} {...ticket} />)}
 							</Box>

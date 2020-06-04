@@ -5,7 +5,7 @@ import React from 'react';
 function TicketDetails(props) {
 	return (
 		<>
-			<Box onClick={() => props.onClickTicket(props)} justify="center" className="eventBox">
+			<Box onClick={() => (props.onClickTicket ? props.onClickTicket(props) : undefined)} justify="center" className="eventBox">
 				<Grid className="ticketGrid">
 					<Box justify="center" className="ticketNameBox" align="start">
 						<Text size="1rem">{props.passType}</Text>
@@ -17,7 +17,7 @@ function TicketDetails(props) {
 						<img src="rupee.svg" alt=""></img>
 						{props.cost}
 					</Text>
-					<div ticket-Data={props.numberOfTickets} className="eventTicket">
+					<div ticket-Data={props.numberOfTickets} ticket-Color={props.ticketColor} className="eventTicket">
 						<Ticket color="white" />
 						<Text size="1rem">{props.numberOfTickets}</Text>
 					</div>
