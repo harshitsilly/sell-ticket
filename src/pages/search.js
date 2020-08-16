@@ -108,6 +108,12 @@ function SearchPage({ history }) {
 									console.log('test');
 								}}
 							></FilterButton>
+							<FilterButton
+								label="Artist"
+								setFilterCallback={() => {
+									console.log('test');
+								}}
+							></FilterButton>
 						</Box>
 					</Box>
 				</Box>

@@ -17,7 +17,7 @@ function TicketDetails(props) {
 						<img src="rupee.svg" alt=""></img>
 						{props.cost}
 					</Text>
-					<div ticket-Data={props.numberOfTickets} ticket-Color={props.ticketColor} className="eventTicket">
+					<div ticket-data={props.numberOfTickets} ticket-color={props.ticketColor} className="eventTicket">
 						<Ticket color="white" />
 						<Text size="1rem">{props.numberOfTickets}</Text>
 					</div>

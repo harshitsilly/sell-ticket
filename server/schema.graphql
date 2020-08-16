@@ -15,7 +15,15 @@ type Event {
 	numberOfTickets: NumberOfTickets
 	ticketsAvailable: [TicketsAvailable]
 	notifyUsers: [User]
+	ticketType: [TicketType]
 }
+
+type TicketType {
+	id: ID
+	type: String
+	count: Int
+}
+
 type EventTickets {
 	id: ID
 	name: String
@@ -44,6 +52,7 @@ type SearchResult {
 type Query {
 	currentUser: User
 	events(id: String, category: String, location: String, userTicket: Boolean, skip: Int, first: Int): [Event]
+	eventTickets(id: String, category: String, location: String, passType: String, userTicket: Boolean, skip: Int, first: Int): [Event]
 	eventsSearch(queryType: [SearchFormat], query: String): [Event]
 	ticketsAvailable: [TicketsAvailable]
 	userTickets: User

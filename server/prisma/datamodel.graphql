@@ -41,4 +41,10 @@ type Event {
 	location: String
 	ticketsAvailable: [TicketsAvailable!]! @relation(references: [id])
 	notifyUsers: [User]
+	ticketType: [TicketType] @relation(references: [id])
+}
+type TicketType {
+	id: ID! @id
+	type: String
+	count: Int
 }

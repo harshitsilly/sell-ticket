@@ -3,8 +3,7 @@ import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import Loader from '../components/loader';
 const UserContext = createContext({
-	userData: { currentUser: null },
-	setCurrentUserData: () => {}
+	userData: { currentUser: null }
 });
 const CURRENT_USER = gql`
 	# Write your query or mutation here

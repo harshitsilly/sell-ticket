@@ -189,6 +189,33 @@ server.express.post('/unsubscribe', (req, res) => {
 // then attempt to send a notification via the subscription's endpoint
 
 server.express.use(serveStatic('build'));
+
+server.express.get('/users', async (req, res) => {
+	const fragment = `
+    fragment UsersWithTicket on user {
+		id
+		firstName
+		lastName
+		email
+		tickets{
+			id
+			name
+			passType
+			date
+			location
+			numberOfTickets
+		}
+	}`;
+	const users = await prisma.users().$fragment(fragment);
+	return res.send(users);
+});
+
+server.express.post('/events', async (req, res) => {
+	const body = req.body;
+	const event = await prisma.createEvent(body);
+	return res.send(event);
+});
+
 server.express.get('/*', function(req, res) {
 	res.sendFile(path.join(__dirname, '../build/index.html'));
 });

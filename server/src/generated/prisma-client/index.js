@@ -23,6 +23,10 @@ var models = [
   {
     name: "Event",
     embedded: false
+  },
+  {
+    name: "TicketType",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
