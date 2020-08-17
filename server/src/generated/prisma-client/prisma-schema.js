@@ -616,6 +616,11 @@ type Query {
   node(id: ID!): Node
 }
 
+enum Roles {
+  Customer
+  Admin
+}
+
 type Subscription {
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
   eventTickets(where: EventTicketsSubscriptionWhereInput): EventTicketsSubscriptionPayload
@@ -1106,6 +1111,7 @@ type User {
   password: String
   tickets(where: EventTicketsWhereInput, orderBy: EventTicketsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventTickets!]
   endpoint: String
+  role: Roles
 }
 
 type UserConnection {
@@ -1122,6 +1128,7 @@ input UserCreateInput {
   password: String
   tickets: EventTicketsCreateManyInput
   endpoint: String
+  role: Roles
 }
 
 input UserCreateManyInput {
@@ -1152,6 +1159,8 @@ enum UserOrderByInput {
   password_DESC
   endpoint_ASC
   endpoint_DESC
+  role_ASC
+  role_DESC
 }
 
 type UserPreviousValues {
@@ -1161,6 +1170,7 @@ type UserPreviousValues {
   email: String
   password: String
   endpoint: String
+  role: Roles
 }
 
 input UserScalarWhereInput {
@@ -1248,6 +1258,10 @@ input UserScalarWhereInput {
   endpoint_not_starts_with: String
   endpoint_ends_with: String
   endpoint_not_ends_with: String
+  role: Roles
+  role_not: Roles
+  role_in: [Roles!]
+  role_not_in: [Roles!]
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -1278,6 +1292,7 @@ input UserUpdateDataInput {
   password: String
   tickets: EventTicketsUpdateManyInput
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateInput {
@@ -1287,6 +1302,7 @@ input UserUpdateInput {
   password: String
   tickets: EventTicketsUpdateManyInput
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateManyDataInput {
@@ -1295,6 +1311,7 @@ input UserUpdateManyDataInput {
   email: String
   password: String
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateManyInput {
@@ -1315,6 +1332,7 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -1435,6 +1453,10 @@ input UserWhereInput {
   endpoint_not_starts_with: String
   endpoint_ends_with: String
   endpoint_not_ends_with: String
+  role: Roles
+  role_not: Roles
+  role_in: [Roles!]
+  role_not_in: [Roles!]
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

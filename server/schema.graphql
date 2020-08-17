@@ -5,7 +5,14 @@ type User {
 	email: String
 	tickets: [EventTickets]
 	endpoint: String
+	role: Roles
 }
+
+enum Roles {
+	Customer
+	Admin
+}
+
 type Event {
 	id: ID
 	name: String

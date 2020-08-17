@@ -6,6 +6,7 @@ type User {
 	password: String
 	tickets: [EventTickets]
 	endpoint: String
+	role: Roles
 }
 type EventTickets {
 	id: ID! @id
@@ -23,6 +24,11 @@ type TicketsAvailable {
 	cost: Int
 	event: Event @relation(link: INLINE)
 	comments: String
+}
+
+enum Roles {
+	Customer
+	Admin
 }
 
 enum CategoryFormat {

@@ -5,6 +5,7 @@ const session = require('express-session');
 const path = require('path');
 const passport = require('passport');
 const { GraphQLLocalStrategy, buildContext } = require('graphql-passport');
+const LocalStrategy = require('passport-local');
 const TwitterStrategy = require('passport-twitter');
 const GoogleStrategy = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
@@ -30,6 +31,25 @@ passport.use(
 		done(error, matchingUser);
 	})
 );
+passport.use(
+	new LocalStrategy(
+		{
+			usernameField: 'email',
+			passwordField: 'password'
+		},
+		async (email, password, done) => {
+			const users = await prisma.users();
+			const matchingUser = users.find(user => email === user.email && bcrypt.compareSync(password, user.password));
+			const error = matchingUser
+				? matchingUser.role === 'Admin'
+					? null
+					: new Error('user not admin')
+				: new Error('no matching user');
+			done(error, matchingUser);
+		}
+	)
+);
+
 const GoogleTokenStrategyCallback = async (accessToken, refreshToken, profile, done) => {
 	await prisma.createUser({
 		firstName: profile.name.givenName,
@@ -150,6 +170,7 @@ webPush.setVapidDetails('mailto:harshit886@outlook.com', publicKey, privateKey);
 
 // bodyParse.json() allows us to easily read json bodies
 server.express.use(bodyParser.json());
+server.express.use(bodyParser.urlencoded({ extended: true }));
 // Send our public key to the client
 server.express.get('/vapid-public-key', (req, res) => {
 	return res.send({ publicKey });
@@ -190,7 +211,23 @@ server.express.post('/unsubscribe', (req, res) => {
 
 server.express.use(serveStatic('build'));
 
-server.express.get('/users', async (req, res) => {
+server.express.post('/admin/login', passport.authenticate('local'), async (req, res) => {
+	res.send({ user: req.user });
+});
+
+server.express.get('/admin/logout', async (req, res) => {
+	req.logout();
+	res.send('Logout Successfully');
+});
+
+server.express.use('/admin', (req, res) => {
+	if (req.user && req.user.role === 'Admin') {
+		req.next();
+	} else {
+		res.send(401, 'Bad credentials');
+	}
+});
+server.express.get('/admin/users', async (req, res) => {
 	const fragment = `
     fragment UsersWithTicket on user {
 		id
@@ -210,7 +247,7 @@ server.express.get('/users', async (req, res) => {
 	return res.send(users);
 });
 
-server.express.post('/events', async (req, res) => {
+server.express.post('/admin/events', async (req, res) => {
 	const body = req.body;
 	const event = await prisma.createEvent(body);
 	return res.send(event);

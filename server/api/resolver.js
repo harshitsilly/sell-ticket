@@ -283,7 +283,8 @@ const resolvers = {
 				firstName,
 				lastName,
 				email,
-				password: hashPassword
+				password: hashPassword,
+				role: 'Customer'
 			};
 
 			await context.prisma.createUser(newUser);
@@ -294,7 +295,6 @@ const resolvers = {
 			return { user: newUser };
 		},
 		login: async (parent, { email, password }, context) => {
-			console.log(context.req._passport);
 			const { user } = await context.authenticate('graphql-local', {
 				email,
 				password

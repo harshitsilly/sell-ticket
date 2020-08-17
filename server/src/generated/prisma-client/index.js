@@ -17,6 +17,10 @@ var models = [
     embedded: false
   },
   {
+    name: "Roles",
+    embedded: false
+  },
+  {
     name: "CategoryFormat",
     embedded: false
   },
