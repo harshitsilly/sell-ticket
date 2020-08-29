@@ -1,4 +1,4 @@
-// brand-color - #7d4cdb,//#8b16ff,//#036ee3// #FF698A pink// FF8A64 orange//#9DCA74 green
+// brand-color - #7d4cdb,//#8b16ff,//#036ee3// #FF698A pink// #FF8A64 orange//#9DCA74 green
 
 * {
 	box-sizing: border-box;
@@ -171,7 +171,7 @@ body {
 	margin-top: 30px;
 }
 .appFirstPageBackgroundImage {
-	background: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg');
+	background-image: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg') !important;
 	height: 100vh;
 	// background-position: center;
 	background-size: cover;
@@ -340,7 +340,7 @@ body {
 .appMenuYourTickets {
 	border: 0px !important;
 	> div {
-		justify-content: start !important;
+		justify-content: flex-start !important;
 	}
 }
 .appMenuButtonsBox {
@@ -361,7 +361,7 @@ body {
 	height: 3rem;
 	background-color: #f5f5f6 !important;
 	> div {
-		justify-content: start !important;
+		justify-content: flex-start !important;
 	}
 	padding: 0 15px !important;
 }
@@ -498,6 +498,9 @@ body {
 .eventTicket[ticket-Data] {
 	background: rgb(0, 182, 240);
 }
+.eventTicket[ticket-Data][ticket-color] {
+	background: #ff698a;
+}
 
 .eventTicket[ticket-Data='0'] {
 	background: lightgray;
@@ -626,8 +629,8 @@ body {
 	width: 100vmin;
 	> div {
 		display: flex;
-		justify-content: start;
-		text-align: start;
+		justify-content: flex-start;
+		text-align: flex-start;
 	}
 	margin: 0 !important;
 	padding: 0 15px !important;

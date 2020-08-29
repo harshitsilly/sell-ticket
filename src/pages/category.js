@@ -13,7 +13,7 @@ import Event from '../components/event';
 const Events_Query = gql`
 	# Write your query or mutation here
 	query Events($category: String!, $location: String, $first: Int, $skip: Int) {
-		events(category: $category, location: $location, first: $first, skip: $skip) {
+		events(category: $category, location: $location, userTicket: false, first: $first, skip: $skip) {
 			id
 			name
 			category
@@ -35,10 +35,10 @@ function Category(props) {
 	const [location, setLocation] = React.useState('');
 	category = category.charAt(0).toUpperCase() + category.slice(1);
 	window.addEventListener('scroll', event => {
-		if (window.pageYOffset + 125 > (window.screen.height / 100) * 25) {
+		if (window.pageYOffset > 70) {
 			setAppHeaderClass('positionFixed');
 			setheaderClass('categoryHeaderHeight');
-		} else {
+		} else if (window.pageYOffset < 50) {
 			setAppHeaderClass('positionSticky');
 			setheaderClass('');
 		}
@@ -145,7 +145,7 @@ function Category(props) {
 						</Box>
 					)}
 					{showMore && (
-						<Box ref={showMoreRef} pad="medium">
+						<Box height="100px" ref={showMoreRef} pad="medium">
 							<ShowMore onClick={loadEvents} />
 						</Box>
 					)}

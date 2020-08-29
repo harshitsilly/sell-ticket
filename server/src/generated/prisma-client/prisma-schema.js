@@ -15,6 +15,10 @@ type AggregateTicketsAvailable {
   count: Int!
 }
 
+type AggregateTicketType {
+  count: Int!
+}
+
 type AggregateUser {
   count: Int!
 }
@@ -41,6 +45,7 @@ type Event {
   location: String
   ticketsAvailable(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable!]
   notifyUsers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  ticketType(where: TicketTypeWhereInput, orderBy: TicketTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketType!]
 }
 
 type EventConnection {
@@ -57,6 +62,7 @@ input EventCreateInput {
   location: String
   ticketsAvailable: TicketsAvailableCreateManyWithoutEventInput
   notifyUsers: UserCreateManyInput
+  ticketType: TicketTypeCreateManyInput
 }
 
 input EventCreateOneWithoutTicketsAvailableInput {
@@ -71,6 +77,7 @@ input EventCreateWithoutTicketsAvailableInput {
   date: DateTime
   location: String
   notifyUsers: UserCreateManyInput
+  ticketType: TicketTypeCreateManyInput
 }
 
 type EventEdge {
@@ -432,6 +439,7 @@ input EventUpdateInput {
   location: String
   ticketsAvailable: TicketsAvailableUpdateManyWithoutEventInput
   notifyUsers: UserUpdateManyInput
+  ticketType: TicketTypeUpdateManyInput
 }
 
 input EventUpdateManyMutationInput {
@@ -456,6 +464,7 @@ input EventUpdateWithoutTicketsAvailableDataInput {
   date: DateTime
   location: String
   notifyUsers: UserUpdateManyInput
+  ticketType: TicketTypeUpdateManyInput
 }
 
 input EventUpsertWithoutTicketsAvailableInput {
@@ -524,6 +533,9 @@ input EventWhereInput {
   notifyUsers_every: UserWhereInput
   notifyUsers_some: UserWhereInput
   notifyUsers_none: UserWhereInput
+  ticketType_every: TicketTypeWhereInput
+  ticketType_some: TicketTypeWhereInput
+  ticketType_none: TicketTypeWhereInput
   AND: [EventWhereInput!]
   OR: [EventWhereInput!]
   NOT: [EventWhereInput!]
@@ -548,6 +560,12 @@ type Mutation {
   upsertEventTickets(where: EventTicketsWhereUniqueInput!, create: EventTicketsCreateInput!, update: EventTicketsUpdateInput!): EventTickets!
   deleteEventTickets(where: EventTicketsWhereUniqueInput!): EventTickets
   deleteManyEventTicketses(where: EventTicketsWhereInput): BatchPayload!
+  createTicketType(data: TicketTypeCreateInput!): TicketType!
+  updateTicketType(data: TicketTypeUpdateInput!, where: TicketTypeWhereUniqueInput!): TicketType
+  updateManyTicketTypes(data: TicketTypeUpdateManyMutationInput!, where: TicketTypeWhereInput): BatchPayload!
+  upsertTicketType(where: TicketTypeWhereUniqueInput!, create: TicketTypeCreateInput!, update: TicketTypeUpdateInput!): TicketType!
+  deleteTicketType(where: TicketTypeWhereUniqueInput!): TicketType
+  deleteManyTicketTypes(where: TicketTypeWhereInput): BatchPayload!
   createTicketsAvailable(data: TicketsAvailableCreateInput!): TicketsAvailable!
   updateTicketsAvailable(data: TicketsAvailableUpdateInput!, where: TicketsAvailableWhereUniqueInput!): TicketsAvailable
   updateManyTicketsAvailables(data: TicketsAvailableUpdateManyMutationInput!, where: TicketsAvailableWhereInput): BatchPayload!
@@ -586,6 +604,9 @@ type Query {
   eventTickets(where: EventTicketsWhereUniqueInput!): EventTickets
   eventTicketses(where: EventTicketsWhereInput, orderBy: EventTicketsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventTickets]!
   eventTicketsesConnection(where: EventTicketsWhereInput, orderBy: EventTicketsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventTicketsConnection!
+  ticketType(where: TicketTypeWhereUniqueInput!): TicketType
+  ticketTypes(where: TicketTypeWhereInput, orderBy: TicketTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketType]!
+  ticketTypesConnection(where: TicketTypeWhereInput, orderBy: TicketTypeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TicketTypeConnection!
   ticketsAvailable(where: TicketsAvailableWhereUniqueInput!): TicketsAvailable
   ticketsAvailables(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [TicketsAvailable]!
   ticketsAvailablesConnection(where: TicketsAvailableWhereInput, orderBy: TicketsAvailableOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TicketsAvailableConnection!
@@ -595,9 +616,15 @@ type Query {
   node(id: ID!): Node
 }
 
+enum Roles {
+  Customer
+  Admin
+}
+
 type Subscription {
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
   eventTickets(where: EventTicketsSubscriptionWhereInput): EventTicketsSubscriptionPayload
+  ticketType(where: TicketTypeSubscriptionWhereInput): TicketTypeSubscriptionPayload
   ticketsAvailable(where: TicketsAvailableSubscriptionWhereInput): TicketsAvailableSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
@@ -879,6 +906,203 @@ input TicketsAvailableWhereUniqueInput {
   id: ID
 }
 
+type TicketType {
+  id: ID!
+  type: String
+  count: Int
+}
+
+type TicketTypeConnection {
+  pageInfo: PageInfo!
+  edges: [TicketTypeEdge]!
+  aggregate: AggregateTicketType!
+}
+
+input TicketTypeCreateInput {
+  id: ID
+  type: String
+  count: Int
+}
+
+input TicketTypeCreateManyInput {
+  create: [TicketTypeCreateInput!]
+  connect: [TicketTypeWhereUniqueInput!]
+}
+
+type TicketTypeEdge {
+  node: TicketType!
+  cursor: String!
+}
+
+enum TicketTypeOrderByInput {
+  id_ASC
+  id_DESC
+  type_ASC
+  type_DESC
+  count_ASC
+  count_DESC
+}
+
+type TicketTypePreviousValues {
+  id: ID!
+  type: String
+  count: Int
+}
+
+input TicketTypeScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  count: Int
+  count_not: Int
+  count_in: [Int!]
+  count_not_in: [Int!]
+  count_lt: Int
+  count_lte: Int
+  count_gt: Int
+  count_gte: Int
+  AND: [TicketTypeScalarWhereInput!]
+  OR: [TicketTypeScalarWhereInput!]
+  NOT: [TicketTypeScalarWhereInput!]
+}
+
+type TicketTypeSubscriptionPayload {
+  mutation: MutationType!
+  node: TicketType
+  updatedFields: [String!]
+  previousValues: TicketTypePreviousValues
+}
+
+input TicketTypeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: TicketTypeWhereInput
+  AND: [TicketTypeSubscriptionWhereInput!]
+  OR: [TicketTypeSubscriptionWhereInput!]
+  NOT: [TicketTypeSubscriptionWhereInput!]
+}
+
+input TicketTypeUpdateDataInput {
+  type: String
+  count: Int
+}
+
+input TicketTypeUpdateInput {
+  type: String
+  count: Int
+}
+
+input TicketTypeUpdateManyDataInput {
+  type: String
+  count: Int
+}
+
+input TicketTypeUpdateManyInput {
+  create: [TicketTypeCreateInput!]
+  update: [TicketTypeUpdateWithWhereUniqueNestedInput!]
+  upsert: [TicketTypeUpsertWithWhereUniqueNestedInput!]
+  delete: [TicketTypeWhereUniqueInput!]
+  connect: [TicketTypeWhereUniqueInput!]
+  set: [TicketTypeWhereUniqueInput!]
+  disconnect: [TicketTypeWhereUniqueInput!]
+  deleteMany: [TicketTypeScalarWhereInput!]
+  updateMany: [TicketTypeUpdateManyWithWhereNestedInput!]
+}
+
+input TicketTypeUpdateManyMutationInput {
+  type: String
+  count: Int
+}
+
+input TicketTypeUpdateManyWithWhereNestedInput {
+  where: TicketTypeScalarWhereInput!
+  data: TicketTypeUpdateManyDataInput!
+}
+
+input TicketTypeUpdateWithWhereUniqueNestedInput {
+  where: TicketTypeWhereUniqueInput!
+  data: TicketTypeUpdateDataInput!
+}
+
+input TicketTypeUpsertWithWhereUniqueNestedInput {
+  where: TicketTypeWhereUniqueInput!
+  update: TicketTypeUpdateDataInput!
+  create: TicketTypeCreateInput!
+}
+
+input TicketTypeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  type: String
+  type_not: String
+  type_in: [String!]
+  type_not_in: [String!]
+  type_lt: String
+  type_lte: String
+  type_gt: String
+  type_gte: String
+  type_contains: String
+  type_not_contains: String
+  type_starts_with: String
+  type_not_starts_with: String
+  type_ends_with: String
+  type_not_ends_with: String
+  count: Int
+  count_not: Int
+  count_in: [Int!]
+  count_not_in: [Int!]
+  count_lt: Int
+  count_lte: Int
+  count_gt: Int
+  count_gte: Int
+  AND: [TicketTypeWhereInput!]
+  OR: [TicketTypeWhereInput!]
+  NOT: [TicketTypeWhereInput!]
+}
+
+input TicketTypeWhereUniqueInput {
+  id: ID
+}
+
 type User {
   id: ID!
   firstName: String
@@ -887,6 +1111,7 @@ type User {
   password: String
   tickets(where: EventTicketsWhereInput, orderBy: EventTicketsOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [EventTickets!]
   endpoint: String
+  role: Roles
 }
 
 type UserConnection {
@@ -903,6 +1128,7 @@ input UserCreateInput {
   password: String
   tickets: EventTicketsCreateManyInput
   endpoint: String
+  role: Roles
 }
 
 input UserCreateManyInput {
@@ -933,6 +1159,8 @@ enum UserOrderByInput {
   password_DESC
   endpoint_ASC
   endpoint_DESC
+  role_ASC
+  role_DESC
 }
 
 type UserPreviousValues {
@@ -942,6 +1170,7 @@ type UserPreviousValues {
   email: String
   password: String
   endpoint: String
+  role: Roles
 }
 
 input UserScalarWhereInput {
@@ -1029,6 +1258,10 @@ input UserScalarWhereInput {
   endpoint_not_starts_with: String
   endpoint_ends_with: String
   endpoint_not_ends_with: String
+  role: Roles
+  role_not: Roles
+  role_in: [Roles!]
+  role_not_in: [Roles!]
   AND: [UserScalarWhereInput!]
   OR: [UserScalarWhereInput!]
   NOT: [UserScalarWhereInput!]
@@ -1059,6 +1292,7 @@ input UserUpdateDataInput {
   password: String
   tickets: EventTicketsUpdateManyInput
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateInput {
@@ -1068,6 +1302,7 @@ input UserUpdateInput {
   password: String
   tickets: EventTicketsUpdateManyInput
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateManyDataInput {
@@ -1076,6 +1311,7 @@ input UserUpdateManyDataInput {
   email: String
   password: String
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateManyInput {
@@ -1096,6 +1332,7 @@ input UserUpdateManyMutationInput {
   email: String
   password: String
   endpoint: String
+  role: Roles
 }
 
 input UserUpdateManyWithWhereNestedInput {
@@ -1216,6 +1453,10 @@ input UserWhereInput {
   endpoint_not_starts_with: String
   endpoint_ends_with: String
   endpoint_not_ends_with: String
+  role: Roles
+  role_not: Roles
+  role_in: [Roles!]
+  role_not_in: [Roles!]
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

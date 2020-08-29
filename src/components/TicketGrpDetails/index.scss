@@ -1,0 +1,8 @@
+.ticketGrpGrid {
+	height: 100%;
+	display: grid;
+	align-items: center;
+	gap: 4px;
+	grid-template-columns: 4fr 2fr;
+	border-radius: 10px;
+}

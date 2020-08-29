@@ -14,6 +14,7 @@ const POST_MUTATION = gql`
 `;
 function AppMenu() {
 	let { userData } = useContext(UserContext);
+
 	userData = userData.currentUser;
 	let [postMutation, { loading, error: mutationError }] = useMutation(POST_MUTATION, {
 		onCompleted({ login }) {
@@ -73,6 +74,8 @@ function AppMenu() {
 							)}
 							<Button reverse className="appMenuButton" icon={<Next />} label="Sell Tickets" onClick={() => {}} />
 							{/* <Button reverse className="appMenuButton" icon={<Next />} label="How It Works" onClick={() => {}} /> */}
+							<Button reverse className="appMenuButton" icon={<Next />} label="About Us" onClick={() => {}} />
+							<Button reverse className="appMenuButton" icon={<Next />} label="FAQ" onClick={() => {}} />
 							<Button reverse className="appMenuButton" icon={<Next />} label="Help" onClick={() => {}} />
 						</Box>
 					)}

@@ -17,11 +17,19 @@ var models = [
     embedded: false
   },
   {
+    name: "Roles",
+    embedded: false
+  },
+  {
     name: "CategoryFormat",
     embedded: false
   },
   {
     name: "Event",
+    embedded: false
+  },
+  {
+    name: "TicketType",
     embedded: false
   }
 ];

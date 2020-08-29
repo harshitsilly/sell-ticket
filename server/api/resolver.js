@@ -36,17 +36,23 @@ const upsertGoogleUser = async function({ accessToken, refreshToken, profile }) 
 const resolvers = {
 	Query: {
 		currentUser: (parent, args, context) => context.getUser(),
-		events: async (parent, { id, category, location, skip, first }, context) => {
+		events: async (parent, { id, category, location, userTicket, skip, first }, context) => {
 			//  code for fragment
 
-			const fragment = `
+			let fragment;
+
+			fragment = `
     fragment EventsWithTicketAvailable on Event {
       id
       name
       category
       date
-      location
-      ticketsAvailable(where:{user :{id_not : "${context.getUser().id}"}}) {
+	  location
+	  ticketType {
+					  count
+					  type
+				  }
+      ticketsAvailable{
 		id
 		passType
 		user {
@@ -59,6 +65,7 @@ const resolvers = {
       }
     }
   `;
+
 			let absFilter = { id, category };
 
 			let filter = location ? { ...absFilter, location } : absFilter;
@@ -78,6 +85,53 @@ const resolvers = {
 			});
 			return data;
 			// return await context.prisma.events({ where: { category },skip,first});
+		},
+		eventTickets: async (parent, { id, category, location, passType, userTicket, skip, first }, context) => {
+			//  code for fragment
+			let fragment = `
+			    fragment EventsWithTicketAvailable on Event {
+			      id
+			      name
+			      category
+			      date
+				  location
+				  ticketType {
+					  count
+					  type
+				  }
+			      ticketsAvailable(where:{passType: "${passType}" ,user :{${userTicket ? 'id' : 'id_not'} : "${
+				context.getUser() ? context.getUser().id : ''
+			}"}}) {
+					id
+					passType
+					user {
+						id
+						firstName
+						lastName
+					}
+					numberOfTickets
+					cost
+			      }
+			    }
+			  `;
+			let absFilter = { id, category };
+
+			let filter = location ? { ...absFilter, location } : absFilter;
+			let data;
+
+			data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
+
+			data = data.map(event => {
+				return {
+					...event,
+					numberOfTickets: {
+						available: event.ticketsAvailable.reduce((count, ticket) => {
+							return count + ticket.numberOfTickets;
+						}, 0)
+					}
+				};
+			});
+			return data;
 		},
 		userTickets: async (parent, { id, category, location, skip, first }, context) => {
 			//  code for fragment
@@ -164,7 +218,12 @@ const resolvers = {
       name
       category
       date
-      location
+	  location
+	  ticketType {
+		  id
+		  type
+		  count
+	  }
       ticketsAvailable {
 		id
 		passType
@@ -195,7 +254,17 @@ const resolvers = {
 				}
 			};
 			let eventData = await context.prisma.event({ id: event }).$fragment(fragment);
+			let ticketType = eventData.ticketType.filter(({ type }) => type.toLocaleLowerCase() === passType.toLocaleLowerCase());
+			let ticketTypePayload = ticketType[0]
+				? { count: ticketType[0].count + newTicket.numberOfTickets }
+				: { type: passType, count: newTicket.numberOfTickets };
 
+			ticketType[0]
+				? await context.prisma.updateEvent({
+						where: { id: event },
+						data: { ticketType: { update: { where: { id: ticketType[0].id }, data: ticketTypePayload } } }
+				  })
+				: await context.prisma.updateEvent({ where: { id: event }, data: { ticketType: { create: ticketTypePayload } } });
 			await context.prisma.createTicketsAvailable(newTicket);
 			if (eventData.ticketsAvailable.length === 0) {
 				notification.sendNotification(event);
@@ -214,7 +283,8 @@ const resolvers = {
 				firstName,
 				lastName,
 				email,
-				password: hashPassword
+				password: hashPassword,
+				role: 'Customer'
 			};
 
 			await context.prisma.createUser(newUser);
@@ -225,7 +295,6 @@ const resolvers = {
 			return { user: newUser };
 		},
 		login: async (parent, { email, password }, context) => {
-			console.log(context.req._passport);
 			const { user } = await context.authenticate('graphql-local', {
 				email,
 				password
