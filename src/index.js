@@ -20,9 +20,7 @@ import BuyTicket from './pages/buyTicket';
 import Category from './pages/category';
 import RandomGeneratedColor from './components/randomGeneratedColor';
 import InstallPwa from './components/installPwa';
-import SwipeableViews from 'react-swipeable-views';
-import AppMenu from './pages/AppMenu';
-import AreaPage from './pages/area';
+import Test from './components/Details';
 // 3
 let apolloClient;
 if (window.location.href.indexOf('localhost:3000') > -1) {
@@ -62,6 +60,7 @@ ReactDOM.render(
 				{/* <AreaPage /> */}
 				<Router>
 					<Switch>
+						<Route path="/test" component={Test} />
 						<Route path="/login" component={Login} />
 
 						<Route path="/signup" component={Signup} />

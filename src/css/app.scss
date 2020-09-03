@@ -170,12 +170,13 @@ body {
 .marginTopBox {
 	margin-top: 30px;
 }
+
 .appFirstPageBackgroundImage {
-	background-image: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg') !important;
+	// background-image: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg') !important;
 	height: 100vh;
 	// background-position: center;
 	background-size: cover;
-	color: white;
+	// color: white;
 	justify-content: space-between;
 	padding: 0 4px;
 
@@ -211,7 +212,7 @@ body {
 	height: 40px;
 
 	left: calc(50% - 60vw);
-	background-color: white;
+	// background-color: white;
 	border-radius: 50% 50% 0 0;
 	z-index: 2;
 }
@@ -219,9 +220,9 @@ body {
 	transform-style: preserve-3d;
 }
 .appDesc {
-	padding: 24px 24px 0 24px;
+	padding: 20px 70px;
 	text-align: center;
-	font-size: x-large;
+
 	line-height: 2rem;
 	margin-top: 7vh;
 }
@@ -249,7 +250,7 @@ body {
 	position: sticky;
 	top: 0px;
 	z-index: 2;
-	background-color: white;
+
 	padding-bottom: 10px;
 }
 .searchBox {
@@ -298,6 +299,7 @@ body {
 	position: absolute;
 	z-index: 2;
 	left: 40px;
+	height: 16px !important;
 }
 .filterBoxRow .locationSearchIcon {
 	left: 22px;
@@ -314,17 +316,20 @@ body {
 	padding-left: 25px;
 }
 .appSearch {
+	font-size: 1rem !important;
 	font-weight: 100 !important;
-	background-color: white !important;
+	background-color: #f4f4f4 !important;
 	padding-left: 45px !important;
-	height: 55px;
-	border-radius: 10px !important;
+	height: 50px;
+	border-color: transparent !important;
+	border-radius: 30px !important;
 	max-width: 700px;
 }
 .appSearchIcon {
 	position: absolute;
 	z-index: 2;
-	width: 50px !important;
+	left: 30px !important;
+	height: 16px !important;
 }
 
 .appMenuButton {
@@ -368,7 +373,7 @@ body {
 .sellTicket {
 	border-radius: 10px !important;
 	height: 3rem;
-	color: white !important;
+	// color: white !important;
 	font-weight: 600 !important;
 }
 .dropDownContent {
@@ -873,7 +878,7 @@ body {
 }
 .sellTicketHeader {
 	padding-top: 25px;
-	color: white;
+	// color: white;
 }
 .eventDetailHeader {
 	position: relative;

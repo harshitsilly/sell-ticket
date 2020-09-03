@@ -7,14 +7,8 @@ import AppHeader from './components/appHeader';
 import EventFIlter from './pages/EventFilter';
 
 import { Redirect } from 'react-router-dom';
+import constants from './constants';
 import './css/app.scss';
-
-// const appHeight = () => {
-// 	let vh = window.innerHeight * 0.01;
-// 	document.documentElement.style.setProperty('--vh', `${vh}px`);
-// };
-// window.addEventListener('resize', appHeight);
-// appHeight();
 
 function App() {
 	const [value, setValue] = React.useState('');
@@ -31,29 +25,25 @@ function App() {
 		<>
 			<Box>
 				<Box className="appFirstPageBackgroundImage">
-					{/* <Mutation mutation={POST_MUTATION}>
-          {postMutation => <button onClick={postMutation}>Submit</button>}
-        </Mutation> */}
-
 					<AppHeader fromApp="true" />
 					<Box height="100%">
 						<Box className="appDesc">
-							<Text size="x-large" weight="bold">
-								The Safest way to buy and sell e-tickets.
+							<Text size="medium" weight="bold">
+								{constants.motto}
 							</Text>
 						</Box>
 						<Box direction="row" align="center" pad="medium">
 							<Search className="appSearchIcon" />
 							<TextInput
 								className="appSearch"
-								placeholder="Search for events,venues and cities"
+								placeholder="Search by events,venues and cities"
 								onClick={() => setRedirect('search')}
 							/>
 						</Box>
 					</Box>
 					<Footer height="20vh">
 						<Box width="100%" direction="row" justify="center">
-							<Button onClick={moveToAppContent} icon={<Down size="45px" color="#ffffff" />} hoverIndicator />
+							<Button onClick={moveToAppContent} icon={<Down size="45px" color="rgba(19,20,49,.9)" />} hoverIndicator />
 						</Box>
 					</Footer>
 				</Box>
@@ -146,7 +136,7 @@ function App() {
 					</Box>
 					<Box flex="false" width="100%" className="marginTopBox" align="center">
 						<Text textAlign="center" size="large" weight="bold">
-							Get the best out of sellTicket
+							{`Get the best out of ${constants.productName}`}
 						</Text>{' '}
 						<Box width="100%" align="center" pad="small">
 							<Text>Access your tickets offline,anytime</Text>
