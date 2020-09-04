@@ -5,6 +5,7 @@ import { Down, Search, Attraction, Music, PlayFill, Trophy, Multimedia } from 'g
 
 import AppHeader from './components/appHeader';
 import EventFIlter from './pages/EventFilter';
+import IconDetails from './components/Details';
 
 import { Redirect } from 'react-router-dom';
 import constants from './constants';
@@ -39,6 +40,9 @@ function App() {
 								placeholder="Search by events,venues and cities"
 								onClick={() => setRedirect('search')}
 							/>
+						</Box>
+						<Box align="center" justify="around">
+							<IconDetails></IconDetails>
 						</Box>
 					</Box>
 					<Footer height="20vh">

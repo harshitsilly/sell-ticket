@@ -4,12 +4,12 @@ import { Box } from 'grommet';
 import Popup from '../Popup';
 import './index.scss';
 
-const Popover = ({ className, bgColor, children }) => {
+const Popover = ({ className, bgColor, children, contentText }) => {
 	const [show, setShow] = React.useState(false);
 
 	const boxRef = React.useRef();
 	const onClickOutside = event => {
-		if (boxRef.current && event.target.contains(boxRef.current)) {
+		if (boxRef.current !== event.target) {
 			setShow(!show);
 		}
 	};
@@ -26,20 +26,29 @@ const Popover = ({ className, bgColor, children }) => {
 				{children}
 			</div>
 
-			<Popup className={className} target={boxRef.current} show={show} bgColor={bgColor} onClickOutside={onClickOutside}></Popup>
+			<Popup
+				contentText={contentText}
+				className={className}
+				target={boxRef.current}
+				show={show}
+				bgColor={bgColor}
+				onClickOutside={onClickOutside}
+			></Popup>
 		</>
 	);
 };
 
 Popover.defaultProps = {
 	className: '',
-	bgColor: '#3399FF'
+	bgColor: '#3399FF',
+	contentText: ''
 };
 
 Popover.propTypes = {
 	children: PropTypes.element,
 	className: PropTypes.string,
-	bgColor: PropTypes.string
+	bgColor: PropTypes.string,
+	contentText: PropTypes.string
 };
 
 export default Popover;

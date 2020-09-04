@@ -1,26 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Drop } from 'grommet';
+import { CaretDown } from 'grommet-icons';
 import './index.scss';
 
 const Popover = ({ className, target, show, contentText, bgColor, onClickOutside }) => {
-	return (
-		<>
-			{show && (
-				<Drop
-					align={{ top: 'bottom', right: 'right' }}
-					onClickOutside={event => onClickOutside(event)}
-					style={{ backgroundColor: bgColor }}
-					className={`popover ${className}`}
-					target={target}
-				>
-					<Box className="text" pad="small">
-						{contentText}
-					</Box>
-				</Drop>
-			)}
-		</>
-	);
+	if (target) {
+		const { x, width, y, height } = target.getBoundingClientRect();
+		return (
+			<>
+				{show && (
+					<>
+						<CaretDown
+							style={{ left: x + width / 4, top: y + height - 10 }}
+							className="popoverCaret"
+							color={bgColor}
+						></CaretDown>
+						<Drop
+							elevation="medium"
+							align={{ top: 'bottom' }}
+							onClickOutside={event => onClickOutside(event)}
+							style={{ backgroundColor: bgColor }}
+							className={`popover ${className}`}
+							target={target}
+						>
+							<Box className="text">{contentText}</Box>
+						</Drop>
+					</>
+				)}
+			</>
+		);
+	} else {
+		return <></>;
+	}
 };
 
 Popover.defaultProps = {

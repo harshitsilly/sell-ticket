@@ -1,8 +1,18 @@
+.popoverCaret {
+	transform: rotate(180deg);
+	position: absolute;
+	> polygon {
+		fill: inherit !important;
+	}
+}
 .popover {
 	border-radius: 15px !important;
+	max-width: 80% !important;
 }
 
 .text {
 	color: white;
 	font-size: 14px;
+	font-weight: bold;
+	padding: 15px;
 }
