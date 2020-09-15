@@ -20,7 +20,7 @@ import BuyTicket from './pages/buyTicket';
 import Category from './pages/category';
 import RandomGeneratedColor from './components/randomGeneratedColor';
 import InstallPwa from './components/installPwa';
-import Test from './components/Details';
+import Test from './components/Search';
 // 3
 let apolloClient;
 if (window.location.href.indexOf('localhost:3000') > -1) {
@@ -54,7 +54,7 @@ const theme = {
 ReactDOM.render(
 	<ApolloProvider client={client}>
 		<InstallPwa />
-		<Grommet theme={theme}>
+		<Grommet themeMode="dark" cssVars="true" theme={theme}>
 			<UserProvider>
 				{/* <SwipeableViews index="1"> */}
 				{/* <AreaPage /> */}

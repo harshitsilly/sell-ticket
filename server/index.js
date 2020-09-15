@@ -258,6 +258,7 @@ server.express.get('/*', function(req, res) {
 });
 
 const options = {
+	cors: { origin: '*', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', preflightContinue: false, optionsSuccessStatus: 204 },
 	port: process.env.PORT || 4001,
 	endpoint: '/graphql',
 	subscriptions: '/subscriptions',

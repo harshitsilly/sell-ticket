@@ -4,18 +4,20 @@ import { Box, Drop } from 'grommet';
 import { CaretDown } from 'grommet-icons';
 import './index.scss';
 
-const Popover = ({ className, target, show, contentText, bgColor, onClickOutside }) => {
+const Popover = ({ className, target, show, contentText, bgColor, onClickOutside, caret }) => {
 	if (target) {
 		const { x, width, y, height } = target.getBoundingClientRect();
 		return (
 			<>
 				{show && (
 					<>
-						<CaretDown
-							style={{ left: x + width / 4, top: y + height - 10 }}
-							className="popoverCaret"
-							color={bgColor}
-						></CaretDown>
+						{caret && (
+							<CaretDown
+								style={{ left: x + width / 4, top: y + height - 10 }}
+								className="popoverCaret"
+								color={bgColor}
+							></CaretDown>
+						)}
 						<Drop
 							elevation="medium"
 							align={{ top: 'bottom' }}

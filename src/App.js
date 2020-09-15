@@ -33,14 +33,7 @@ function App() {
 								{constants.motto}
 							</Text>
 						</Box>
-						<Box direction="row" align="center" pad="medium">
-							<Search className="appSearchIcon" />
-							<TextInput
-								className="appSearch"
-								placeholder="Search by events,venues and cities"
-								onClick={() => setRedirect('search')}
-							/>
-						</Box>
+						<Box direction="row" align="center" pad="medium"></Box>
 						<Box align="center" justify="around">
 							<IconDetails></IconDetails>
 						</Box>
