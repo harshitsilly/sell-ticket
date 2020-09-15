@@ -109,6 +109,11 @@ const server = new GraphQLServer({
 		}
 	}
 });
+server.express.use(function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+	next();
+});
 
 server.express.use(
 	cookieSession({
@@ -258,7 +263,6 @@ server.express.get('/*', function(req, res) {
 });
 
 const options = {
-	cors: { origin: '*', methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', preflightContinue: false, optionsSuccessStatus: 204 },
 	port: process.env.PORT || 4001,
 	endpoint: '/graphql',
 	subscriptions: '/subscriptions',
