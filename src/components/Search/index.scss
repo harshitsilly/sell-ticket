@@ -1,0 +1,18 @@
+.appSearch {
+	font-size: 1rem !important;
+	font-weight: 100 !important;
+	background-color: #f4f4f4 !important;
+	padding-left: 45px !important;
+	height: 50px;
+
+	border-color: transparent !important;
+	border-radius: 30px !important;
+	max-width: 700px;
+}
+.appSearchIcon {
+	position: absolute;
+	z-index: 2;
+	top: 17px;
+	left: 15px !important;
+	height: 16px !important;
+}

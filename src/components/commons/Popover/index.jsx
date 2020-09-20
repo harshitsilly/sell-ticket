@@ -4,7 +4,7 @@ import { Box } from 'grommet';
 import Popup from '../Popup';
 import './index.scss';
 
-const Popover = ({ className, bgColor, children, contentText, caret }) => {
+const Popover = ({ className, bgColor, children, content, caret, color }) => {
 	const [show, setShow] = React.useState(false);
 
 	const boxRef = React.useRef();
@@ -28,11 +28,12 @@ const Popover = ({ className, bgColor, children, contentText, caret }) => {
 
 			<Popup
 				caret={caret}
-				contentText={contentText}
+				content={content}
 				className={className}
 				target={boxRef.current}
 				show={show}
 				bgColor={bgColor}
+				color={color}
 				onClickOutside={onClickOutside}
 			></Popup>
 		</>

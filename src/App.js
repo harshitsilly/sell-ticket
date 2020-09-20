@@ -6,7 +6,7 @@ import { Down, Search, Attraction, Music, PlayFill, Trophy, Multimedia } from 'g
 import AppHeader from './components/appHeader';
 import EventFIlter from './pages/EventFilter';
 import IconDetails from './components/Details';
-
+import AppSearch from './components/Search';
 import { Redirect } from 'react-router-dom';
 import constants from './constants';
 import './css/app.scss';
@@ -33,7 +33,9 @@ function App() {
 								{constants.motto}
 							</Text>
 						</Box>
-						<Box direction="row" align="center" pad="medium"></Box>
+						<Box direction="row" align="center" pad="medium">
+							<AppSearch></AppSearch>
+						</Box>
 						<Box align="center" justify="around">
 							<IconDetails></IconDetails>
 						</Box>

@@ -4,7 +4,7 @@ import { Box, Drop } from 'grommet';
 import { CaretDown } from 'grommet-icons';
 import './index.scss';
 
-const Popover = ({ className, target, show, contentText, bgColor, onClickOutside, caret }) => {
+const Popover = ({ className, target, show, content, bgColor, onClickOutside, caret, color }) => {
 	if (target) {
 		const { x, width, y, height } = target.getBoundingClientRect();
 		return (
@@ -22,11 +22,13 @@ const Popover = ({ className, target, show, contentText, bgColor, onClickOutside
 							elevation="medium"
 							align={{ top: 'bottom' }}
 							onClickOutside={event => onClickOutside(event)}
-							style={{ backgroundColor: bgColor }}
+							style={{ backgroundColor: bgColor, minWidth: width }}
 							className={`popover ${className}`}
 							target={target}
 						>
-							<Box className="text">{contentText}</Box>
+							<Box style={{ color: color }} className="text">
+								{content}
+							</Box>
 						</Drop>
 					</>
 				)}
