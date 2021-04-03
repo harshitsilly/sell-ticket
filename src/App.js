@@ -29,12 +29,19 @@ function App() {
 					<AppHeader fromApp="true" />
 					<Box height="100%">
 						<Box className="appDesc">
-							<Text size="medium" weight="bold">
+							<Text size="x-large" weight="bold">
 								{constants.motto}
 							</Text>
 						</Box>
-						<Box direction="row" align="center" pad="medium">
-							<AppSearch></AppSearch>
+
+						<Box className="appSearch" direction="row" align="center" pad="medium">
+							{/* <AppSearch></AppSearch> */}
+							<Search className="appSearchIcon" />
+							<TextInput
+								className="appSearchTextInput"
+								placeholder="Search by events,venues and cities"
+								onClick={() => setRedirect('search')}
+							/>
 						</Box>
 						<Box align="center" justify="around">
 							<IconDetails></IconDetails>
@@ -42,7 +49,7 @@ function App() {
 					</Box>
 					<Footer height="20vh">
 						<Box width="100%" direction="row" justify="center">
-							<Button onClick={moveToAppContent} icon={<Down size="45px" color="rgba(19,20,49,.9)" />} hoverIndicator />
+							<Button onClick={moveToAppContent} icon={<Down size="45px" color="#fff" />} hoverIndicator />
 						</Box>
 					</Footer>
 				</Box>

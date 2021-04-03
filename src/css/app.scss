@@ -10,6 +10,11 @@ body {
 	height: 100%;
 }
 
+.mobileView{
+
+	max-height: 500px!important;
+	width: 400px;
+}
 .appLogoHeader {
 	width: 150px;
 	padding-top: 3px;
@@ -172,11 +177,12 @@ body {
 }
 
 .appFirstPageBackgroundImage {
-	// background-image: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg') !important;
+		// background-image: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg') !important;
+	background-image: url('https://cdn.ticketswap.com/public/201610/b934cb68-6a48-41dd-a16b-bc770462c0ae.jpeg') !important;
 	height: 100vh;
 	// background-position: center;
 	background-size: cover;
-	// color: white;
+	color: white;
 	justify-content: space-between;
 	padding: 0 4px;
 
@@ -195,7 +201,7 @@ body {
 	z-index: -1;
 	position: absolute;
 	top: 0;
-	height: 25vh;
+	height: 27vh;
 	width: 100vw;
 }
 .categoryBackground2 {
@@ -220,11 +226,12 @@ body {
 	transform-style: preserve-3d;
 }
 .appDesc {
-	padding: 20px 70px;
+
+	padding: 20px 20px;
 	text-align: center;
 
 	line-height: 2rem;
-	margin-top: 7vh;
+	margin-top: 10vh;
 }
 .backButton {
 	position: absolute;

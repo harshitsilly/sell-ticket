@@ -1,2 +1,5 @@
 Search screen 
-Tickets screen
+    1) Content list 
+    2) Page navigation on content list item
+    3) Search Text color through scss variable
+    4) Introduce theme varibales atelaet 4-5 from kepler

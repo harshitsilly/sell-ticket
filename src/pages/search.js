@@ -89,7 +89,7 @@ function SearchPage({ history }) {
 							<Search className="appSearchIcon" />
 							<TextInput
 								ref={searchRef}
-								className="appSearch"
+								className="appSearchTextInput"
 								placeholder="Search for events,venues and cities"
 								value={value}
 								onChange={onSearch}

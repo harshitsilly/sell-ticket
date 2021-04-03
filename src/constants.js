@@ -1,4 +1,4 @@
 export default {
 	productName: 'PickTick',
-	motto: 'Fan to Fan resale'
+	motto: 'The Safest way to buy and sell e-tickets.'
 };
