@@ -2,12 +2,31 @@
 
 * {
 	box-sizing: border-box;
+	--color-gray-400: hsl(225deg, 8%, 70%);
+	--color-gray-500: hsl(225deg, 7%, 60%);
+	--color-gray-600: hsl(225deg, 15%, 50%);
 }
 html,
 body {
 	scroll-behavior: smooth;
+}
 
-	height: 100%;
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--color-gray-400);
+	border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--color-gray-500);
 }
 
 .appLogoHeader {
