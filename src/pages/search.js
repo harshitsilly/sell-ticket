@@ -56,7 +56,7 @@ function SearchPage({ history }) {
 		data && setEvents(() => [...data.eventsSearch]);
 	};
 	const { loading, error, data } = useQuery(QUERY_SEARCH, {
-		skip: value.length < 3,
+		skip: value.length < 0,
 		variables: { query: value, type },
 		fetchPolicy: 'no-cache',
 		onCompleted: setSearchData
@@ -99,25 +99,25 @@ function SearchPage({ history }) {
 					<Box direction="row" className="searchFilterButtonBox">
 						<Text>Filter By :</Text>
 						<Box direction="row" justify="evenly">
-							<FilterButton label="Event" setFilterCallback={setFilter}></FilterButton>
-							<FilterButton label="Location" setFilterCallback={setFilter}></FilterButton>
+							<FilterButton label="Event" setFilterCallback={setFilter} />
+							<FilterButton label="Location" setFilterCallback={setFilter} />
 							{/* TODO */}
 							<FilterButton
 								label="Venue"
 								setFilterCallback={() => {
 									console.log('test');
 								}}
-							></FilterButton>
+							/>
 							<FilterButton
 								label="Artist"
 								setFilterCallback={() => {
 									console.log('test');
 								}}
-							></FilterButton>
+							/>
 						</Box>
 					</Box>
 				</Box>
-				{value.length > 2 && data && !loading && (
+				{value.length > 0 && data && !loading && (
 					<>
 						<Box pad="medium" className="eventList">
 							{events.length === 0 && <Text weight="bold">No Events Found</Text>}
@@ -129,20 +129,20 @@ function SearchPage({ history }) {
 				{loading && (
 					<Box pad="medium" className="skeletonEvent">
 						<div class="post">
-							<div class="avatar"></div>
-							<div class="line"></div>
-							<div class="line"></div>
-							<div class="ticket"></div>
+							<div class="avatar" />
+							<div class="line" />
+							<div class="line" />
+							<div class="ticket" />
 						</div>
 						<div class="post">
-							<div class="avatar"></div>
-							<div class="line"></div>
-							<div class="line"></div>
+							<div class="avatar" />
+							<div class="line" />
+							<div class="line" />
 						</div>
 						<div class="post">
-							<div class="avatar"></div>
-							<div class="line"></div>
-							<div class="line"></div>
+							<div class="avatar" />
+							<div class="line" />
+							<div class="line" />
 						</div>
 					</Box>
 				)}

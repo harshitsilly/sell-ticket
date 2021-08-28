@@ -59,7 +59,7 @@ function App() {
 				</Box>
 
 				<Box flex="false" ref={appContent}>
-					<EventFIlter />
+					{/* <EventFIlter /> */}
 					<Box flex="false" pad="large">
 						<Box>
 							<Text size="large" weight="bold">
@@ -69,6 +69,18 @@ function App() {
 							<Text>Find the right event</Text>
 						</Box>
 						<Box flex="false">
+							<Button
+								className="categoryButton"
+								icon={
+									<Box width="2.4rem" pad="small" round="medium" background="status-ok">
+										<Trophy className="svgStrokeBlack svgFillWhite" />
+									</Box>
+								}
+								label="Sports"
+								onClick={() => {
+									setRedirect('Sports');
+								}}
+							/>
 							<Button
 								className="categoryButton"
 								icon={
@@ -106,18 +118,6 @@ function App() {
 								}}
 							/>
 
-							<Button
-								className="categoryButton"
-								icon={
-									<Box width="2.4rem" pad="small" round="medium" background="status-ok">
-										<Trophy className="svgStrokeBlack svgFillWhite" />
-									</Box>
-								}
-								label="Sports"
-								onClick={() => {
-									setRedirect('Sports');
-								}}
-							/>
 							<Button
 								className="categoryButton"
 								icon={
