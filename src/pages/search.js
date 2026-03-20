@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Text, Box, TextInput, Button } from 'grommet';
+import { Text, Box, TextInput } from 'grommet';
 import { Search } from 'grommet-icons';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
@@ -28,14 +28,14 @@ function SearchPage({ history }) {
 	const [redirectToEventDetail, setRedirectToEventDetail] = React.useState(false);
 	const searchRef = React.createRef();
 	const searchPageRef = React.createRef();
-	window.addEventListener('scroll', event => {
+	window.addEventListener('scroll', (event) => {
 		if (window.pageYOffset + 125 > (window.screen.height / 100) * 25) {
 			setheaderClass('categoryHeaderHeight');
 		} else {
 			setheaderClass('');
 		}
 	});
-	let onClickEvent = event => {
+	let onClickEvent = (event) => {
 		setRedirectToEventDetail(event);
 	};
 	useLayoutEffect(() => {
@@ -44,12 +44,12 @@ function SearchPage({ history }) {
 	});
 	let setFilter = (searchType, addFilter) => {
 		if (addFilter) {
-			setType(type => [...type, searchType]);
+			setType((type) => [...type, searchType]);
 		} else {
-			setType(type => type.filter(element => element !== searchType));
+			setType((type) => type.filter((element) => element !== searchType));
 		}
 	};
-	const onSearch = event => {
+	const onSearch = (event) => {
 		setValue(event.target.value);
 	};
 	let setSearchData = () => {
@@ -59,7 +59,7 @@ function SearchPage({ history }) {
 		skip: value.length <= 0,
 		variables: { query: value, type },
 		fetchPolicy: 'no-cache',
-		onCompleted: setSearchData
+		onCompleted: setSearchData,
 	});
 
 	if (error) return `Error! ${error.message}`;
@@ -69,7 +69,7 @@ function SearchPage({ history }) {
 				push="true"
 				to={{
 					pathname: `/eventDetail:${redirectToEventDetail.name}`,
-					state: redirectToEventDetail
+					state: redirectToEventDetail,
 				}}
 			/>
 		);
@@ -122,7 +122,7 @@ function SearchPage({ history }) {
 						<Box pad="medium" className="eventList">
 							{events.length === 0 && <Text weight="bold">No Events Found</Text>}
 							{events.length > 0 &&
-								events.map(event => <Event key={event.id} onClick={() => onClickEvent(event)} {...event} />)}
+								events.map((event) => <Event key={event.id} onClick={() => onClickEvent(event)} {...event} />)}
 						</Box>
 					</>
 				)}

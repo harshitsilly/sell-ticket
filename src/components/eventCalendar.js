@@ -1,4 +1,3 @@
-import Loader from 'react-loader-spinner';
 import { Box } from 'grommet';
 import React from 'react';
 

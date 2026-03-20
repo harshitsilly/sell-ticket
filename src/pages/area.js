@@ -1,12 +1,9 @@
 import React, { useLayoutEffect } from 'react';
-import { Text, Box, TextInput, Button } from 'grommet';
-import { Search } from 'grommet-icons';
+import { Text, Box } from 'grommet';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
-import Event from '../components/event';
-import FilterButton from '../components/filterButton';
-import BackButton from '../components/backButton';
+
 const QUERY_SEARCH = gql`
 	# Write your query or mutation here
 	query SearchResult($query: String!, $type: [SearchFormat]) {
@@ -28,30 +25,30 @@ function AreaPage({ history }) {
 	const [redirectToEventDetail, setRedirectToEventDetail] = React.useState(false);
 	const searchRef = React.createRef();
 	const searchPageRef = React.createRef();
-	window.addEventListener('scroll', event => {
+	window.addEventListener('scroll', (event) => {
 		if (window.pageYOffset + 125 > (window.screen.height / 100) * 25) {
 			setheaderClass('categoryHeaderHeight');
 		} else {
 			setheaderClass('');
 		}
 	});
-	let onClickEvent = event => {
-		setRedirectToEventDetail(event);
-	};
+	// let onClickEvent = (event) => {
+	// 	setRedirectToEventDetail(event);
+	// };
 	useLayoutEffect(() => {
 		searchRef.current && searchRef.current.focus();
 		// searchPageRef.current && (searchPageRef.current.height = window.innerHeight + 'px');
 	});
-	let setFilter = (searchType, addFilter) => {
-		if (addFilter) {
-			setType(type => [...type, searchType]);
-		} else {
-			setType(type => type.filter(element => element !== searchType));
-		}
-	};
-	const onSearch = event => {
-		setValue(event.target.value);
-	};
+	// let setFilter = (searchType, addFilter) => {
+	// 	if (addFilter) {
+	// 		setType((type) => [...type, searchType]);
+	// 	} else {
+	// 		setType((type) => type.filter((element) => element !== searchType));
+	// 	}
+	// };
+	// const onSearch = (event) => {
+	// 	setValue(event.target.value);
+	// };
 	let setSearchData = () => {
 		data && setEvents(() => [...data.eventsSearch]);
 	};
@@ -59,7 +56,7 @@ function AreaPage({ history }) {
 		skip: value.length < 3,
 		variables: { query: value, type },
 		fetchPolicy: 'no-cache',
-		onCompleted: setSearchData
+		onCompleted: setSearchData,
 	});
 
 	if (error) return `Error! ${error.message}`;
@@ -69,7 +66,7 @@ function AreaPage({ history }) {
 				push="true"
 				to={{
 					pathname: `/eventDetail:${redirectToEventDetail.name}`,
-					state: redirectToEventDetail
+					state: redirectToEventDetail,
 				}}
 			/>
 		);

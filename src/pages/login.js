@@ -3,7 +3,7 @@ import { Button, Box, Form, FormField, Text, TextInput } from 'grommet';
 import { User, License, Twitter, FacebookOption, Google } from 'grommet-icons';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Loader from '../components/loader';
 import { UserContext } from '../context/user';
 

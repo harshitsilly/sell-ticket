@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Button } from 'grommet';
 import { useLocation } from 'react-router-dom';
-import { Location, Calendar, Ticket, Notification } from 'grommet-icons';
+import { Location, Calendar, Ticket } from 'grommet-icons';
 import { Redirect } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -66,12 +66,11 @@ function EventDetail({ history }) {
 	const timestamp = typeof date === 'string' && /^\d+$/.test(date) ? parseInt(date, 10) : date;
 	date = new Date(timestamp);
 	date = date.toLocaleString();
-	const [tickets, setTickets] = React.useState([]);
+	const [tickets] = React.useState([]);
 	const [yourTickets, setYourTickets] = React.useState([]);
 	const [numberOfTickets, setNumberOfTickets] = React.useState(0);
-	const [showTicketAndType, setShowTicketAndType] = React.useState({ skip: true, type: null });
-	const [showMore, setShowMore] = React.useState(false);
-	const [firstSkip, setFirstSkip] = React.useState({ first: 7, skip: 0 });
+	const [showTicketAndType] = React.useState({ skip: true, type: null });
+	const [firstSkip] = React.useState({ first: 7, skip: 0 });
 	const [redirect, setRedirect] = React.useState();
 	const [notify, setNotify] = React.useState(false);
 	const [redirectToBuyTicket, setRedirectToBuyTicket] = React.useState();
@@ -80,7 +79,7 @@ function EventDetail({ history }) {
 		setRedirectToBuyTicket(ticketDetails);
 	};
 
-	const [postMutation, { loadingNotify, errorNotify }] = useMutation(POST_MUTATION_NOTIFY, {
+	const [postMutation] = useMutation(POST_MUTATION_NOTIFY, {
 		onCompleted(data) {
 			console.log('sss');
 		},
@@ -97,11 +96,6 @@ function EventDetail({ history }) {
 
 	let setEventsData = () => {
 		data && data.events[0] && setNumberOfTickets((numberOfTickets) => numberOfTickets + data.events[0].numberOfTickets.available);
-		if (data.events.length < 5) {
-			setShowMore(false);
-		} else {
-			setShowMore(true);
-		}
 	};
 	let { data, loading, error } = useQuery(Events_Detail_Query, {
 		variables: { id, userTicket: false, first: firstSkip.first, skip: firstSkip.skip },

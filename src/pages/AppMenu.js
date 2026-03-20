@@ -16,10 +16,10 @@ function AppMenu() {
 	let { userData } = useContext(UserContext);
 
 	userData = userData.currentUser;
-	let [postMutation, { loading, error: mutationError }] = useMutation(POST_MUTATION, {
+	let [postMutation, { loading }] = useMutation(POST_MUTATION, {
 		onCompleted({ login }) {
 			setRedirect('login');
-		}
+		},
 	});
 	const onPressLogout = postMutation;
 	const [redirect, setRedirect] = React.useState(false);

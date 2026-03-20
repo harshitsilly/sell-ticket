@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { Box, DropButton, TextInput } from 'grommet';
 import { Location, CaretDown, Search } from 'grommet-icons';
 import LocationContent from './locationContent';
@@ -9,7 +9,7 @@ function LocaltionFiler({ setLocationCallback }) {
 	const [location, setLocation] = React.useState('nearby');
 	const [dropContentState, setDropContentState] = React.useState(false);
 	const [value, setValue] = React.useState('');
-	const setLocationAndClose = location => {
+	const setLocationAndClose = (location) => {
 		dropref.current.click();
 		setLocation(location);
 		setLocationCallback(location);
@@ -53,7 +53,7 @@ function LocaltionFiler({ setLocationCallback }) {
 									className="locationSearch"
 									placeholder="Search your city"
 									value={value}
-									onChange={event => setValue(event.target.value)}
+									onChange={(event) => setValue(event.target.value)}
 								/>
 							</Box>
 						))

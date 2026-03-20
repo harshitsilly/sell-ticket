@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Box, Text } from 'grommet';
 import { Redirect } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
@@ -34,7 +34,7 @@ function Category(props) {
 	const [firstSkip, setFirstSkip] = React.useState({ first: 7, skip: 0 });
 	const [location, setLocation] = React.useState('');
 	category = category.charAt(0).toUpperCase() + category.slice(1);
-	window.addEventListener('scroll', event => {
+	window.addEventListener('scroll', (event) => {
 		if (window.pageYOffset > 70) {
 			setAppHeaderClass('positionFixed');
 			setheaderClass('categoryHeaderHeight');
@@ -43,11 +43,11 @@ function Category(props) {
 			setheaderClass('');
 		}
 	});
-	let setLocationCallback = selectedLocation => {
+	let setLocationCallback = (selectedLocation) => {
 		location !== selectedLocation && setEvents([]);
 		setLocation(selectedLocation);
 	};
-	let onClickEvent = event => {
+	let onClickEvent = (event) => {
 		setRedirectToEventDetail(event);
 	};
 	const showMoreRef = React.useRef();
@@ -72,7 +72,7 @@ function Category(props) {
 	const { loading, error, data } = useQuery(Events_Query, {
 		variables: { category, location, first: firstSkip.first, skip: firstSkip.skip },
 		fetchPolicy: 'no-cache',
-		onCompleted: setEventsData
+		onCompleted: setEventsData,
 	});
 	if (error) return `Error! ${error.message}`;
 
@@ -82,7 +82,7 @@ function Category(props) {
 				push="true"
 				to={{
 					pathname: `/eventDetail:${redirectToEventDetail.name}`,
-					state: redirectToEventDetail
+					state: redirectToEventDetail,
 				}}
 			/>
 		);
@@ -119,7 +119,9 @@ function Category(props) {
 							>
 								{events.length === 0 && <Text weight="bold">No Events Found</Text>}
 								{events.length > 0 &&
-									events.map(event => <Event key={event.id} onClick={() => onClickEvent(event)} {...props} {...event} />)}
+									events.map((event) => (
+										<Event key={event.id} onClick={() => onClickEvent(event)} {...props} {...event} />
+									))}
 							</Box>
 						</>
 					)}

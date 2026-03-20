@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Text, Button } from 'grommet';
+import { Box } from 'grommet';
 import TicketGrpDetails from '../TicketGrpDetails';
 import './index.scss';
 export default ({ ticketType }) => {

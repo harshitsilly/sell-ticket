@@ -1,10 +1,9 @@
-import React, { createContext } from 'react';
+import React from 'react';
 
-import { Box, Button, Footer, TextInput, Text, Video } from 'grommet';
+import { Box, Button, Footer, TextInput, Text } from 'grommet';
 import { Down, Search, Attraction, Music, PlayFill, Trophy, Multimedia } from 'grommet-icons';
 
 import AppHeader from './components/appHeader';
-import EventFIlter from './pages/EventFilter';
 
 import { Redirect } from 'react-router-dom';
 import './css/app.scss';
@@ -17,7 +16,6 @@ import './css/app.scss';
 // appHeight();
 
 function App() {
-	const [value, setValue] = React.useState('');
 	const [redirect, setRedirect] = React.useState('');
 	const moveToAppContent = () => {
 		let appContentTop = appContent.current.offsetTop;

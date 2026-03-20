@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from 'react';
+import React from 'react';
 import { Text, Button, Box } from 'grommet';
 import { Calendar, Location, Trophy, Tag, Ticket, Directions } from 'grommet-icons';
 import gql from 'graphql-tag';
@@ -23,7 +23,7 @@ const CURRENT_USER_TICKET = gql`
 function UserTicket() {
 	const [userTicketData, setUserTicketData] = React.useState([]);
 
-	const { loading, error, data } = useQuery(CURRENT_USER_TICKET, {
+	const { loading, data } = useQuery(CURRENT_USER_TICKET, {
 		fetchPolicy: 'no-cache',
 		onCompleted: () => {
 			setUserTicketData(data.userTickets.tickets);

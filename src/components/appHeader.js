@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
-import { Box, Header, Button, Layer, Text } from 'grommet';
-import { Ticket, Close, Menu } from 'grommet-icons';
+import { Box, Header, Button, Layer } from 'grommet';
+import { Close, Menu } from 'grommet-icons';
 import { Redirect } from 'react-router-dom';
 
 import AppMenu from '../pages/AppMenu';
@@ -10,7 +10,7 @@ import BackButton from '../components/backButton';
 
 function AppHeader({ className, style, header, fromApp, back, history }) {
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
-	const setModalShow = state => {
+	const setModalShow = (state) => {
 		setCssAnim(state);
 		setTimeout(() => {
 			setShow(state);

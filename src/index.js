@@ -20,21 +20,18 @@ import BuyTicket from './pages/buyTicket';
 import Category from './pages/category';
 import RandomGeneratedColor from './components/randomGeneratedColor';
 import InstallPwa from './components/installPwa';
-import SwipeableViews from 'react-swipeable-views';
-import AppMenu from './pages/AppMenu';
-import AreaPage from './pages/area';
 // 3
 let apolloClient;
 if (window.location.href.indexOf('localhost:3000') > -1) {
 	apolloClient = {
 		uri: 'http://localhost:3000/api/graphql',
 		cache: new InMemoryCache(),
-		credentials: 'include'
+		credentials: 'include',
 	};
 } else {
 	apolloClient = {
 		uri: window.location.origin + '/graphql',
-		cache: new InMemoryCache()
+		cache: new InMemoryCache(),
 	};
 }
 const client = new ApolloClient(apolloClient);
@@ -44,13 +41,13 @@ const theme = {
 		font: {
 			family: 'Roboto',
 			size: '18px',
-			height: '20px'
+			height: '20px',
 		},
 
 		colors: {
-			focus: 'transparent' // added focus color,
-		}
-	}
+			focus: 'transparent', // added focus color,
+		},
+	},
 };
 
 ReactDOM.render(
@@ -66,12 +63,12 @@ ReactDOM.render(
 
 						<Route path="/signup" component={Signup} />
 						<Route path="/search" component={Search} />
-						<Route path="/eventDetail:id" component={props => <EventDetail {...props} />} />
-						<Route path="/sellTicket:id" component={props => <SellTicket {...props} />} />
-						<Route path="/buyTicket:id" component={props => <BuyTicket {...props} />} />
+						<Route path="/eventDetail:id" component={(props) => <EventDetail {...props} />} />
+						<Route path="/sellTicket:id" component={(props) => <SellTicket {...props} />} />
+						<Route path="/buyTicket:id" component={(props) => <BuyTicket {...props} />} />
 						<Route
 							path="/(Festivals|Music|Sports|Concerts|Club Nights|Theatre & Comedy|Vouchers & Days Out)/"
-							component={props => <RandomGeneratedColor {...props} render={props => <Category {...props} />} />}
+							component={(props) => <RandomGeneratedColor {...props} render={(props) => <Category {...props} />} />}
 						/>
 						<Route path="/" component={App} />
 					</Switch>
@@ -81,7 +78,7 @@ ReactDOM.render(
 			</UserProvider>
 		</Grommet>
 	</ApolloProvider>,
-	document.getElementById('root')
+	document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

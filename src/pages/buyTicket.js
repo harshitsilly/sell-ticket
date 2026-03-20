@@ -1,6 +1,6 @@
 import React, { useContext, useLayoutEffect } from 'react';
-import { Button, Box, Form, FormField, Text, TextInput, Select } from 'grommet';
-import { Calendar, Location, Validate } from 'grommet-icons';
+import { Button, Box, Text, Select } from 'grommet';
+import { Calendar, Location } from 'grommet-icons';
 import { useLocation } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
@@ -25,14 +25,14 @@ function BuyTicket() {
 	let [postMutation, { loading, error }] = useMutation(POST_MUTATION, {
 		onCompleted() {
 			setRedirectToApp(true);
-		}
+		},
 	});
 	const onClickBuyButton = () => {
 		postMutation({
 			variables: {
 				ticketIds: [ticketId],
-				noOfTickets: value
-			}
+				noOfTickets: value,
+			},
 		});
 	};
 	useLayoutEffect(() => {
@@ -40,7 +40,7 @@ function BuyTicket() {
 	});
 	const [redirectToLogin, setRedirectToLogin] = React.useState(false);
 	const [redirectToApp, setRedirectToApp] = React.useState(false);
-	const [ticketIds, setTicketIds] = React.useState([]);
+	// const [ticketIds, setTicketIds] = React.useState([]);
 	const [value, setValue] = React.useState(1);
 	if (!userData.currentUser) {
 		setTimeout(() => {
@@ -58,7 +58,7 @@ function BuyTicket() {
 			<Redirect
 				to={{
 					pathname: `/eventDetail:${name}`,
-					state: { id, name, date, location }
+					state: { id, name, date, location },
 				}}
 			/>
 		);

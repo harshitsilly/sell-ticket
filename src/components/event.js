@@ -1,6 +1,5 @@
-import Loader from 'react-loader-spinner';
 import { Box, Text, Grid } from 'grommet';
-import { Ticket, Close, Menu } from 'grommet-icons';
+import { Ticket } from 'grommet-icons';
 import React from 'react';
 import EventCalendar from './eventCalendar';
 
