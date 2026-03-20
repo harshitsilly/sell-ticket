@@ -62,7 +62,9 @@ const POST_MUTATION_NOTIFY = gql`
 `;
 function EventDetail({ history }) {
 	let { name, date, location, id } = useLocation().state;
-	date = new Date(date);
+	// Convert timestamp string to number if needed
+	const timestamp = typeof date === 'string' && /^\d+$/.test(date) ? parseInt(date, 10) : date;
+	date = new Date(timestamp);
 	date = date.toLocaleString();
 	const [tickets, setTickets] = React.useState([]);
 	const [yourTickets, setYourTickets] = React.useState([]);
@@ -74,27 +76,27 @@ function EventDetail({ history }) {
 	const [notify, setNotify] = React.useState(false);
 	const [redirectToBuyTicket, setRedirectToBuyTicket] = React.useState();
 
-	let onClickTicket = ticketDetails => {
+	let onClickTicket = (ticketDetails) => {
 		setRedirectToBuyTicket(ticketDetails);
 	};
 
 	const [postMutation, { loadingNotify, errorNotify }] = useMutation(POST_MUTATION_NOTIFY, {
 		onCompleted(data) {
 			console.log('sss');
-		}
+		},
 	});
 	let onPressNotify = () => {
 		postMutation({
 			variables: {
 				eventId: id,
-				notify: !notify
-			}
+				notify: !notify,
+			},
 		});
 		setNotify(!notify);
 	};
 
 	let setEventsData = () => {
-		data && data.events[0] && setNumberOfTickets(numberOfTickets => numberOfTickets + data.events[0].numberOfTickets.available);
+		data && data.events[0] && setNumberOfTickets((numberOfTickets) => numberOfTickets + data.events[0].numberOfTickets.available);
 		if (data.events.length < 5) {
 			setShowMore(false);
 		} else {
@@ -104,7 +106,7 @@ function EventDetail({ history }) {
 	let { data, loading, error } = useQuery(Events_Detail_Query, {
 		variables: { id, userTicket: false, first: firstSkip.first, skip: firstSkip.skip },
 		fetchPolicy: 'no-cache',
-		onCompleted: setEventsData
+		onCompleted: setEventsData,
 	});
 
 	let setEventsDataYourTickets = () => {
@@ -114,25 +116,25 @@ function EventDetail({ history }) {
 			setYourTickets(() => [...yourTickets, ...dataYourTickets.eventTickets[0].ticketsAvailable]);
 		dataYourTickets &&
 			dataYourTickets.eventTickets[0] &&
-			setNumberOfTickets(numberOfTickets => numberOfTickets + dataYourTickets.eventTickets[0].numberOfTickets.available);
+			setNumberOfTickets((numberOfTickets) => numberOfTickets + dataYourTickets.eventTickets[0].numberOfTickets.available);
 	};
 	let { data: dataYourTickets, loading: loadingYourTickets } = useQuery(Events_Tickets_Query, {
 		variables: { id, userTicket: true, passType: showTicketAndType.type },
 		skip: showTicketAndType.skip,
 		fetchPolicy: 'no-cache',
-		onCompleted: setEventsDataYourTickets
+		onCompleted: setEventsDataYourTickets,
 	});
 	let setEventsDataTickets = () => {
 		dataTickets && dataTickets.eventTickets[0] && setYourTickets(() => [...tickets, ...dataTickets.eventTickets[0].ticketsAvailable]);
 		dataTickets &&
 			dataTickets.eventTickets[0] &&
-			setNumberOfTickets(numberOfTickets => numberOfTickets + dataTickets.eventTickets[0].numberOfTickets.available);
+			setNumberOfTickets((numberOfTickets) => numberOfTickets + dataTickets.eventTickets[0].numberOfTickets.available);
 	};
 	let { data: dataTickets, loading: loadingTickets } = useQuery(Events_Tickets_Query, {
 		variables: { id, userTicket: false, passType: showTicketAndType.type },
 		skip: showTicketAndType.skip,
 		fetchPolicy: 'no-cache',
-		onCompleted: setEventsDataTickets
+		onCompleted: setEventsDataTickets,
 	});
 
 	if (error) return `Error! ${error.message}`;
@@ -142,7 +144,7 @@ function EventDetail({ history }) {
 				push="true"
 				to={{
 					pathname: `/sellTicket:${name}`,
-					state: { name, date, location, id }
+					state: { name, date, location, id },
 				}}
 			/>
 		);
@@ -153,7 +155,7 @@ function EventDetail({ history }) {
 				push="true"
 				to={{
 					pathname: `/buyTicket:${ticketId}`,
-					state: { name, date, location, id, ticketId, cost, numberOfTickets, user }
+					state: { name, date, location, id, ticketId, cost, numberOfTickets, user },
 				}}
 			/>
 		);
@@ -259,7 +261,7 @@ function EventDetail({ history }) {
 										</div>
 									</Box>
 									{yourTickets.length > 0 &&
-										yourTickets.map(ticket => <TicketDetails ticketColor="#FF698A" {...ticket} />)}
+										yourTickets.map((ticket) => <TicketDetails ticketColor="#FF698A" {...ticket} />)}
 								</Box>
 							</>
 						)}
@@ -281,7 +283,7 @@ function EventDetail({ history }) {
 										<Text weight="bold">Sold Out. Check back later.</Text>
 									)}
 									{tickets.length > 0 &&
-										tickets.map(ticket => <TicketDetails onClickTicket={onClickTicket} {...ticket} />)}
+										tickets.map((ticket) => <TicketDetails onClickTicket={onClickTicket} {...ticket} />)}
 								</Box>
 							</>
 						)}

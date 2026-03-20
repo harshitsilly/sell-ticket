@@ -71,6 +71,11 @@ enum CategoryFormat {
 	Club
 	Nights
 	Concerts
+	Theatre
+	Comedy
+	Music
+	Vouchers
+	DaysOut
 }
 
 enum SearchFormat {

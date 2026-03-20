@@ -1,0 +1,64 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build",
+        "nodeVersion": "20"
+      }
+    },
+    {
+      "src": "server/api/*.js",
+      "use": "@vercel/node",
+      "config": {
+        "nodeVersion": "20"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/graphql",
+      "dest": "/server/api/graphql.js"
+    },
+    {
+      "src": "/subscriptions",
+      "dest": "/server/api/subscriptions.js"
+    },
+    {
+      "src": "/playground",
+      "dest": "/server/api/playground.js"
+    },
+    {
+      "src": "/auth/(.*)",
+      "dest": "/server/api/auth.js"
+    },
+    {
+      "src": "/admin/(.*)",
+      "dest": "/server/api/admin.js"
+    },
+    {
+      "src": "/vapid-public-key",
+      "dest": "/server/api/vapid-key.js"
+    },
+    {
+      "src": "/subscribe",
+      "dest": "/server/api/subscribe.js"
+    },
+    {
+      "src": "/unsubscribe",
+      "dest": "/server/api/unsubscribe.js"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/server/api/ssr.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

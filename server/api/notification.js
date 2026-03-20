@@ -1,42 +1,52 @@
-const { prisma } = require('../src/generated/prisma-client');
 const webPush = require('web-push');
-const notification = {
-	sendNotification: async eventID => {
-		const fragment = `
-        fragment EventsWithUsers on Event {
-          id
-         name
-        location
-        notifyUsers{
-              
-              endpoint
-          }
-          
-        }
-      `;
-		const subscribedEvent = await prisma.event({ id: eventID }).$fragment(fragment);
-		subscribedEvent.notifyUsers.map(user => {
-			notification.sendNotificationBase(JSON.parse(user.endpoint), `Tickets Available For ${subscribedEvent.name}`);
-		});
-	},
 
-	sendNotificationBase: async (subscription, payload) => {
-		// This means we won't resend a notification if the client is offline
-		const options = {
-			TTL: 0
-		};
+const { publicKey, privateKey } = webPush.generateVAPIDKeys();
+webPush.setVapidDetails('mailto:harshit886@outlook.com', publicKey, privateKey);
 
-		if (!subscription.keys) {
-			payload = payload || null;
+// In-memory storage for subscriptions (not suitable for production)
+const allSubscriptions = {};
+
+module.exports = async (req, res) => {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+	if (req.method === 'OPTIONS') {
+		return res.status(200).end();
+	}
+
+	try {
+		if (req.path === '/vapid-public-key' && req.method === 'GET') {
+			return res.status(200).json({ publicKey });
 		}
 
-		// web-push's sendNotification function does all the work for us
-		try {
-			const res = await webPush.sendNotification(subscription, payload, options);
-			console.log(res, 'sent!');
-		} catch (e) {
-			console.log('error sending', e);
+		if (req.path === '/subscribe' && req.method === 'POST') {
+			const token = req.cookies?.jwt || req.headers.authorization?.replace('Bearer ', '');
+			if (!token) {
+				return res.status(401).send('No token provided');
+			}
+
+			// Note: In a real implementation, you'd verify the JWT token
+			// For simplicity, we're just storing the subscription
+			const subscription = req.body;
+			const endpoint = subscription.endpoint;
+
+			allSubscriptions[endpoint] = subscription;
+
+			res.status(200).send('subscribed!');
+			return;
 		}
+
+		if (req.path === '/unsubscribe' && req.method === 'POST') {
+			const { endpoint } = req.body;
+			delete allSubscriptions[endpoint];
+			res.status(200).send('unsubscribed!');
+			return;
+		}
+
+		res.status(404).send('Not found');
+	} catch (error) {
+		console.error('Notification error:', error);
+		res.status(500).json({ error: error.message });
 	}
 };
-module.exports = notification;

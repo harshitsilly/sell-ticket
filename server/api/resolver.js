@@ -1,7 +1,7 @@
 const uuid = require('uuid/v1');
 const passport = require('passport');
 const notification = require('./notification');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const authenticateGoogle = (req, res) =>
@@ -12,231 +12,264 @@ const authenticateGoogle = (req, res) =>
 		})(req, res);
 	});
 
-const upsertGoogleUser = async function({ accessToken, refreshToken, profile }) {
-	const User = this;
+const upsertGoogleUser = async function ({ accessToken, refreshToken, profile, prisma }) {
+	// Check if user with this email already exists
+	const existingUsers = await prisma.user.findMany({
+		where: { email: profile.emails[0].value },
+	});
 
-	const user = await User.findOne({ 'social.googleProvider.id': profile.id });
-
-	// no user was found, lets create a new one
-	if (!user) {
-		const newUser = await User.create({
-			name: profile.displayName || `${profile.familyName} ${profile.givenName}`,
-			email: profile.emails[0].value,
-			'social.googleProvider': {
-				id: profile.id,
-				token: accessToken
-			}
-		});
-
-		return newUser;
+	if (existingUsers.length > 0) {
+		return existingUsers[0];
 	}
-	return user;
+
+	// Create new user
+	const newUser = await prisma.user.create({
+		data: {
+			firstName: profile.name.givenName,
+			lastName: profile.name.familyName,
+			email: profile.emails[0].value,
+		},
+	});
+
+	return newUser;
 };
 
 const resolvers = {
 	Query: {
 		currentUser: (parent, args, context) => context.getUser(),
 		events: async (parent, { id, category, location, userTicket, skip, first }, context) => {
-			//  code for fragment
-
-			let fragment;
-
-			fragment = `
-    fragment EventsWithTicketAvailable on Event {
-      id
-      name
-      category
-      date
-	  location
-	  ticketType {
-					  count
-					  type
-				  }
-      ticketsAvailable{
-		id
-		passType
-		user {
-			id
-			firstName
-			lastName
-		}
-		numberOfTickets
-		cost
-      }
-    }
-  `;
-
 			let absFilter = { id, category };
+			let filter = location ? { ...absFilter, location: { contains: location } } : absFilter;
 
-			let filter = location ? { ...absFilter, location } : absFilter;
-			let data;
+			const events = await context.prisma.event.findMany({
+				where: filter,
+				skip,
+				take: first,
+				select: {
+					id: true,
+					name: true,
+					category: true,
+					date: true,
+					location: true,
+					ticketType: {
+						select: {
+							id: true,
+							type: true,
+							count: true,
+						},
+					},
+					ticketsAvailable: {
+						select: {
+							id: true,
+							passType: true,
+							user: {
+								select: {
+									id: true,
+									firstName: true,
+									lastName: true,
+								},
+							},
+							numberOfTickets: true,
+							cost: true,
+						},
+					},
+				},
+			});
 
-			data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
-
-			data = data.map(event => {
+			const data = events.map((event) => {
 				return {
 					...event,
 					numberOfTickets: {
 						available: event.ticketsAvailable.reduce((count, ticket) => {
 							return count + ticket.numberOfTickets;
-						}, 0)
-					}
+						}, 0),
+					},
 				};
 			});
 			return data;
-			// return await context.prisma.events({ where: { category },skip,first});
 		},
 		eventTickets: async (parent, { id, category, location, passType, userTicket, skip, first }, context) => {
-			//  code for fragment
-			let fragment = `
-			    fragment EventsWithTicketAvailable on Event {
-			      id
-			      name
-			      category
-			      date
-				  location
-				  ticketType {
-					  count
-					  type
-				  }
-			      ticketsAvailable(where:{passType: "${passType}" ,user :{${userTicket ? 'id' : 'id_not'} : "${
-				context.getUser() ? context.getUser().id : ''
-			}"}}) {
-					id
-					passType
-					user {
-						id
-						firstName
-						lastName
-					}
-					numberOfTickets
-					cost
-			      }
-			    }
-			  `;
 			let absFilter = { id, category };
+			let filter = location ? { ...absFilter, location: { contains: location } } : absFilter;
 
-			let filter = location ? { ...absFilter, location } : absFilter;
-			let data;
+			const events = await context.prisma.event.findMany({
+				where: filter,
+				skip,
+				take: first,
+				select: {
+					id: true,
+					name: true,
+					category: true,
+					date: true,
+					location: true,
+					ticketType: {
+						select: {
+							id: true,
+							type: true,
+							count: true,
+						},
+					},
+					ticketsAvailable: {
+						where: {
+							passType,
+							user: userTicket
+								? { id: context.getUser() ? context.getUser().id : '' }
+								: { id: { not: context.getUser() ? context.getUser().id : '' } },
+						},
+						select: {
+							id: true,
+							passType: true,
+							user: {
+								select: {
+									id: true,
+									firstName: true,
+									lastName: true,
+								},
+							},
+							numberOfTickets: true,
+							cost: true,
+						},
+					},
+				},
+			});
 
-			data = await context.prisma.events({ where: filter, skip, first }).$fragment(fragment);
-
-			data = data.map(event => {
+			const data = events.map((event) => {
 				return {
 					...event,
 					numberOfTickets: {
 						available: event.ticketsAvailable.reduce((count, ticket) => {
 							return count + ticket.numberOfTickets;
-						}, 0)
-					}
+						}, 0),
+					},
 				};
 			});
 			return data;
 		},
 		userTickets: async (parent, { id, category, location, skip, first }, context) => {
-			//  code for fragment
-			const fragment = `
-    fragment UsersWithTicket on user {
-		id
-		tickets{
-			id
-			name
-			passType
-			date
-			location
-			numberOfTickets
-		}
-	}`;
-			let userId = context.getUser().id;
-			return await context.prisma.user({ id: userId }).$fragment(fragment);
+			const userId = context.getUser().id;
+			const user = await context.prisma.user.findUnique({
+				where: { id: userId },
+				select: {
+					id: true,
+					tickets: {
+						select: {
+							id: true,
+							name: true,
+							passType: true,
+							date: true,
+							location: true,
+							numberOfTickets: true,
+						},
+					},
+				},
+			});
+			return user;
 		},
 		eventsSearch: async (parent, { query, queryType, skip, first }, context) => {
 			let filterArray = [];
 			if (queryType.indexOf('Event') > -1) {
-				filterArray.push({ name_contains: query });
+				filterArray.push({ name: { contains: query } });
 			}
 			if (queryType.indexOf('Location') > -1) {
-				filterArray.push({ location_starts_with: query });
+				filterArray.push({ location: { startsWith: query } });
 			}
 			if (!filterArray.length) {
-				filterArray = [{ name_contains: query }, { location_starts_with: query }];
+				filterArray = [{ name: { contains: query } }, { location: { startsWith: query } }];
 			}
-			let data = await context.prisma.events({
+
+			const data = await context.prisma.event.findMany({
 				where: {
-					OR: filterArray
-				}
+					OR: filterArray,
+				},
+				skip,
+				take: first,
 			});
 			return data;
-		}
+		},
 	},
 	Mutation: {
 		buyTicket: async (parent, { ticketIds, noOfTickets }, context) => {
-			const { id } = context.getUser();
-			const fragment = `
-    fragment TicketAvailablesWithEvent on TicketAvailable {
-      id
-     numberOfTickets
-	  passType
-	  event{
-		  id
-		  name
-		  location
-		  date
-	  }
-      
-    }
-  `;
-			const ticket = await context.prisma.ticketsAvailable({ id: ticketIds[0] }).$fragment(fragment);
+			const { id: userId } = context.getUser();
 
-			let createTicket = {
+			const ticket = await context.prisma.ticketsAvailable.findUnique({
+				where: { id: ticketIds[0] },
+				select: {
+					id: true,
+					numberOfTickets: true,
+					passType: true,
+					event: {
+						select: {
+							id: true,
+							name: true,
+							location: true,
+							date: true,
+						},
+					},
+				},
+			});
+
+			const createTicket = {
 				...ticket,
 				...ticket.event,
-				numberOfTickets: noOfTickets
+				numberOfTickets: noOfTickets,
 			};
-			delete createTicket.comments;
 			delete createTicket.id;
 			delete createTicket.event;
-			let userUpdateData = {
+
+			const userUpdateData = {
 				tickets: {
-					create: [createTicket]
-				}
+					create: [createTicket],
+				},
 			};
-			await context.prisma.updateUser({ where: { id: id }, data: userUpdateData });
-			let ticketUpdateData = {
-				numberOfTickets: ticket.numberOfTickets - noOfTickets
+
+			await context.prisma.user.update({
+				where: { id: userId },
+				data: userUpdateData,
+			});
+
+			const ticketUpdateData = {
+				numberOfTickets: ticket.numberOfTickets - noOfTickets,
 			};
-			ticket.numberOfTickets === noOfTickets
-				? await context.prisma.deleteManyTicketsAvailables({ id_in: [...ticketIds] })
-				: await context.prisma.updateTicketsAvailable({ where: { id: ticket.id }, data: ticketUpdateData });
+
+			if (ticket.numberOfTickets === noOfTickets) {
+				await context.prisma.ticketsAvailable.deleteMany({
+					where: { id: { in: ticketIds } },
+				});
+			} else {
+				await context.prisma.ticketsAvailable.update({
+					where: { id: ticket.id },
+					data: ticketUpdateData,
+				});
+			}
 
 			return { text: 'Success' };
 		},
 		addTicket: async (parent, { passType, numberOfTickets, cost, event, comments }, context) => {
-			const fragment = `
-    fragment EventsWithTicketAvailable on Event {
-      id
-      name
-      category
-      date
-	  location
-	  ticketType {
-		  id
-		  type
-		  count
-	  }
-      ticketsAvailable {
-		id
-		passType
-		user {
-			id
-			firstName
-			lastName
-		}
-		numberOfTickets
-		cost
-      }
-    }
-  `;
+			const userId = context.getUser() ? context.getUser().id : '';
+
+			const eventData = await context.prisma.event.findUnique({
+				where: { id: event },
+				select: {
+					id: true,
+					name: true,
+					category: true,
+					date: true,
+					location: true,
+					ticketType: {
+						select: {
+							id: true,
+							type: true,
+							count: true,
+						},
+					},
+					ticketsAvailable: {
+						select: {
+							id: true,
+						},
+					},
+				},
+			});
+
 			const newTicket = {
 				passType,
 				numberOfTickets,
@@ -244,52 +277,71 @@ const resolvers = {
 				comments,
 				event: {
 					connect: {
-						id: event
-					}
+						id: event,
+					},
 				},
 				user: {
 					connect: {
-						id: context.getUser() ? context.getUser().id : ''
-					}
-				}
+						id: userId,
+					},
+				},
 			};
-			let eventData = await context.prisma.event({ id: event }).$fragment(fragment);
-			let ticketType = eventData.ticketType.filter(({ type }) => type.toLocaleLowerCase() === passType.toLocaleLowerCase());
-			let ticketTypePayload = ticketType[0]
+
+			const ticketType = eventData.ticketType.filter(({ type }) => type.toLocaleLowerCase() === passType.toLocaleLowerCase());
+			const ticketTypePayload = ticketType[0]
 				? { count: ticketType[0].count + newTicket.numberOfTickets }
 				: { type: passType, count: newTicket.numberOfTickets };
 
-			ticketType[0]
-				? await context.prisma.updateEvent({
-						where: { id: event },
-						data: { ticketType: { update: { where: { id: ticketType[0].id }, data: ticketTypePayload } } }
-				  })
-				: await context.prisma.updateEvent({ where: { id: event }, data: { ticketType: { create: ticketTypePayload } } });
-			await context.prisma.createTicketsAvailable(newTicket);
+			if (ticketType[0]) {
+				await context.prisma.ticketType.update({
+					where: { id: ticketType[0].id },
+					data: ticketTypePayload,
+				});
+			} else {
+				await context.prisma.ticketType.create({
+					data: {
+						...ticketTypePayload,
+						event: {
+							connect: { id: event },
+						},
+					},
+				});
+			}
+
+			await context.prisma.ticketsAvailable.create({
+				data: newTicket,
+			});
+
 			if (eventData.ticketsAvailable.length === 0) {
 				notification.sendNotification(event);
 			}
 			return;
 		},
 		signup: async (parent, { firstName, lastName, email, password }, context) => {
-			const existingUsers = await context.prisma.users();
-			const userWithEmailAlreadyExists = !!existingUsers.find(user => user.email === email);
+			const existingUsers = await context.prisma.user.findMany({
+				where: { email },
+			});
+			const userWithEmailAlreadyExists = !!existingUsers.find((user) => user.email === email);
 
 			if (userWithEmailAlreadyExists) {
 				throw new Error('User with email already exists');
 			}
+
 			const hashPassword = bcrypt.hashSync(password, saltRounds);
 			const newUser = {
 				firstName,
 				lastName,
 				email,
 				password: hashPassword,
-				role: 'Customer'
+				role: 'Customer',
 			};
 
-			await context.prisma.createUser(newUser);
-			const existingUsersUpdate = await context.prisma.users();
-			const loginUser = existingUsersUpdate.filter(user => user.email === newUser.email);
+			const createdUser = await context.prisma.user.create({
+				data: newUser,
+			});
+
+			const existingUsersUpdate = await context.prisma.user.findMany();
+			const loginUser = existingUsersUpdate.filter((user) => user.email === newUser.email);
 			await context.login(loginUser[0]);
 
 			return { user: newUser };
@@ -297,44 +349,53 @@ const resolvers = {
 		login: async (parent, { email, password }, context) => {
 			const { user } = await context.authenticate('graphql-local', {
 				email,
-				password
+				password,
 			});
 
 			await context.login(user);
 			return { user };
 		},
 		notifyEvent: async (parent, { eventId, notify }, context) => {
-			let notifyUser = notify
+			const userId = context.getUser().id;
+			const notifyUser = notify
 				? {
 						connect: {
-							id: context.getUser().id
-						}
-				  }
+							id: userId,
+						},
+					}
 				: {
 						disconnect: {
-							id: context.getUser().id
-						}
-				  };
-			let eventUpdateData = {
-				notifyUsers: notifyUser
+							id: userId,
+						},
+					};
+
+			const eventUpdateData = {
+				notifyUsers: notifyUser,
 			};
-			await context.prisma.updateEvent({ where: { id: eventId }, data: eventUpdateData });
+
+			await context.prisma.event.update({
+				where: { id: eventId },
+				data: eventUpdateData,
+			});
 			return { data: 'Success' };
 		},
 		logout: (parent, args, context) => context.logout(),
 
 		authGoogle: async (_, { input: { accessToken } }, context) => {
 			try {
-				// data contains the accessToken, refreshToken and profile from passport
 				const { data, info } = await authenticateGoogle(context.req, context.res);
 
 				if (data) {
-					const user = await upsertGoogleUser(data);
+					const user = await upsertGoogleUser({ ...data, prisma: context.prisma });
 
 					if (user) {
+						const JWT_SECRET = process.env.JWT_SECRET || 'bad Secret';
+						const jwt = require('jsonwebtoken');
+						const token = jwt.sign({ data: user }, JWT_SECRET, { expiresIn: 604800 });
+
 						return {
-							name: user.name,
-							token: user.generateJWT()
+							name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+							token: token,
 						};
 					}
 				}
@@ -352,8 +413,8 @@ const resolvers = {
 			} catch (error) {
 				return error;
 			}
-		}
-	}
+		},
+	},
 };
 
 module.exports = resolvers;

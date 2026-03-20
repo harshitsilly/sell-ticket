@@ -27,7 +27,7 @@ function UserTicket() {
 		fetchPolicy: 'no-cache',
 		onCompleted: () => {
 			setUserTicketData(data.userTickets.tickets);
-		}
+		},
 	});
 	const openMap = () => {
 		window.open('https://www.google.com/maps/dir/?api=1&origin=current+location&destination=bangalore&travelmode=driving');
@@ -56,7 +56,9 @@ function UserTicket() {
 			)}
 			{!loading &&
 				userTicketData.map(({ date, location, passType, name, numberOfTickets }) => {
-					date = new Date(date);
+					// Convert timestamp string to number if needed
+					const timestamp = typeof date === 'string' && /^\d+$/.test(date) ? parseInt(date, 10) : date;
+					date = new Date(timestamp);
 					date = date.toLocaleString();
 					return (
 						<Box className="userTicketBox">

@@ -29,9 +29,9 @@ function Login() {
 		onCompleted({ login }) {
 			setRedirectToPage(true);
 			setUserData({ currentUser: login.user });
-		}
+		},
 	});
-	const onPressSubmitPasswordForm = event => {
+	const onPressSubmitPasswordForm = (event) => {
 		postMutation({ variables: { ...event.value } });
 	};
 	const [redirectToSignUp, setRedirectToSignUp] = React.useState(false);
@@ -65,7 +65,7 @@ function Login() {
 								<FormField
 									name="email"
 									required
-									component={props => (
+									component={(props) => (
 										<Box direction="row" align="center">
 											<User />
 											<TextInput type="email" {...props} placeholder="Email"></TextInput>
@@ -75,7 +75,7 @@ function Login() {
 								<FormField
 									name="password"
 									required
-									component={props => (
+									component={(props) => (
 										<Box direction="row" align="center">
 											<License className="licenseTransformScale" />
 											<TextInput type="password" {...props} placeholder="Password"></TextInput>
@@ -88,32 +88,35 @@ function Login() {
 								<Button className="signInButton" color="#8B16FF" type="submit" primary label="LOGIN" />
 							</Box>
 						</Form>
+
+						<Box direction="row" pad="small" gap="medium" justify="start" align="center">
+							<Box>Or Login with</Box>
+							<Box direction="row" pad="small" gap="small" justify="between" align="center">
+								<Button
+									plain
+									icon={<Twitter color="#22A1F1" />}
+									onClick={() => {
+										window.location = '/auth/twitter';
+									}}
+								/>
+								<Button
+									plain
+									icon={<FacebookOption color="#3C5A97" />}
+									onClick={() => {
+										window.location = '/auth/google';
+									}}
+								/>
+								<Button
+									plain
+									icon={<Google color="#EA4537" />}
+									onClick={() => {
+										window.location = '/auth/google';
+									}}
+								/>
+							</Box>
+						</Box>
 					</Box>
 					{mutationError && <p>Error :( Please try again</p>}
-					<Box direction="row" pad="small" gap="medium" justify="between" align="center">
-						<Box>Or Login with</Box>
-						<Button
-							plain
-							icon={<Twitter color="#22A1F1" />}
-							onClick={() => {
-								window.location = '/auth/twitter';
-							}}
-						/>
-						<Button
-							plain
-							icon={<FacebookOption color="#3C5A97" />}
-							onClick={() => {
-								window.location = '/auth/google';
-							}}
-						/>
-						<Button
-							plain
-							icon={<Google color="#EA4537" />}
-							onClick={() => {
-								window.location = '/auth/google';
-							}}
-						/>
-					</Box>
 
 					<Box pad="small" direction="row" justify="between">
 						<Box align="center" className="circleBoxSignup" direction="row-reverse">

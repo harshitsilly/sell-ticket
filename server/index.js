@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { GraphQLServer } = require('graphql-yoga');
 const serveStatic = require('serve-static');
 
@@ -10,9 +11,9 @@ const TwitterStrategy = require('passport-twitter');
 const GoogleStrategy = require('passport-google-oauth20');
 const cookieSession = require('cookie-session');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const resolvers = require('./api/resolver');
-const { prisma } = require('./src/generated/prisma-client');
+const { prisma } = require('./lib/prisma');
 const JWT_SECRET = 'bad Secret';
 const signToken = user => {
 	return jwt.sign({ data: user }, JWT_SECRET, {
@@ -25,8 +26,10 @@ const SESSION_SECRECT = 'bad secret';
 
 passport.use(
 	new GraphQLLocalStrategy(async (email, password, done) => {
-		const users = await prisma.users();
-		const matchingUser = users.find(user => email === user.email && bcrypt.compareSync(password, user.password));
+		const users = await prisma.user.findMany({
+			where: { email }
+		});
+		const matchingUser = users.find(user => bcrypt.compareSync(password, user.password));
 		const error = matchingUser ? null : new Error('no matching user');
 		done(error, matchingUser);
 	})
@@ -38,8 +41,10 @@ passport.use(
 			passwordField: 'password'
 		},
 		async (email, password, done) => {
-			const users = await prisma.users();
-			const matchingUser = users.find(user => email === user.email && bcrypt.compareSync(password, user.password));
+			const users = await prisma.user.findMany({
+				where: { email }
+			});
+			const matchingUser = users.find(user => bcrypt.compareSync(password, user.password));
 			const error = matchingUser
 				? matchingUser.role === 'Admin'
 					? null
@@ -51,10 +56,12 @@ passport.use(
 );
 
 const GoogleTokenStrategyCallback = async (accessToken, refreshToken, profile, done) => {
-	await prisma.createUser({
-		firstName: profile.name.givenName,
-		lastName: profile.name.familyName,
-		email: profile.emails[0].value
+	await prisma.user.create({
+		data: {
+			firstName: profile.name.givenName,
+			lastName: profile.name.familyName,
+			email: profile.emails[0].value
+		}
 	});
 	done(null, {
 		profile
@@ -94,7 +101,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (req, id, done) => {
-	const users = await prisma.users();
+	const users = await prisma.user.findMany({
+		where: { id }
+	});
 	const matchingUser = users.find(user => user.id === id);
 	done(null, matchingUser);
 });
@@ -184,7 +193,10 @@ server.express.get('/vapid-public-key', (req, res) => {
 // Allows our client to subscribe
 server.express.post('/subscribe', async (req, res) => {
 	const subscription = req.body;
-	await prisma.updateUser({ data: { endpoint: JSON.stringify(subscription) }, where: { id: req.user.id } });
+	await prisma.user.update({
+		data: { endpoint: JSON.stringify(subscription) },
+		where: { id: req.user.id }
+	});
 	// registerTasks(subscription);
 	res.send('subscribed!');
 });
@@ -248,13 +260,32 @@ server.express.get('/admin/users', async (req, res) => {
 			numberOfTickets
 		}
 	}`;
-	const users = await prisma.users().$fragment(fragment);
+	const users = await prisma.user.findMany({
+		select: {
+			id: true,
+			firstName: true,
+			lastName: true,
+			email: true,
+			tickets: {
+				select: {
+					id: true,
+					name: true,
+					passType: true,
+					date: true,
+					location: true,
+					numberOfTickets: true
+				}
+			}
+		}
+	});
 	return res.send(users);
 });
 
 server.express.post('/admin/events', async (req, res) => {
 	const body = req.body;
-	const event = await prisma.createEvent(body);
+	const event = await prisma.event.create({
+		data: body
+	});
 	return res.send(event);
 });
 

@@ -39,7 +39,7 @@ export default ({ ticketType }) => {
 	return (
 		<>
 			<Box pad="medium" className="eventList">
-				{ticketType.length > 0 && ticketType.map(ticket => <TicketGrpDetails ticketColor="#FF698A" {...ticket} />)}
+				{ticketType.length > 0 && ticketType.map((ticket) => <TicketGrpDetails ticketColor="#FF698A" {...ticket} />)}
 			</Box>
 		</>
 	);

@@ -56,7 +56,7 @@ function SearchPage({ history }) {
 		data && setEvents(() => [...data.eventsSearch]);
 	};
 	const { loading, error, data } = useQuery(QUERY_SEARCH, {
-		skip: value.length < 0,
+		skip: value.length <= 0,
 		variables: { query: value, type },
 		fetchPolicy: 'no-cache',
 		onCompleted: setSearchData
